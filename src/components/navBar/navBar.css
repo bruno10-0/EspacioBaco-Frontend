@@ -1,0 +1,152 @@
+.headerNav{
+    width: 100%;
+    height: 70px;
+    display: flex;
+    position: fixed;
+    z-index: 100;
+    backdrop-filter: blur(2px);
+    align-items: center;
+    gap: 10px;
+    transition: .5s ease-in-out;
+    padding: 10px;
+    letter-spacing: 3px;
+}
+#chk1{
+    display: none;
+}
+i{
+    cursor: pointer;
+}
+.headerNav .logo{
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-right: 48px;
+    margin-left: 60px;
+}
+.headerNav .search-box{
+    flex: 1;
+    position: relative;
+}
+.search-box input{
+    width: 100%;
+    height: 40px;
+    background-color: transparent;
+    text-align: start;
+    text-overflow: ellipsis;
+    padding-left: 20px;
+    padding-right: 50px;
+}
+.search-box button{
+   width: 40px;
+   height: 40px;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   position: absolute;
+   top: 0;
+   right: 0;
+   transform: scale(0.8);
+}
+.headerNav ul{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+}
+
+.headerNav ul li a{
+    text-decoration: none;
+    transition: transform 0.3s ease-in-out;
+ }
+.headerNav ul li {
+    display: flex;
+    flex-direction: row;
+}
+ .headerNav .Menu{
+    display: none;
+ }
+ .dropdown-content{
+    list-style: none;
+    color: initial;
+    margin: initial; 
+    padding: initial;
+}
+
+
+
+
+
+
+
+
+ /*responsive*/  
+ @media screen and (min-width: 1000px) and (max-width: 1030px) {
+    .headerNav ul{
+        padding: 0px;
+    }
+ }
+ @media(max-width:1000px){
+    .headerNav .logo{
+        display: none;
+    }
+    .search-box button{
+        position: absolute;
+    }
+    .headerNav ul{
+        margin-left: 0px;
+        margin-right: 0px;
+        position: fixed;
+        top: 70px;
+        right: -100%;
+        height: 100vh;
+        width: 50%;
+        flex-direction: column;
+        align-items: center;
+        transition: 0.2s ease-in-out;
+    }
+    .headerNav .Menu{
+        display:flex; 
+    }
+    #chk1:checked ~ ul{
+        right: 0;
+    }
+}
+
+
+ @media(max-width:600px){
+    .headerNav{
+        transition: .2s ease-in-out;
+    }
+    .headerNav .logo{
+        margin-left: 8px;
+        
+    }
+    .headerNav ul{
+        width: 50%;
+    }
+    .headerNav .logo div h1{
+        display: none;
+    }
+    .headerNav .logo{
+        justify-content: center;
+    }
+ }
+ @media screen and (max-width:280px){
+    .headerNav .logo .nav-logo{
+        display: none;
+    }
+ }
+
+
+
+
+
+ /*animations*/
+ .cart {
+    transition: transform 1s ease;
+  }
+  .cart.animate {
+    transform: translateY(-5px) scale(1.1);
+    font-size: 10rem;
+  }  

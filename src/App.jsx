@@ -1,11 +1,15 @@
+import { NavBar } from "./components/navBar/navBar"
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+
 function App() {
-
-
   return (
     <>
-      <h1 className="text-3xl font-bold underline">
-      Hola mundo!
-    </h1>
+    <Router>
+      <Routes>
+        <Route path="/" element={<NavBar />} />
+      </Routes>
+    </Router>
+    
     </>
   )
 }
