@@ -51,7 +51,7 @@ export const SiliderMobile = () => {
                         <div className="absolute bg-base-200 w-28 h-28 rounded-full"></div>
                         <MdCategory className="w-full h-full text-primary z-10"></MdCategory>
                     </div>
-                    <h2 className="text-center my-2 text-sm">Encontrá variedad y descubrí tu vino ideal.</h2>
+                    <h2 className="text-center my-2 text-sm">Encontrá variedad y tu vino ideal.</h2>
                     <button className="w-full text-sm p-2 bg-primary text-base-100 rounded-badge">
                         Ver
                     </button>
