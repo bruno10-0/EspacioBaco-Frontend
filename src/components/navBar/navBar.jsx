@@ -107,7 +107,7 @@ export const NavBar = () => {
                     <div className="flex items-center justify-between">
                         <Link to="/">
                             <h1>
-                                <span className="text-lg font-bold ">Vinos</span>Eli
+                                <span className="text-lg font-bold ">Wines</span>Eli
                             </h1>
                         </Link>
                         {/* <button className="bg-white rounded-2xl text-black p-2" onClick={() => setAnimate(true)}>animacion?</button> */}
@@ -125,9 +125,9 @@ export const NavBar = () => {
                 {/*lista de secciones de la pagina, ejemplo: Inicio. 
                 Incluye las redes solicales(visible en pantallas menores a 1000px) */}
                 <ul className="mx-12 py-40 bg-base-100 lg:py-0">
-                    <li><Link to="/" className="lg:hidden uppercase text-sm transition-all hover:border-b-2 border-primary">Inicio</Link></li>
-                    <li><Link to="/productos" className="uppercase text-sm transition-all hover:border-b-2 border-primary">Productos</Link></li>
-                    <li><Link to="/servicios" className="uppercase text-sm transition-all hover:border-b-2 border-primary">Servicios</Link></li>
+                    <li><Link to="/" className="lg:hidden uppercase text-sm transition-all hover:border-b-2 border-primary">Home</Link></li>
+                    <li><Link to="/productos" className="uppercase text-sm transition-all hover:border-b-2 border-primary">Products</Link></li>
+                    <li><Link to="/servicios" className="uppercase text-sm transition-all hover:border-b-2 border-primary">About</Link></li>
                     <div className="items-center justify-evenly gap-10 flex lg:hidden">
                         <FaWhatsapp className="text-2xl cursor-pointer" />
                         <CiInstagram className="text-2xl cursor-pointer" />
