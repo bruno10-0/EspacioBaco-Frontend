@@ -29,10 +29,10 @@ export const SliderAuto = ({ items }) => {
                 {items.map((item, index) => (
                     <div key={index} className="Carousel-item">
                         {/* Imagen para pantallas mayores a 780px */}
-                        <img src={item.imageUrlLarge} alt={item.altText} className="w-full h-full object-fill lg:block hidden" />
+                        <img src={item.imageUrlLarge} alt={item.altText} className="w-full h-full object-cover lg:block hidden" />
 
                         {/* Imagen para pantallas menores o iguales a 780px */}
-                        <img src={item.imageUrlSmall} alt={item.altText} className="w-full h-full object-fill lg:hidden" />
+                        <img src={item.imageUrlSmall} alt={item.altText} className="w-full h-full object-cover lg:hidden" />
                     </div>
 
                 ))}
