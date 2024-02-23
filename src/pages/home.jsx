@@ -13,6 +13,7 @@ export const Home = () => {
             <NavBar />
             <SliderAuto items={carouselItems} />
             <SiliderMobile/>
+            <div className="w-full h-1 mb-60"></div>
             <Footer/>
         </div>
     )

@@ -36,9 +36,3 @@
   .Carousel-button-right {
     right: 0;
   }
-
-  @media (min-width:1024px) {
-    .Carousel {
-      height: 50vh;
-    }
-  }

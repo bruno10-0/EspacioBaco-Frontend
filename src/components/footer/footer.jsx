@@ -1,18 +1,19 @@
-import { FaInstagram,FaWhatsapp,FaFacebookF   } from "react-icons/fa6";
+import { Link } from "react-router-dom";
+import { FaInstagram, FaWhatsapp, FaFacebookF } from "react-icons/fa6";
 export const Footer = () => {
     return (
         <>
-            <footer className="footer footer-center p-5 mt-56 bg-base-100 text-base-content rounded">
+            <footer className="footer footer-center p-5 bg-base-100 text-base-content rounded">
                 <nav className="grid grid-flow-col gap-4">
-                    <a className="link link-hover">About us</a>
-                    <a className="link link-hover">Contact</a>
-                    <a className="link link-hover">Products</a>
+                    <Link to="/#" className="link link-hover">Inicio</Link>
+                    <Link to="/Bodega" className="link link-hover">Bodega</Link>
+                    <Link to="/#" className="link link-hover">Sobre Nosotros</Link>
                 </nav>
                 <nav>
                     <div className="grid grid-flow-col gap-4">
-                    <FaInstagram className="text-2xl cursor-pointer"/>
-                    <FaWhatsapp className="text-2xl cursor-pointer"/>
-                    <FaFacebookF className="text-2xl cursor-pointer"/>
+                        <FaInstagram className="text-2xl cursor-pointer" />
+                        <FaWhatsapp className="text-2xl cursor-pointer" />
+                        <FaFacebookF className="text-2xl cursor-pointer" />
                     </div>
                 </nav>
                 <aside>

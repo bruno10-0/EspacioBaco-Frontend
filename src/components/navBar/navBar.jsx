@@ -128,9 +128,9 @@ export const NavBar = () => {
 
                 </div>
                 <ul className="mx-12 py-40 bg-base-100 lg:py-0">
-                    <li><Link to="/" className="lg:hidden uppercase text-sm transition-all hover:border-b-2 border-primary">Home</Link></li>
-                    <li><Link to="#" className="uppercase text-sm hover:border-b-2 border-primary cursor-pointer">Products</Link></li>
-                    <li><Link to="/#" className="uppercase text-sm transition-all hover:border-b-2 border-primary">About us</Link></li>
+                    <li><Link to="/" className="lg:hidden uppercase text-sm transition-all hover:border-b-2 border-primary">Inicio</Link></li>
+                    <li><Link to="/bodega" className="uppercase text-sm hover:border-b-2 border-primary cursor-pointer">Bodega</Link></li>
+                    <li><Link to="/" className="uppercase text-sm transition-all hover:border-b-2 border-primary">Nosotros</Link></li>
                     <div className="items-center justify-evenly gap-10 flex lg:hidden">
                         <FaInstagram className="text-2xl cursor-pointer" />
                         <FaWhatsapp className="text-2xl cursor-pointer" />
