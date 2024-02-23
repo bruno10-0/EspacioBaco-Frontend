@@ -21,7 +21,7 @@ export const SliderAuto = ({ items }) => {
     return (
         <div className="Carousel mt-16">
 
-            <button className="z-10 Carousel-button Carousel-button-left" onClick={prevSlide}>
+            <button className="btn z-10 p-2 rounded-r-badge rounded-l-none bg-base-100  Carousel-button Carousel-button-left" onClick={prevSlide}>
                 <FaChevronLeft className='text-primary text-2xl ml-4' />
             </button>
 
@@ -38,10 +38,12 @@ export const SliderAuto = ({ items }) => {
                 ))}
             </div>
 
-            <button className="z-10 Carousel-button Carousel-button-right" onClick={nextSlide}>
+            <button className="btn z-10 p-2 rounded-l-badge rounded-r-none bg-base-100 Carousel-button Carousel-button-right" onClick={nextSlide}>
                 <FaChevronRight className='text-primary text-2xl mr-4' />
             </button>
-
+            <div className="w-full absolute -bottom-2" style={{ height: "100px" }}>
+                <div className="w-full h-full bg-gradient-to-t from-base-100 to-transparent blur-sm"></div>
+            </div>
         </div>
     );
 };

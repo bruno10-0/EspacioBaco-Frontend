@@ -1,6 +1,7 @@
-import { CiSearch, CiInstagram } from "react-icons/ci";
+import { CiSearch} from "react-icons/ci";
+import { FaInstagram,FaWhatsapp,FaFacebookF   } from "react-icons/fa6";
 import { FiShoppingCart } from "react-icons/fi";
-import { FaWhatsapp, FaBars } from "react-icons/fa";
+import { FaBars } from "react-icons/fa";
 import { TbColorSwatch } from "react-icons/tb";
 import { useState, useEffect } from "react";
 import { useTheme } from "../../context/Context";
@@ -70,7 +71,7 @@ export const NavBar = () => {
         "dim",
         "nord",
         "sunset",
-      ];
+    ];
 
     const { changeTheme } = useTheme();
 
@@ -85,7 +86,6 @@ export const NavBar = () => {
         changeTheme(newTheme);
         localStorage.setItem('reactMarketTheme', newTheme);
     };
-
 
     return (
         <div>
@@ -124,13 +124,17 @@ export const NavBar = () => {
                 </div>
                 {/*lista de secciones de la pagina, ejemplo: Inicio. 
                 Incluye las redes solicales(visible en pantallas menores a 1000px) */}
+                <div className="w-auto h-auto">
+
+                </div>
                 <ul className="mx-12 py-40 bg-base-100 lg:py-0">
                     <li><Link to="/" className="lg:hidden uppercase text-sm transition-all hover:border-b-2 border-primary">Home</Link></li>
-                    <li><Link to="/productos" className="uppercase text-sm transition-all hover:border-b-2 border-primary">Products</Link></li>
-                    <li><Link to="/servicios" className="uppercase text-sm transition-all hover:border-b-2 border-primary">About</Link></li>
+                    <li><Link to="#" className="uppercase text-sm hover:border-b-2 border-primary cursor-pointer">Products</Link></li>
+                    <li><Link to="/#" className="uppercase text-sm transition-all hover:border-b-2 border-primary">About us</Link></li>
                     <div className="items-center justify-evenly gap-10 flex lg:hidden">
+                        <FaInstagram className="text-2xl cursor-pointer" />
                         <FaWhatsapp className="text-2xl cursor-pointer" />
-                        <CiInstagram className="text-2xl cursor-pointer" />
+                        <FaFacebookF className="text-2xl cursor-pointer"/>
                     </div>
                 </ul>
                 {/*contenedor de iconos de tema y carrito*/}
@@ -183,7 +187,7 @@ export const NavBar = () => {
                 </div>
                 {/*icono de despliegue lateral del menu (visible en pantallas menores a 1000px)*/}
                 <label htmlFor="chk1" className="Menu">
-                    <FaBars className="text-2xl" />
+                    <FaBars className="text-2xl cursor-pointer" />
                 </label>
             </header>
         </div>
