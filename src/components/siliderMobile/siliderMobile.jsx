@@ -16,7 +16,7 @@ export const SiliderMobile = () => {
                         <FaWallet className="w-full h-full text-primary z-10"></FaWallet>
                     </div>
                     <h2 className="text-center my-2 text-sm">Descubrí Productos con bajos precios</h2>
-                    <button className="w-full text-sm p-2 bg-primary text-base-100 rounded-badge">
+                    <button className="w-full text-sm p-2 bg-secondary text-base-100 rounded-badge">
                         Mostrar productos
                     </button>
                 </div>
@@ -28,7 +28,7 @@ export const SiliderMobile = () => {
                         <BsBox2Fill className="w-full h-full text-primary z-10"></BsBox2Fill>
                     </div>
                     <h2 className="text-center my-2 text-sm">Podés devolver tu compra gratis</h2>
-                    <button className="w-full text-sm p-2 bg-primary text-base-100 rounded-badge">
+                    <button className="w-full text-sm p-2 bg-secondary text-base-100 rounded-badge">
                         Cómo funciona
                     </button>
                 </div>
@@ -40,7 +40,7 @@ export const SiliderMobile = () => {
                         <IoShieldSharp className="w-full h-full text-primary z-10"></IoShieldSharp>
                     </div>
                     <h2 className="text-center my-2 text-sm">Compra con seguridad y tranquilidad</h2>
-                    <button className="w-full text-sm p-2 bg-primary text-base-100 rounded-badge">
+                    <button className="w-full text-sm p-2 bg-secondary text-base-100 rounded-badge">
                         Testimonios
                     </button>
                 </div>
@@ -52,7 +52,7 @@ export const SiliderMobile = () => {
                         <MdCategory className="w-full h-full text-primary z-10"></MdCategory>
                     </div>
                     <h2 className="text-center my-2 text-sm">Encontrá variedad y tu vino ideal.</h2>
-                    <button className="w-full text-sm p-2 bg-primary text-base-100 rounded-badge">
+                    <button className="w-full text-sm p-2 bg-secondary text-base-100 rounded-badge">
                         Ver
                     </button>
                 </div>
@@ -64,7 +64,7 @@ export const SiliderMobile = () => {
                         <AiFillCreditCard className="w-full h-full text-primary z-10"></AiFillCreditCard>
                     </div>
                     <h2 className="text-center my-2 text-sm">Usá el medio de pago que más te convenga</h2>
-                    <button className="w-full text-sm p-2 bg-primary text-base-200 rounded-badge">
+                    <button className="w-full text-sm p-2 bg-secondary text-base-200 rounded-badge">
                         Ver
                     </button>
                 </div>
