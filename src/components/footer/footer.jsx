@@ -3,7 +3,7 @@ import { FaInstagram, FaWhatsapp, FaFacebookF } from "react-icons/fa6";
 export const Footer = () => {
     return (
         <>
-            <footer className="mt-4 relative footer footer-center p-5 bg-base-100 text-base-content rounded">
+            <footer className="relative footer footer-center p-5 bg-base-100 text-base-content rounded">
                 <nav className="grid grid-flow-col gap-4">
                     <Link to="/#" className="link link-hover">Inicio</Link>
                     <Link to="/Bodega" className="link link-hover">Bodega</Link>

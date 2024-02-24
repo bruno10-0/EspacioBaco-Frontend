@@ -22,16 +22,16 @@ export const Card = ({ product }) => {
           <h3 className="text-accent" style={{ letterSpacing: "2px", fontSize: "12px" }}>
             {product.price}
           </h3>
-          <button style={{ fontSize: "10px", letterSpacing: "2px" }} className='h-full bg-secondary rounded-box p-2 uppercase'>
+            <Link  to="/detalles" style={{ fontSize: "10px", letterSpacing: "2px" }} className='h-full bg-secondary rounded-box p-2 uppercase'>
             Lo quiero
-          </button>
+            </Link>
         </div>
 
         <div className="indicator absolute top-0 right-2">
-          <Link to="/#" className="indicator-item badge badge-accent">Info</Link>
+          <Link className="indicator-item badge badge-accent">Info</Link>
         </div>
         <div className="indicator absolute top-0 right-14">
-          <Link to="/#" className="indicator-item badge badge-secondary">New</Link>
+          <Link className="indicator-item badge badge-secondary">New</Link>
         </div>
       </div>
 

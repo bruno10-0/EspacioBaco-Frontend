@@ -1,0 +1,18 @@
+.ContainerImg{
+    width: 100vw;
+    height: 100vw;
+}
+.ContainerInfo{
+    width: 80vw;
+    height: 80vw;
+}
+@media (min-width: 1024px){
+    .ContainerImg{
+        width: 550px;
+        height: 550px;
+    }
+    .ContainerInfo{
+        width: 400px;
+        height: auto;
+    }
+}

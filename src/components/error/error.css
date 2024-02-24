@@ -1,0 +1,21 @@
+.body-error h1, 
+.body-error h2,
+.body-error button{
+    transform: translateY(-150px);
+    filter: blur(20px);
+    opacity: 0;
+    animation: showContent 1s ease-out forwards;
+}
+@keyframes showContent{
+    to{
+      opacity: 1;
+      filter: blur(0);
+      transform: translateY(0);
+    }
+  }
+  .body-error h2{
+    animation-delay: .2s;
+  }
+  .body-error button{
+    animation-delay: .6s;
+  }
