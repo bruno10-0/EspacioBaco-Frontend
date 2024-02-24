@@ -1,0 +1,13 @@
+.Card{
+  transform: translateY(150px);
+  filter: blur(20px);
+  opacity: 0;
+  animation: showContent .8s ease-out forwards;
+}
+@keyframes showContent{
+  to{
+    opacity: 1;
+    filter: blur(0);
+    transform: translateY(0);
+  }
+}

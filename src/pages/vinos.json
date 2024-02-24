@@ -1,86 +1,86 @@
-[ 
-    {
-      "id": 1,
-      "name": "Gran Reserva",
-      "description": "Tinto gran reserva, frutas maduras y vainilla.",
-      "price": "$20",
-      "image": "https://images.vexels.com/media/users/3/215897/isolated/preview/ee3f0d402e7930d14021a340386ce9d3-dibujo-de-linea-elegante-copa-de-vino.png"
-    },
-    {
-      "id": 2,
-      "name": "Syrah Australiano",
-      "description": "Tinto australiano equilibrado, frutas rojas y chocolate.",
-      "price": "$15",
-      "image": "https://images.vexels.com/media/users/3/215897/isolated/preview/ee3f0d402e7930d14021a340386ce9d3-dibujo-de-linea-elegante-copa-de-vino.png"
-    },
-    {
-      "id": 3,
-      "name": "Chardonnay Australiano",
-      "description": "Blanco australiano fresco, frutas tropicales y madera.",
-      "price": "$25",
-      "image": "https://images.vexels.com/media/users/3/215897/isolated/preview/ee3f0d402e7930d14021a340386ce9d3-dibujo-de-linea-elegante-copa-de-vino.png"
-    },
-    {
-      "id": 4,
-      "name": "Malbec Argentino",
-      "description": "Tinto argentino, frutas y especias.",
-      "price": "$18",
-      "image": "https://images.vexels.com/media/users/3/215897/isolated/preview/ee3f0d402e7930d14021a340386ce9d3-dibujo-de-linea-elegante-copa-de-vino.png"
-    },
-    {
-      "id": 5,
-      "name": "Vino Reserva",
-      "description": "Tinto reserva, suaves taninos, frutas rojas y vainilla.",
-      "price": "$20",
-      "image": "https://images.vexels.com/media/users/3/215897/isolated/preview/ee3f0d402e7930d14021a340386ce9d3-dibujo-de-linea-elegante-copa-de-vino.png"
-    },
-    {
-      "id": 6,
-      "name": "Merlot Francés",
-      "description": "Tinto francés, cuerpo medio, frutas rojas y especias.",
-      "price": "$15",
-      "image": "https://images.vexels.com/media/users/3/215897/isolated/preview/ee3f0d402e7930d14021a340386ce9d3-dibujo-de-linea-elegante-copa-de-vino.png"
-    },
-    {
-      "id": 7,
-      "name": "Blanco de Altura",
-      "description": "Blanco de altura, acidez refrescante, frutas tropicales y cítricos.",
-      "price": "$25",
-      "image": "https://images.vexels.com/media/users/3/215897/isolated/preview/ee3f0d402e7930d14021a340386ce9d3-dibujo-de-linea-elegante-copa-de-vino.png"
-    },
-    {
-      "id": 8,
-      "name": "Carmenere Chileno",
-      "description": "Tinto chileno, pimienta negra y frutos oscuros.",
-      "price": "$18",
-      "image": "https://images.vexels.com/media/users/3/215897/isolated/preview/ee3f0d402e7930d14021a340386ce9d3-dibujo-de-linea-elegante-copa-de-vino.png"
-    },
-    {
-      "id": 9,
-      "name": "Sauvignon Blanc Neozelandés",
-      "description": "Blanco neozelandés, cítricos y hierba.",
-      "price": "$22",
-      "image": "https://images.vexels.com/media/users/3/215895/isolated/preview/36ec60399b703a700d20bec25f1c2ce8-botella-de-vino-y-trazo-de-vidrio.png"
-    },
-    {
-      "id": 10,
-      "name": "Pinot Noir Francés",
-      "description": "Tinto francés, frutos rojos y especias.",
-      "price": "$19",
-      "image": "https://images.vexels.com/media/users/3/215895/isolated/preview/36ec60399b703a700d20bec25f1c2ce8-botella-de-vino-y-trazo-de-vidrio.png"
-    },
-    {
-      "id": 11,
-      "name": "Tempranillo Español",
-      "description": "Tinto español, cuerpo medio, frutas rojas y vainilla.",
-      "price": "$30",
-      "image": "https://images.vexels.com/media/users/3/215895/isolated/preview/36ec60399b703a700d20bec25f1c2ce8-botella-de-vino-y-trazo-de-vidrio.png"
-    },
-    {
-      "id": 12,
-      "name": "Riesling Alemán",
-      "description": "Blanco alemán, acidez y notas florales.",
-      "price": "$24",
-      "image": "https://images.vexels.com/media/users/3/215895/isolated/preview/36ec60399b703a700d20bec25f1c2ce8-botella-de-vino-y-trazo-de-vidrio.png"
-    }
+[
+  {
+    "id": 1,
+    "name": "Gran Reserva",
+    "description": "Tinto gran reserva, frutas maduras y vainilla.",
+    "price": "$20",
+    "image": "https://images.vexels.com/media/users/3/215897/isolated/preview/ee3f0d402e7930d14021a340386ce9d3-dibujo-de-linea-elegante-copa-de-vino.png"
+  },
+  {
+    "id": 2,
+    "name": "Syrah Australiano",
+    "description": "Tinto australiano equilibrado, frutas rojas y chocolate.",
+    "price": "$15",
+    "image": "https://images.vexels.com/media/users/3/215897/isolated/preview/ee3f0d402e7930d14021a340386ce9d3-dibujo-de-linea-elegante-copa-de-vino.png"
+  },
+  {
+    "id": 3,
+    "name": "Chardonnay Australiano",
+    "description": "Blanco australiano fresco, frutas tropicales y madera.",
+    "price": "$25",
+    "image": "https://images.vexels.com/media/users/3/215897/isolated/preview/ee3f0d402e7930d14021a340386ce9d3-dibujo-de-linea-elegante-copa-de-vino.png"
+  },
+  {
+    "id": 4,
+    "name": "Malbec Argentino",
+    "description": "Tinto argentino, frutas y especias.",
+    "price": "$18",
+    "image": "https://images.vexels.com/media/users/3/215897/isolated/preview/ee3f0d402e7930d14021a340386ce9d3-dibujo-de-linea-elegante-copa-de-vino.png"
+  },
+  {
+    "id": 5,
+    "name": "Vino Reserva",
+    "description": "Tinto reserva, suaves taninos, frutas rojas y vainilla.",
+    "price": "$20",
+    "image": "https://images.vexels.com/media/users/3/215897/isolated/preview/ee3f0d402e7930d14021a340386ce9d3-dibujo-de-linea-elegante-copa-de-vino.png"
+  },
+  {
+    "id": 6,
+    "name": "Merlot Francés",
+    "description": "Tinto francés, cuerpo medio, frutas rojas y especias.",
+    "price": "$15",
+    "image": "https://images.vexels.com/media/users/3/215897/isolated/preview/ee3f0d402e7930d14021a340386ce9d3-dibujo-de-linea-elegante-copa-de-vino.png"
+  },
+  {
+    "id": 7,
+    "name": "Blanco de Altura",
+    "description": "Blanco de altura, acidez refrescante, frutas tropicales y cítricos.",
+    "price": "$25",
+    "image": "https://images.vexels.com/media/users/3/215897/isolated/preview/ee3f0d402e7930d14021a340386ce9d3-dibujo-de-linea-elegante-copa-de-vino.png"
+  },
+  {
+    "id": 8,
+    "name": "Carmenere Chileno",
+    "description": "Tinto chileno, pimienta negra y frutos oscuros.",
+    "price": "$18",
+    "image": "https://images.vexels.com/media/users/3/215897/isolated/preview/ee3f0d402e7930d14021a340386ce9d3-dibujo-de-linea-elegante-copa-de-vino.png"
+  },
+  {
+    "id": 9,
+    "name": "Sauvignon Blanc Neozelandés",
+    "description": "Blanco neozelandés, cítricos y hierba.",
+    "price": "$22",
+    "image": "https://images.vexels.com/media/users/3/215895/isolated/preview/36ec60399b703a700d20bec25f1c2ce8-botella-de-vino-y-trazo-de-vidrio.png"
+  },
+  {
+    "id": 10,
+    "name": "Pinot Noir Francés",
+    "description": "Tinto francés, frutos rojos y especias.",
+    "price": "$19",
+    "image": "https://images.vexels.com/media/users/3/215895/isolated/preview/36ec60399b703a700d20bec25f1c2ce8-botella-de-vino-y-trazo-de-vidrio.png"
+  },
+  {
+    "id": 11,
+    "name": "Tempranillo Español",
+    "description": "Tinto español, cuerpo medio, frutas rojas y vainilla.",
+    "price": "$30",
+    "image": "https://images.vexels.com/media/users/3/215895/isolated/preview/36ec60399b703a700d20bec25f1c2ce8-botella-de-vino-y-trazo-de-vidrio.png"
+  },
+  {
+    "id": 12,
+    "name": "Riesling Alemán",
+    "description": "Blanco alemán, acidez y notas florales.",
+    "price": "$24",
+    "image": "https://images.vexels.com/media/users/3/215895/isolated/preview/36ec60399b703a700d20bec25f1c2ce8-botella-de-vino-y-trazo-de-vidrio.png"
+  }
 ]

@@ -19,7 +19,7 @@ export const Bodega = () => {
       <NavBar />
 
       <div className="flex justify-center items-center w-full h-auto bg-base-200 mt-20">
-        <div className="h-auto w-full md:w-3/4 grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-10 lg:gap-2 m-4">
+        <div className="h-auto w-full md:w-3/4 grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-10 lg:gap-5 m-4">
           {vino
             .slice((pagina - 1) * porPagina, (pagina - 1) * porPagina + porPagina)
             .map((product) => (

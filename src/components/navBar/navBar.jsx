@@ -166,7 +166,7 @@ export const NavBar = () => {
                     </div>
                     <div tabIndex={0} className={`cart relative cursor-pointer dropdown dropdown-end max-h-[calc(100vh-300px)] ${animate ? 'animate' : ''}`}>
                         <FiShoppingCart tabIndex={0} role="button" className="text-2xl" />
-                        <i className="w-5 h-5 flex items-center justify-center absolute -top-2 -right-3 rounded-full bg-primary text-base-100">
+                        <i className="w-5 h-5 flex items-center justify-center absolute -top-2 -right-3 rounded-full bg-secondary text-base-100">
                             <p style={{ letterSpacing: "0px", fontFamily: "sans-serif", fontSize: '10px' }}>1   </p>
                         </i>
                         <div

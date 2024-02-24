@@ -6,10 +6,10 @@ import { AiFillCreditCard } from "react-icons/ai";
 
 export const SiliderMobile = () => {
   return (
-        <div className="absolute h-72 w-full flex justify-center items-center" style={{ top: "50%" }}>
+        <div className="h-72 w-full flex justify-center items-center" style={{ top: "50%" }}>
             <div className="carousel w-full md:w-auto h-full p-2 gap-2">
 
-                <div className="transition-transform ease-in-out hover:scale-95 p-4 carousel-item flex flex-col bg-base-100 rounded-badge h-auto w-44 select-none">
+                <div className="z-10 transition-transform ease-in-out hover:scale-95 p-4 carousel-item flex flex-col bg-base-100 rounded-badge h-auto w-44 select-none">
                     <h1 className="my-1 font-semibold" style={{ letterSpacing: "1px" }}>Menos de $10.000</h1>
                     <div className="relative p-6 w-full h-1/2 flex items-center justify-center">
                         <div className="absolute bg-base-200 w-28 h-28 rounded-full"></div>
@@ -21,7 +21,7 @@ export const SiliderMobile = () => {
                     </button>
                 </div>
 
-                <div className="transition-transform ease-in-out hover:scale-95 p-4 carousel-item flex flex-col bg-base-100  rounded-badge h-auto w-44 select-none">
+                <div className="z-10 transition-transform ease-in-out hover:scale-95 p-4 carousel-item flex flex-col bg-base-100  rounded-badge h-auto w-44 select-none">
                     <h1 className="my-1 font-semibold" style={{ letterSpacing: "1px" }}>Compra protegida</h1>
                     <div className="relative p-6 w-full h-1/2 flex items-center justify-center">
                         <div className="absolute bg-base-200 w-28 h-28 rounded-full"></div>
@@ -33,7 +33,7 @@ export const SiliderMobile = () => {
                     </button>
                 </div>
 
-                <div className="transition-transform ease-in-out hover:scale-95 p-4 carousel-item flex flex-col bg-base-100 rounded-badge h-auto w-44 select-none">
+                <div className="z-10 transition-transform ease-in-out hover:scale-95 p-4 carousel-item flex flex-col bg-base-100 rounded-badge h-auto w-44 select-none">
                     <h1 className="my-1 font-semibold" style={{ letterSpacing: "1px" }}>Seguridad</h1>
                     <div className="relative p-6 w-full h-1/2 flex items-center justify-center">
                         <div className="absolute bg-base-200 w-28 h-28 rounded-full"></div>
@@ -45,7 +45,7 @@ export const SiliderMobile = () => {
                     </button>
                 </div>
 
-                <div className="transition-transform ease-in-out hover:scale-95 p-4 carousel-item flex flex-col bg-base-100 rounded-badge h-auto w-44 select-none">
+                <div className="z-10 transition-transform ease-in-out hover:scale-95 p-4 carousel-item flex flex-col bg-base-100 rounded-badge h-auto w-44 select-none">
                     <h1 className="my-1 font-semibold" style={{ letterSpacing: "1px" }}>Gran variedad</h1>
                     <div className="relative p-6 w-full h-1/2 flex items-center justify-center">
                         <div className="absolute bg-base-200 w-28 h-28 rounded-full"></div>
@@ -57,7 +57,7 @@ export const SiliderMobile = () => {
                     </button>
                 </div>
                 
-                <div className="transition-transform ease-in-out hover:scale-95 p-4 carousel-item flex flex-col bg-base-100 rounded-badge h-auto w-44 select-none">
+                <div className="z-10 transition-transform ease-in-out hover:scale-95 p-4 carousel-item flex flex-col bg-base-100 rounded-badge h-auto w-44 select-none">
                     <h1 className="my-1 font-semibold" style={{ letterSpacing: "1px" }}>Medios de pago</h1>
                     <div className="relative p-6 w-full h-1/2 flex items-center justify-center">
                         <div className="absolute bg-base-200 w-28 h-28 rounded-full"></div>
