@@ -1,4 +1,5 @@
 import { IoRemoveSharp, IoAddSharp } from "react-icons/io5";
+import { FaCaretLeft, FaCaretRight } from "react-icons/fa";
 import { useState } from 'react';
 import { NavBar } from "../navBar/navBar"
 import "./detailProduct.css"
@@ -18,14 +19,14 @@ export const DetailProduct = () => {
     return (
         <>
         <NavBar/>
-            <div className="mt-20 p-2 w-full flex flex-col items-center lg:items-start lg:flex-row justify-around">
+            <div className="mt-20 mb-2 p-2 w-full flex flex-col items-center lg:items-start lg:flex-row justify-around">
                 <div className="ContainerImg">
-                    <div className="carousel w-full h-full">
+                    <div className="carousel">
                         <div className="carousel-item relative w-full h-full">
-                            <img src="https://yonobi.com/cdn/shop/files/IMG_3798_800x.jpg?v=1705593002" alt="" className="w-full h-full object-fill" />
+                            <img src="https://www.vinoselkiosco.com/wp-content/uploads/2020/10/VinoGranReservaSerieRiberasCabernet750.png" alt="" className="w-full h-full object-fill" />
                             <div className="absolute flex justify-between w-full top-1/2">
-                                <a href="#slide1" className="btn bg-base-100">❮</a>
-                                <a href="#slide3" className="btn bg-base-100">❯</a>
+                                <a href="#slide1" className="ml-2 btn bg-accent rounded-full text-secondary"><FaCaretLeft/></a>
+                                <a href="#slide3" className="mr-2 btn bg-accent rounded-full text-secondary"><FaCaretRight/></a>
                             </div>
                         </div>
                     </div>
@@ -44,8 +45,8 @@ export const DetailProduct = () => {
                             <button onClick={incrementarCantidad}><IoAddSharp /></button>
                         </div>
                         <div>
-                            <button className="btn bg-primary text-base-100 uppercase border text-center my-4 p-3 w-full" style={{ fontSize: "13px", fontWeight: "inherit", letterSpacing: "4px" }}>
-                                Agregar
+                            <button className="btn hover:bg-primary bg-secondary text-base-100 uppercase border text-center my-4 p-3 w-full" style={{ fontSize: "13px", fontWeight: "inherit", letterSpacing: "4px" }}>
+                                Lo llevo
                             </button>
                         </div>
                         <div>
