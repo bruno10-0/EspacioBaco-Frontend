@@ -25,7 +25,7 @@ export const NavBar = () => {
     }, [prevScrollPos]);
     //define la altura a la que se desplazara hacia el top(arriba) el nav bar al hacer scroll hacia abajo
     const navStyle = {
-        top: visible ? "0px" : "-80px",
+        top: visible ? "0px" : "-70px",
     };
     // sirve para animar al icono de el carrito, al usuario cargar un item en el mismo este realizara una animacion
     useEffect(() => {
@@ -89,7 +89,7 @@ export const NavBar = () => {
 
     return (
         <div>
-            <header className="headerNav bg-base-100" style={navStyle}>
+            <header className="glass border-none headerNav bg-base-100" style={navStyle}>
                 <input type="checkbox" name="" id="chk1" />
                 {/*Logo y nombre de la pagina*/}
                 <div className="logo cursor-pointer">
@@ -127,7 +127,7 @@ export const NavBar = () => {
                 <div className="w-auto h-auto">
 
                 </div>
-                <ul className="mx-12 py-40 bg-base-100 lg:py-0">
+                <ul className="mx-12 py-40 bg-base-100 lg:py-0 lg:bg-transparent">
                     <li><Link to="/" className="lg:hidden uppercase text-sm transition-all hover:border-b-2 border-primary">Inicio</Link></li>
                     <li><Link to="/bodega" className="uppercase text-sm hover:border-b-2 border-primary cursor-pointer">Bodega</Link></li>
                     <li><Link to="/" className="uppercase text-sm transition-all hover:border-b-2 border-primary">Nosotros</Link></li>

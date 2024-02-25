@@ -1,0 +1,25 @@
+.card1{
+    filter: blur(20px);
+    opacity: 0;
+    animation: showContent 1s ease-out forwards;
+}
+.card2{
+    filter: blur(22px);
+    opacity: 0;
+    animation: showContent 1.2s ease-out forwards;
+}
+.card3{
+    filter: blur(24px);
+    opacity: 0;
+    animation: showContent 1.4s ease-out forwards;
+}
+.card4{
+    filter: blur(26px);
+    opacity: 0;
+    animation: showContent 1.6s ease-out forwards;
+}
+.card5{
+    filter: blur(28px);
+    opacity: 0;
+    animation: showContent 1.8s ease-out forwards;
+}

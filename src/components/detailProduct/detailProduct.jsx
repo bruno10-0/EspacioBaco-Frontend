@@ -1,74 +1,121 @@
 import { IoRemoveSharp, IoAddSharp } from "react-icons/io5";
 import { FaCaretLeft, FaCaretRight } from "react-icons/fa";
-import { useState } from 'react';
-import { NavBar } from "../navBar/navBar"
-import "./detailProduct.css"
+import { useState } from "react";
+import { NavBar } from "../navBar/navBar";
+import "./detailProduct.css";
 export const DetailProduct = () => {
+  const [productQuantity, setProductQuantity] = useState(1); // Estado para la cantidad de productos
 
-    const [productQuantity, setProductQuantity] = useState(1); // Estado para la cantidad de productos
+  const incrementarCantidad = () => {
+    setProductQuantity(productQuantity + 1); // Incrementa la cantidad de productos
+  };
 
-    const incrementarCantidad = () => {
-        setProductQuantity(productQuantity + 1); // Incrementa la cantidad de productos
-    };
-
-    const decrementarCantidad = () => {
-        if (productQuantity > 1) {
-            setProductQuantity(productQuantity - 1); // Decrementa la cantidad de productos solo si es mayor que 1
-        }
-    };
-    return (
-        <>
-        <NavBar/>
-            <div className="mt-20 mb-2 p-2 w-full flex flex-col items-center lg:items-start lg:flex-row justify-around">
-                <div className="ContainerImg">
-                    <div className="carousel">
-                        <div className="carousel-item relative w-full h-full">
-                            <img src="https://www.vinoselkiosco.com/wp-content/uploads/2020/10/VinoGranReservaSerieRiberasCabernet750.png" alt="" className="w-full h-full object-fill" />
-                            <div className="absolute flex justify-between w-full top-1/2">
-                                <a href="#slide1" className="ml-2 btn bg-accent rounded-full text-secondary"><FaCaretLeft/></a>
-                                <a href="#slide3" className="mr-2 btn bg-accent rounded-full text-secondary"><FaCaretRight/></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div className="ContainerInfo">
-                    <div className="w-full flex flex-col my-2 gap-5 justify-center items-center">
-                        <h1 className="uppercase" style={{ fontSize: "13px", letterSpacing: ".2em" }}>Danish Clay Design</h1>
-                        <h2 className="text-xl uppercase" style={{ letterSpacing: "1px" }}>Ikebana Vase - Ishi</h2>
-                        <h3 className="uppercase" style={{ fontSize: "16px", letterSpacing: "1px" }}>$1.400</h3>
-                    </div>
-                    <div className="w-full">
-                        <div className="w-2/5 flex justify-between gap-2 items-center border p-2">
-                            <button onClick={decrementarCantidad}><IoRemoveSharp /></button>
-                            <span>{productQuantity}</span>
-                            <button onClick={incrementarCantidad}><IoAddSharp /></button>
-                        </div>
-                        <div>
-                            <button className="btn hover:bg-primary bg-secondary text-base-100 uppercase border text-center my-4 p-3 w-full" style={{ fontSize: "13px", fontWeight: "inherit", letterSpacing: "4px" }}>
-                                Lo llevo
-                            </button>
-                        </div>
-                        <div>
-                            <p className="text-xs flex flex-col gap-4">
-                                <span>
-                                    Los jarrones están inspirados en Ikebana, una forma japonesa de arreglar flores. Trabajan tanto con agua para flores frescas como sin agua para flores secas.
-                                </span>
-                                <span>
-                                    Los jarrones están inspirados en Ikebana, una forma japonesa de arreglar flores. Trabajan tanto con agua para flores frescas como sin agua para flores secas.
-                                </span>
-                                <span>
-                                    El Sr. Laerke Máller Hansen es graduado de la Real Academia Danesa de Diseño. Crea cerámica bajo el nombre de Diseño de arcilla danesa.
-                                    Se enamoró de la estética y la cultura japonesa en un viaje de estudio a Japón. Como resultado, su expresión cerámica y su principal fuente de inspiración es la sencillez japonesa.
-                                </span>
-                                <span>
-                                    Para ella, la forma y la estética van de la mano de la funcionalidad y el gran diseño, una sólida base que sigue explorando. Con su cerámica, Lúrke pretende aportar valor incluso a los pequeños momentos de la vida cotidiana y enriquecer su hogar con hermosos y sencillos diseños en colores terrosos.
-                                </span>
-                            </p>
-                        </div>
-                    </div>
-                </div>
+  const decrementarCantidad = () => {
+    if (productQuantity > 1) {
+      setProductQuantity(productQuantity - 1); // Decrementa la cantidad de productos solo si es mayor que 1
+    }
+  };
+  return (
+    <>
+      <NavBar />
+      <div
+        style={{ marginTop: "70px" }}
+        className="mb-2 p-2 w-full flex flex-col items-center lg:items-start lg:flex-row justify-around"
+      >
+        <div className="ContainerImg">
+          <div className="carousel">
+            <div className="carousel-item relative  flex justify-center items-center w-full h-full">
+              <img
+                src="https://www.vinoselkiosco.com/wp-content/uploads/2020/10/VinoGranReservaSerieRiberasCabernet750.png"
+                alt=""
+                className="z-10 w-full h-full object-fill"
+              />
+              <div className="absolute flex justify-between w-full top-1/2">
+                <a href="#slide1" className="ml-2 text-2xl text-secondary z-10">
+                  <FaCaretLeft />
+                </a>
+                <a href="#slide3" className="mr-2 text-2xl text-secondary z-10">
+                  <FaCaretRight />
+                </a>
+              </div>
+              <div className="absolute w-3/4 h-3/4 bg-accent rounded-full"></div>
             </div>
-        </>
-    )
-}
+          </div>
+        </div>
+
+        <div className="ContainerInfo">
+          <div className="w-full flex flex-col my-2 gap-5 justify-center items-center">
+            <h1
+              className="uppercase"
+              style={{ fontSize: "13px", letterSpacing: ".2em" }}
+            >
+              Gran Reserva
+            </h1>
+            <h2 className="text-xl uppercase" style={{ letterSpacing: "1px" }}>
+              Ikebana Vase - Ishi
+            </h2>
+            <h3
+              className="uppercase"
+              style={{ fontSize: "16px", letterSpacing: "1px" }}
+            >
+              $1.400
+            </h3>
+          </div>
+          <div className="w-full">
+            <div className="w-2/5 flex justify-between gap-2 items-center border p-2">
+              <button onClick={decrementarCantidad}>
+                <IoRemoveSharp />
+              </button>
+              <span>{productQuantity}</span>
+              <button onClick={incrementarCantidad}>
+                <IoAddSharp />
+              </button>
+            </div>
+            <div>
+              <button
+                className="btn hover:bg-primary bg-secondary text-base-100 uppercase border text-center my-4 p-3 w-full"
+                style={{
+                  fontSize: "13px",
+                  fontWeight: "inherit",
+                  letterSpacing: "4px",
+                }}
+              >
+                Lo llevo
+              </button>
+            </div>
+            <div>
+              <p className="text-xs flex flex-col gap-4">
+                <span>
+                  El Malbec es una cepa de uva tinta que se ha vuelto
+                  emblemática de Argentina, aunque tiene sus orígenes en
+                  Francia. En Argentina, el Malbec se cultiva principalmente en
+                  la región de Mendoza, donde las condiciones climáticas y
+                  geográficas son ideales para su desarrollo.
+                </span>
+                <span>
+                  Este vino tinto es conocido por su color profundo y su sabor
+                  frutado y especiado. Los Malbec argentinos suelen tener notas
+                  de frutas negras como ciruelas y moras, así como notas de
+                  especias como pimienta negra y regaliz.
+                </span>
+                <span>
+                  El Malbec marida bien con una variedad de platos, desde carnes
+                  rojas a la parrilla hasta pastas con salsas ricas. Su cuerpo
+                  medio y sus taninos suaves lo hacen versátil y accesible para
+                  muchos paladares.
+                </span>
+                <span>
+                  Además de su popularidad en Argentina, el Malbec también se
+                  cultiva en otras regiones del mundo, como Francia, Chile y
+                  Estados Unidos. Cada región aporta su propio estilo y
+                  características al vino, pero el Malbec argentino sigue siendo
+                  uno de los más reconocidos a nivel mundial.
+                </span>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+};
