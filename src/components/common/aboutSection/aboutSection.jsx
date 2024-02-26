@@ -1,6 +1,4 @@
 import "./aboutSection.css";
-import img from "./../../assets/manchaDvino-removebg-preview.png";
-import img2 from "./../../assets/copaDavinoR.png";
 
 export const AboutSection = () => {
   return (

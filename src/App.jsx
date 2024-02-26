@@ -1,8 +1,8 @@
-import {Home} from "./pages/home";
-import {Bodega} from "./pages/bodega";
-import {Details} from "./pages/details";
-import {NotFound} from "./pages/notFound"
-import {About} from "./pages/about"
+import {Home} from "./components/pages/home"
+import {Bodega} from "./components/pages/bodega"
+import {About} from "./components/pages/about"
+import {Details} from "./components/pages/details"
+import {NotFound} from "./components/pages/notFound"
 import { BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 
 function App() {
