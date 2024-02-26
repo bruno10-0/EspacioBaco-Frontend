@@ -3,6 +3,8 @@ import { FaCaretLeft, FaCaretRight } from "react-icons/fa";
 import { useState } from "react";
 import { NavBar } from "../navBar/navBar";
 import "./detailProduct.css";
+import { useParams } from "react-router-dom";
+import vinos from "../../pages/vinos.json";
 export const DetailProduct = () => {
   const [productQuantity, setProductQuantity] = useState(1); // Estado para la cantidad de productos
 
@@ -15,6 +17,8 @@ export const DetailProduct = () => {
       setProductQuantity(productQuantity - 1); // Decrementa la cantidad de productos solo si es mayor que 1
     }
   };
+  const { id } = useParams();
+  const  productSelected = vinos.find((vino) => vino.id == id);
   return (
     <>
       <NavBar />
@@ -23,12 +27,12 @@ export const DetailProduct = () => {
         className="mb-2 p-2 w-full flex flex-col items-center lg:items-start lg:flex-row justify-around"
       >
         <div className="ContainerImg">
-          <div className="carousel">
+          <div className="carousel w-full h-full">
             <div className="carousel-item relative  flex justify-center items-center w-full h-full">
               <img
-                src="https://www.vinoselkiosco.com/wp-content/uploads/2020/10/VinoGranReservaSerieRiberasCabernet750.png"
-                alt=""
-                className="z-10 w-full h-full object-fill"
+                src={productSelected.image}
+                alt="imagen  de el vino"
+                className="z-10 w-full h-full object-contain"
               />
               <div className="absolute flex justify-between w-full top-1/2">
                 <a href="#slide1" className="ml-2 text-2xl text-secondary z-10">
@@ -49,16 +53,16 @@ export const DetailProduct = () => {
               className="uppercase"
               style={{ fontSize: "13px", letterSpacing: ".2em" }}
             >
-              Gran Reserva
+              {productSelected.bodega}
             </h1>
             <h2 className="text-xl uppercase" style={{ letterSpacing: "1px" }}>
-              Ikebana Vase - Ishi
+              {productSelected.name}
             </h2>
             <h3
               className="uppercase"
               style={{ fontSize: "16px", letterSpacing: "1px" }}
             >
-              $1.400
+              {productSelected.price}
             </h3>
           </div>
           <div className="w-full">

@@ -13,7 +13,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/vinoteca" element={<VinoTeca />} />
         <Route path="/nosotros" element={<About />} />
-        <Route path="/detalles" element={<Details />} />
+        <Route path="/vinoteca/detalles-vino/:id" element={<Details />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>

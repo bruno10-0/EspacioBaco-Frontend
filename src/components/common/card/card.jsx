@@ -22,7 +22,7 @@ export const Card = ({ product }) => {
           <h3 className="text-accent" style={{ letterSpacing: "2px", fontSize: "12px" }}>
             {product.price}
           </h3>
-            <Link  to="/detalles" style={{ fontSize: "10px", letterSpacing: "2px" }} className='h-full bg-secondary rounded-box p-2 uppercase'>
+            <Link  to={`detalles-vino/${product.id}`} style={{ fontSize: "10px", letterSpacing: "2px" }} className='h-full bg-secondary rounded-box p-2 uppercase'>
             Lo quiero
             </Link>
         </div>

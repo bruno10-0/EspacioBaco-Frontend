@@ -13,7 +13,7 @@ export const Purpose = () => {
           VISIÓN
         </h1>
         <p className="text-start mx-4">
-          Ser líderes globales en vinos, brindando experiencias excepcionales y
+          Ser líderes en la venta de vinos, brindando experiencias excepcionales y
           enriquecedoras que redefinan el placer de disfrutar del vino.
         </p>
       </div>

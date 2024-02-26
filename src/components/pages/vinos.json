@@ -4,83 +4,95 @@
     "name": "Gran Reserva",
     "description": "Tinto gran reserva, frutas maduras y vainilla.",
     "price": "$20",
-    "image": "https://www.vinoselkiosco.com/wp-content/uploads/2020/10/VinoGranReservaSerieRiberasCabernet750.png"
+    "image": "https://www.vinoselkiosco.com/wp-content/uploads/2020/10/VinoGranReservaSerieRiberasCabernet750.png",
+    "bodega": "Bodega Gran Reserva"
   },
   {
     "id": 2,
     "name": "Syrah Australiano",
     "description": "Tinto australiano equilibrado, frutas rojas y chocolate.",
     "price": "$15",
-    "image": "https://www.tierraderenacimiento.com/wp-content/uploads/2021/02/Disen%CC%83o-sin-ti%CC%81tulo77.png"
+    "image": "https://www.tierraderenacimiento.com/wp-content/uploads/2021/02/Disen%CC%83o-sin-ti%CC%81tulo77.png",
+    "bodega": "Bodega Australiana"
   },
   {
     "id": 3,
     "name": "Chardonnay Australiano",
     "description": "Blanco australiano fresco, frutas tropicales y madera.",
     "price": "$25",
-    "image": "https://www.enjoywinebcn.com/4055-large_default/cullen-kevin-john-chardonnay-2017.jpg"
+    "image": "https://www.enjoywinebcn.com/4055-large_default/cullen-kevin-john-chardonnay-2017.jpg",
+    "bodega": "Bodega Chardonnay"
   },
   {
     "id": 4,
     "name": "Malbec Argentino",
     "description": "Tinto argentino, frutas y especias.",
     "price": "$18",
-    "image": "https://www.1898drinksboutique.com/wp-content/uploads/401642.png"
+    "image": "https://www.1898drinksboutique.com/wp-content/uploads/401642.png",
+    "bodega": "Bodega Malbec"
   },
   {
     "id": 5,
     "name": "Vino Reserva",
     "description": "Tinto reserva, suaves taninos, frutas rojas y vainilla.",
     "price": "$20",
-    "image": "https://www.solyvinomendoza.com/14462-large_default/vino-blend-la-azul-reserva-750-ml.jpg"
+    "image": "https://www.solyvinomendoza.com/14462-large_default/vino-blend-la-azul-reserva-750-ml.jpg",
+    "bodega": "Bodega Reserva"
   },
   {
     "id": 6,
     "name": "Merlot Francés",
     "description": "Tinto francés, cuerpo medio, frutas rojas y especias.",
     "price": "$15",
-    "image": "https://www.vinoselkiosco.com/wp-content/uploads/2021/05/Vino-Frances-BG-Reserve-Merlot-Tinto-750-mL.png"
+    "image": "https://www.vinoselkiosco.com/wp-content/uploads/2021/05/Vino-Frances-BG-Reserve-Merlot-Tinto-750-mL.png",
+    "bodega": "Bodega Merlot"
   },
   {
     "id": 7,
     "name": "Blanco de Altura",
     "description": "Blanco de altura, acidez refrescante, frutas tropicales y cítricos.",
     "price": "$25",
-    "image": "https://static.wixstatic.com/media/5ff6ba_6aabfd81635c4d37a65627812d1dc891~mv2.png/v1/fill/w_244,h_960,al_c,lg_1,q_85,enc_auto/Blanco%20de%20Altura%20Chardonnay2.png"
+    "image": "https://static.wixstatic.com/media/5ff6ba_6aabfd81635c4d37a65627812d1dc891~mv2.png/v1/fill/w_244,h_960,al_c,lg_1,q_85,enc_auto/Blanco%20de%20Altura%20Chardonnay2.png",
+    "bodega": "Bodega Altura"
   },
   {
     "id": 8,
     "name": "Carmenere Chileno",
     "description": "Tinto chileno, pimienta negra y frutos oscuros.",
     "price": "$18",
-    "image": "https://www.conosur.com/wp-content/uploads/2017/05/RE-CAR-1.png"
+    "image": "https://www.conosur.com/wp-content/uploads/2017/05/RE-CAR-1.png",
+    "bodega": "Bodega Carmenere"
   },
   {
     "id": 9,
     "name": "Sauvignon Blanc Neozelandés",
     "description": "Blanco neozelandés, cítricos y hierba.",
     "price": "$22",
-    "image": "https://felixsolisavantis.com/app/uploads/2023/03/southern-ocean.png"
+    "image": "https://felixsolisavantis.com/app/uploads/2023/03/southern-ocean.png",
+    "bodega": "Bodega Sauvignon Blanc"
   },
   {
     "id": 10,
     "name": "Pinot Noir Francés",
     "description": "Tinto francés, frutos rojos y especias.",
     "price": "$19",
-    "image": "https://www.aromadevid.com.ar/wp-content/uploads/2022/08/HERMANDAD-WMS-PINOT-2020.png"
+    "image": "https://www.aromadevid.com.ar/wp-content/uploads/2022/08/HERMANDAD-WMS-PINOT-2020.png",
+    "bodega": "Bodega Pinot Noir"
   },
   {
     "id": 11,
     "name": "Tempranillo Español",
     "description": "Tinto español, cuerpo medio, frutas rojas y vainilla.",
     "price": "$30",
-    "image": "https://acdn.mitiendanube.com/stores/087/677/products/partida_unica_tempranillo1-8bfb25ef2263ea4cc116329465558238-640-0.png"
+    "image": "https://acdn.mitiendanube.com/stores/087/677/products/partida_unica_tempranillo1-8bfb25ef2263ea4cc116329465558238-640-0.png",
+    "bodega": "Bodega Tempranillo"
   },
   {
     "id": 12,
     "name": "Riesling Alemán",
     "description": "Blanco alemán, acidez y notas florales.",
     "price": "$24",
-    "image": "https://cdn.vinissimus.com/img/unsafe/p250x/plain/local:///prfmtgrande/vi/bwrup21_anv800.png"
+    "image": "https://cdn.vinissimus.com/img/unsafe/p250x/plain/local:///prfmtgrande/vi/bwrup21_anv800.png",
+    "bodega": "Bodega Riesling"
   }
 ]
