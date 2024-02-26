@@ -104,10 +104,9 @@ export const NavBar = () => {
           <div className="flex items-center justify-between">
             <Link to="/">
               <h1>
-                <span className="text-lg font-bold ">Wines</span>Eli
+                <span className="text-lg font-bold ">Espacio</span>Baco
               </h1>
             </Link>
-            {/* <button className="bg-white rounded-2xl text-black p-2" onClick={() => setAnimate(true)}>animacion?</button> */}
           </div>
         </div>
         {/*barra de busqueda*/}

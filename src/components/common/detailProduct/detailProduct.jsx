@@ -83,6 +83,12 @@ export const DetailProduct = () => {
                   fontWeight: "inherit",
                   letterSpacing: "4px",
                 }}
+                onClick={() => {
+                  window.scrollBy({
+                    top: -1,
+                    behavior: "smooth"
+                  });
+                }}
               >
                 Lo llevo
               </button>

@@ -5,12 +5,12 @@ export const AboutSection = () => {
     <section className="about" style={{ marginTop: "70px" }}>
       <div className="md:flex gap-2">
         <div className="text-box md:w-8/12 lg:w-1/2">
-          <h1 className="animation">WinesEli</h1>
+          <h1 className="animation">Espacio Baco</h1>
           <h1 className="animation text-primary">
-            Descubre el sabor de la vida en cada botella.
+          La Magia del Vino.
           </h1>
           <p className="animation">
-            En el vasto universo de experiencias que nos regala la vida, hay
+            Creemos que en el vasto universo de experiencias que nos regala la vida, hay
             algo mágico en la forma en que el vino teje sus historias entre las
             viñas y las barricas. Cada botella cuenta una narrativa única, una
             fusión de tierra, sol y cuidado meticuloso. Así como el amor

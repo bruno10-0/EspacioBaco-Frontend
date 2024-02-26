@@ -11,17 +11,18 @@
 }
 .about .text-box h1 {
   font-style: italic;
-  font-size: 3rem;
+  font-size: 1rem;
   text-transform: uppercase;
-  letter-spacing: 5px;
+  letter-spacing: 10px;
 }
 .about .text-box h1:nth-child(2) {
-  font-size: 1rem;
+  font-size: 2rem;
   animation-delay: 0.2s;
+  letter-spacing: 2px;
 }
 .about .text-box p {
   margin: 15px 0;
-  font-size: 16px;
+  font-size: 14px;
   letter-spacing: 1px;
   animation-delay: .4s;
 }

@@ -17,7 +17,7 @@ export const Footer = () => {
                     </div>
                 </nav>
                 <aside>
-                    <p className="select-none">Copyright © 2024 - All right reserved by WinesEli Industries</p>
+                    <p className="select-none">Copyright © 2024 - Todos los derechos reservados por ESPACIO BACO Industries.</p>
                 </aside>
             </footer>
         </>

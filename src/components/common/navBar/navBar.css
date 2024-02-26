@@ -137,16 +137,3 @@ i{
         display: none;
     }
  }
-
-
-
-
-
- /*animations*/
- .cart {
-    transition: transform 1s ease;
-  }
-  .cart.animate {
-    transform: translateY(-5px) scale(1.1);
-    font-size: 10rem;
-  }  
