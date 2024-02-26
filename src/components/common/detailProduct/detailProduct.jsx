@@ -42,7 +42,7 @@ export const DetailProduct = () => {
                   <FaCaretRight />
                 </a>
               </div>
-              <div className="absolute w-3/4 h-3/4 bg-accent rounded-full"></div>
+              <div className="absolute lg:w-3/4 lg:h-3/4 bg-accent rounded-full"></div>
             </div>
           </div>
         </div>
