@@ -4,7 +4,7 @@ import { Card } from "../common/card/card";
 import { Pagination } from "../common/pagination/pagination";
 import { useState } from "react";
 import vino from "./vinos.json";
-export const Bodega = () => {
+export const VinoTeca = () => {
   const [pagina, setPagina] = useState(1);
   // eslint-disable-next-line no-unused-vars
   const [porPagina, setPorPagina] = useState(8);

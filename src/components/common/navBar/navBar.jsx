@@ -139,10 +139,10 @@ export const NavBar = () => {
           </li>
           <li>
             <Link
-              to="/bodega"
+              to="/vinoteca"
               className="uppercase text-sm hover:border-b-2 border-primary cursor-pointer"
             >
-              Bodega
+              Vinoteca
             </Link>
           </li>
           <li>
