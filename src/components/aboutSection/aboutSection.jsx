@@ -9,7 +9,7 @@ export const AboutSection = () => {
         <div className="text-box md:w-8/12 lg:w-1/2">
           <h1 className="animation">WinesEli</h1>
           <h1 className="animation text-primary">
-            Descubre el sabor en cada botella.
+            Descubre el sabor de la vida en cada botella.
           </h1>
           <p className="animation">
             En el vasto universo de experiencias que nos regala la vida, hay
@@ -23,12 +23,6 @@ export const AboutSection = () => {
             celebrar la belleza efímera de la existencia. Como el buen vino, la
             vida es para ser saboreada con pasión y disfrutada en cada sorbo.
           </p>
-          <button
-            type="button"
-            className="btn text-primary border border-primary glass"
-          >
-            Search now
-          </button>
         </div>
         <div className="col-md-6">
           <img
