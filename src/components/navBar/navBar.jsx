@@ -26,17 +26,7 @@ export const NavBar = () => {
     //define la altura a la que se desplazara hacia el top(arriba) el nav bar al hacer scroll hacia abajo
     const navStyle = {
         top: visible ? "0px" : "-70px",
-    };
-    // sirve para animar al icono de el carrito, al usuario cargar un item en el mismo este realizara una animacion
-    useEffect(() => {
-        if (animate) {
-            const timeoutId = setTimeout(() => {
-                setAnimate(false);
-            }, 500); // Tiempo de la animación en milisegundos
-
-            return () => clearTimeout(timeoutId);
-        }
-    }, [animate]);
+    };   
     //lista de themas, nos ayudara a listar los botones para cambiar de tema
     const themes = [
         "light",
@@ -130,7 +120,7 @@ export const NavBar = () => {
                 <ul className="mx-12 py-40 bg-base-100 lg:py-0 lg:bg-transparent">
                     <li><Link to="/" className="lg:hidden uppercase text-sm transition-all hover:border-b-2 border-primary">Inicio</Link></li>
                     <li><Link to="/bodega" className="uppercase text-sm hover:border-b-2 border-primary cursor-pointer">Bodega</Link></li>
-                    <li><Link to="/" className="uppercase text-sm transition-all hover:border-b-2 border-primary">Nosotros</Link></li>
+                    <li><Link to="/nosotros" className="uppercase text-sm transition-all hover:border-b-2 border-primary">Nosotros</Link></li>
                     <div className="items-center justify-evenly gap-10 flex lg:hidden">
                         <FaInstagram className="text-2xl cursor-pointer" />
                         <FaWhatsapp className="text-2xl cursor-pointer" />

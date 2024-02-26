@@ -7,7 +7,7 @@ export const Footer = () => {
                 <nav className="grid grid-flow-col gap-4">
                     <Link to="/#" className="link link-hover">Inicio</Link>
                     <Link to="/Bodega" className="link link-hover">Bodega</Link>
-                    <Link to="/#" className="link link-hover">Sobre Nosotros</Link>
+                    <Link to="/nosotros" className="link link-hover">Sobre Nosotros</Link>
                 </nav>
                 <nav>
                     <div className="grid grid-flow-col gap-4">

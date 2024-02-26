@@ -7,7 +7,7 @@
     backdrop-filter: blur(2px);
     align-items: center;
     gap: 10px;
-    transition: .5s ease-in-out;
+    transition: .3s ease-in-out;
     padding: 10px;
     letter-spacing: 3px;
 }
