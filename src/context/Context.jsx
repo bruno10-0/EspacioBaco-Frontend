@@ -1,31 +1,38 @@
 /* eslint-disable react/prop-types */
-import { createContext, useContext, useState, useEffect } from 'react';
+import { createContext, useContext, useState, useEffect } from "react";
 
-const ThemeContext = createContext();
+const createdContext = createContext();
 
 export const Context = ({ children }) => {
-  const [theme, setTheme] = useState( document.documentElement.setAttribute("data-theme",(localStorage.getItem('reactMarketTheme') || 'light')));
+  const [cartList, setCartList] = useState([]);
+  const [theme, setTheme] = useState(
+    document.documentElement.setAttribute(
+      "data-theme",
+      localStorage.getItem("reactMarketTheme") || "light"
+    )
+  );
 
   // Función para cambiar el tema y guardar en localStorage
   const changeTheme = (newTheme) => {
     setTheme(newTheme);
-    localStorage.setItem('reactMarketTheme', newTheme);
+    localStorage.setItem("reactMarketTheme", newTheme);
   };
 
   useEffect(() => {
-    const storedTheme = localStorage.getItem('reactMarketTheme');
+    const storedTheme = localStorage.getItem("reactMarketTheme");
     if (storedTheme) {
       setTheme(storedTheme);
     }
   }, []);
 
   return (
-    <ThemeContext.Provider value={{ theme, changeTheme }}>
+    <createdContext.Provider
+      value={{ theme, changeTheme, cartList, setCartList }}
+    >
       {children}
-    </ThemeContext.Provider>
+    </createdContext.Provider>
   );
 };
 
-// Hook personalizado para consumir el contexto del tema
-// eslint-disable-next-line react-refresh/only-export-components
-export const useTheme = () => useContext(ThemeContext);
+// Hook personalizado para consumir el contexto
+export const useContexto = () => useContext(createdContext);

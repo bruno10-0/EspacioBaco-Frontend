@@ -1,24 +1,46 @@
+import "./detailProduct.css";
+import vinos from "../../pages/vinos.json";
 import { IoRemoveSharp, IoAddSharp } from "react-icons/io5";
 import { FaCaretLeft, FaCaretRight } from "react-icons/fa";
+import { VscError } from "react-icons/vsc";
 import { useState } from "react";
 import { NavBar } from "../navBar/navBar";
-import "./detailProduct.css";
 import { useParams } from "react-router-dom";
-import vinos from "../../pages/vinos.json";
+import { useContexto } from "../../../context/Context";
 export const DetailProduct = () => {
-  const [productQuantity, setProductQuantity] = useState(1); // Estado para la cantidad de productos
-
+  //estados y funciones para controlar el incrementar y decrementar de productos
+  const [productQuantity, setProductQuantity] = useState(1);
   const incrementarCantidad = () => {
     setProductQuantity(productQuantity + 1); // Incrementa la cantidad de productos
   };
-
   const decrementarCantidad = () => {
     if (productQuantity > 1) {
       setProductQuantity(productQuantity - 1); // Decrementa la cantidad de productos solo si es mayor que 1
     }
   };
+  //hook para leer la ruta dinamica y buscar el producto que coicida con la informacion de la misma.
   const { id } = useParams();
-  const  productSelected = vinos.find((vino) => vino.id == id);
+  const productSelected = vinos.find((vino) => vino.id == id);
+  // funcion para setear los productos a el estado de el carrito.
+  const { cartList, setCartList } = useContexto();
+  //con este handdle verificamos que la cantidad no exceda el stock disponible entre otras cosas...
+  const [error, setError] = useState(false);
+  const handdleVerification = () => {
+    if (productQuantity <= productSelected.stock) {
+      window.scrollBy({
+        top: -1,
+        behavior: "smooth",
+      });
+      const nuevaLista = [...cartList];
+      nuevaLista.push(productSelected);
+      setCartList(nuevaLista);
+    } else {
+      setError(true);
+      setTimeout(() => {
+        setError(false);
+      }, 2000);
+    }
+  };
   return (
     <>
       <NavBar />
@@ -75,23 +97,27 @@ export const DetailProduct = () => {
                 <IoAddSharp />
               </button>
             </div>
+            <h4 style={{ fontStyle: "italic" }} className="mt-4">
+              Aprovecha, tenemos <span className="text-primary text-2xl mx-1">{productSelected.stock}</span> botellas en stock!{" "}
+            </h4>
             <div>
               <button
-                className="btn hover:bg-primary bg-secondary text-base-100 uppercase border text-center my-4 p-3 w-full"
+                className="rounded-box btn hover:bg-primary bg-secondary text-base-100 uppercase border text-center my-2 p-2 w-full"
                 style={{
                   fontSize: "13px",
                   fontWeight: "inherit",
                   letterSpacing: "4px",
                 }}
-                onClick={() => {
-                  window.scrollBy({
-                    top: -1,
-                    behavior: "smooth"
-                  });
-                }}
+                onClick={handdleVerification}
               >
                 Lo llevo
               </button>
+              {error && (
+                <div className=" rounded-box text-base-200 bg-error p-3 flex items-center justify-center gap-2 mb-2">
+                  <VscError className="text-2xl"/>
+                  <p className="text-sm">Contamos solo con {productSelected.stock} botellas disponibles.</p>
+                </div>
+              )}
             </div>
             <div>
               <p className="text-xs flex flex-col gap-4">

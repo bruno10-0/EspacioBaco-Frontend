@@ -4,12 +4,11 @@ import { FiShoppingCart } from "react-icons/fi";
 import { FaBars } from "react-icons/fa";
 import { TbColorSwatch } from "react-icons/tb";
 import { useState, useEffect } from "react";
-import { useTheme } from "../../../context/Context";
+import { useContexto } from "../../../context/Context";
 import { Link } from "react-router-dom";
 import "./navBar.css";
 
 export const NavBar = () => {
-  const [animate, setAnimate] = useState(false);
   const [prevScrollPos, setPrevScrollPos] = useState(0);
   const [visible, setVisible] = useState(true);
   //escucha los eventos del scroll, sirve para ainmar la subida y bajada del navBar
@@ -63,8 +62,7 @@ export const NavBar = () => {
     "sunset",
   ];
 
-  const { changeTheme } = useTheme();
-
+  const { changeTheme, cartList } = useContexto();
   useEffect(() => {
     const storedTheme = localStorage.getItem("reactMarketTheme");
     if (storedTheme) {
@@ -76,7 +74,7 @@ export const NavBar = () => {
     changeTheme(newTheme);
     localStorage.setItem("reactMarketTheme", newTheme);
   };
-
+  console.log(cartList);
   return (
     <div>
       <header
@@ -214,22 +212,22 @@ export const NavBar = () => {
           </div>
           <div
             tabIndex={0}
-            className={`cart relative cursor-pointer dropdown dropdown-end max-h-[calc(100vh-300px)] ${
-              animate ? "animate" : ""
-            }`}
+            className="cart relative cursor-pointer dropdown dropdown-end max-h-[calc(100vh-300px)]"
           >
             <FiShoppingCart tabIndex={0} role="button" className="text-2xl" />
-            <i className="w-5 h-5 flex items-center justify-center absolute -top-2 -right-3 rounded-full bg-secondary text-base-100">
-              <p
-                style={{
-                  letterSpacing: "0px",
-                  fontFamily: "sans-serif",
-                  fontSize: "10px",
-                }}
-              >
-                1{" "}
-              </p>
-            </i>
+            {cartList.length >= 1 && (
+              <i className="w-5 h-5 flex items-center justify-center absolute -top-2 -right-3 rounded-full bg-secondary text-base-100">
+                <p
+                  style={{
+                    letterSpacing: "0px",
+                    fontFamily: "sans-serif",
+                    fontSize: "10px",
+                  }}
+                >
+                  {cartList.length}
+                </p>
+              </i>
+            )}
             <div
               tabIndex={0}
               className="shadow-2xl mt-8 rounded-badge dropdown-content  h-[calc(100vh-8rem)] w-72 overflow-y-auto bg-base-100 flex flex-col gap-2 p-4"
