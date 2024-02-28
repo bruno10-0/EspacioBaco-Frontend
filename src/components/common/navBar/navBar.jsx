@@ -7,7 +7,7 @@ import { useState, useEffect } from "react";
 import { useContexto } from "../../../context/Context";
 import { Link } from "react-router-dom";
 import "./navBar.css";
-
+import { DropdownItem } from "../dropdownItem/dropdownItem";
 export const NavBar = () => {
   const [prevScrollPos, setPrevScrollPos] = useState(0);
   const [visible, setVisible] = useState(true);
@@ -74,7 +74,6 @@ export const NavBar = () => {
     changeTheme(newTheme);
     localStorage.setItem("reactMarketTheme", newTheme);
   };
-  console.log(cartList);
   return (
     <div>
       <header
@@ -212,7 +211,7 @@ export const NavBar = () => {
           </div>
           <div
             tabIndex={0}
-            className="cart relative cursor-pointer dropdown dropdown-end max-h-[calc(100vh-300px)]"
+            className="cart relative  dropdown dropdown-end max-h-[calc(100vh-300px)]"
           >
             <FiShoppingCart tabIndex={0} role="button" className="text-2xl" />
             {cartList.length >= 1 && (
@@ -230,7 +229,7 @@ export const NavBar = () => {
             )}
             <div
               tabIndex={0}
-              className="shadow-2xl mt-8 rounded-badge dropdown-content  h-[calc(100vh-8rem)] w-72 overflow-y-auto bg-base-100 flex flex-col gap-2 p-4"
+              className="ml-48 shadow-2xl mt-8 rounded-badge dropdown-content  h-[calc(100vh-8rem)] w-72 md:w-96 overflow-y-auto bg-base-100 flex flex-col gap-2 p-4"
             >
               <h1 className="uppercase py-2 font-bold text-primary">Carrito</h1>
               <h2
@@ -240,9 +239,18 @@ export const NavBar = () => {
                 Gasta $15.000 o más y obtén envío gratis! (SOLO DISPONIBLE PARA
                 PEDIDOS DE POSADAS)
               </h2>
-              <div className="flex justify-start items-center text-primary">
-                Tu carrito está vacio
-              </div>
+              {cartList.length < 1 && (
+                <div className="flex justify-start items-center text-primary">
+                  Tu carrito está vacio
+                </div>
+              )}
+              {cartList.length >= 1 && (
+                <div>
+                  {cartList.map((item, index) => (
+                    <DropdownItem key={index} item={item}/>
+                  ))}
+                </div>
+              )}
             </div>
           </div>
         </div>

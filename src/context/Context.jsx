@@ -11,7 +11,6 @@ export const Context = ({ children }) => {
       localStorage.getItem("reactMarketTheme") || "light"
     )
   );
-
   // Función para cambiar el tema y guardar en localStorage
   const changeTheme = (newTheme) => {
     setTheme(newTheme);
@@ -27,7 +26,12 @@ export const Context = ({ children }) => {
 
   return (
     <createdContext.Provider
-      value={{ theme, changeTheme, cartList, setCartList }}
+      value={{
+        theme,
+        changeTheme,
+        cartList,
+        setCartList
+      }}
     >
       {children}
     </createdContext.Provider>

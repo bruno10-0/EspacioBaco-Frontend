@@ -8,37 +8,54 @@ import { NavBar } from "../navBar/navBar";
 import { useParams } from "react-router-dom";
 import { useContexto } from "../../../context/Context";
 export const DetailProduct = () => {
-  //estados y funciones para controlar el incrementar y decrementar de productos
+  const { cartList, setCartList } = useContexto();
   const [productQuantity, setProductQuantity] = useState(1);
-  const incrementarCantidad = () => {
-    setProductQuantity(productQuantity + 1); // Incrementa la cantidad de productos
-  };
-  const decrementarCantidad = () => {
-    if (productQuantity > 1) {
-      setProductQuantity(productQuantity - 1); // Decrementa la cantidad de productos solo si es mayor que 1
-    }
-  };
-  //hook para leer la ruta dinamica y buscar el producto que coicida con la informacion de la misma.
+
   const { id } = useParams();
   const productSelected = vinos.find((vino) => vino.id == id);
-  // funcion para setear los productos a el estado de el carrito.
-  const { cartList, setCartList } = useContexto();
-  //con este handdle verificamos que la cantidad no exceda el stock disponible entre otras cosas...
-  const [error, setError] = useState(false);
+
+  const [errorCantidad, setErrorCantidad] = useState(false);
+  const [errorExisteObjeto, setErrorExisteObjeto] = useState(false);
+
   const handdleVerification = () => {
-    if (productQuantity <= productSelected.stock) {
-      window.scrollBy({
-        top: -1,
-        behavior: "smooth",
-      });
-      const nuevaLista = [...cartList];
-      nuevaLista.push(productSelected);
-      setCartList(nuevaLista);
+    const verificarExistencia = (id) => {
+      const objetoExistente = cartList.find((producto) => producto.id === id);
+      return objetoExistente !== undefined;
+    };
+
+    const idBuscado = productSelected.id;
+    const existeObjeto = verificarExistencia(idBuscado);
+
+    if (!existeObjeto) {
+      if (productQuantity <= productSelected.stock) {
+        window.scrollBy({
+          top: -1,
+          behavior: "smooth",
+        });
+        const nuevaLista = [...cartList];
+        productSelected.quantity=productQuantity;
+        nuevaLista.push(productSelected);
+        setCartList(nuevaLista);
+      } else {
+        setErrorCantidad(true);
+        setTimeout(() => {
+          setErrorCantidad(false);
+        }, 2000);
+      }
     } else {
-      setError(true);
+      setErrorExisteObjeto(true);
       setTimeout(() => {
-        setError(false);
-      }, 2000);
+        setErrorExisteObjeto(false);
+      }, 3000);
+    }
+  };
+
+  const incrementQuantity = () => {
+    setProductQuantity(productQuantity + 1);
+  };
+  const decrementQuantity = () => {
+    if (productQuantity > 1) {
+      setProductQuantity(productQuantity - 1);
     }
   };
   return (
@@ -89,16 +106,20 @@ export const DetailProduct = () => {
           </div>
           <div className="w-full">
             <div className="w-2/5 flex justify-between gap-2 items-center border p-2">
-              <button onClick={decrementarCantidad}>
+              <button onClick={decrementQuantity}>
                 <IoRemoveSharp />
               </button>
               <span>{productQuantity}</span>
-              <button onClick={incrementarCantidad}>
+              <button onClick={incrementQuantity}>
                 <IoAddSharp />
               </button>
             </div>
             <h4 style={{ fontStyle: "italic" }} className="mt-4">
-              Aprovecha, tenemos <span className="text-primary text-2xl mx-1">{productSelected.stock}</span> botellas en stock!{" "}
+              Aprovecha, tenemos{" "}
+              <span className="text-primary text-2xl mx-1">
+                {productSelected.stock}
+              </span>{" "}
+              botellas en stock!{" "}
             </h4>
             <div>
               <button
@@ -112,10 +133,21 @@ export const DetailProduct = () => {
               >
                 Lo llevo
               </button>
-              {error && (
+              {errorCantidad && (
                 <div className=" rounded-box text-base-200 bg-error p-3 flex items-center justify-center gap-2 mb-2">
-                  <VscError className="text-2xl"/>
-                  <p className="text-sm">Contamos solo con {productSelected.stock} botellas disponibles.</p>
+                  <VscError className="text-2xl" />
+                  <p className="text-sm">
+                    Contamos solo con {productSelected.stock} botellas
+                    disponibles.
+                  </p>
+                </div>
+              )}
+              {errorExisteObjeto && (
+                <div className=" rounded-box text-base-200 bg-error p-3 flex items-center justify-center gap-2 mb-2">
+                  <VscError className="text-2xl" />
+                  <p className="text-sm">
+                    Al parecer ya tienes esta botella en tu carrito.
+                  </p>
                 </div>
               )}
             </div>
