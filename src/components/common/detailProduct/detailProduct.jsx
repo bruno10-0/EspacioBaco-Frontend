@@ -33,7 +33,7 @@ export const DetailProduct = () => {
           behavior: "smooth",
         });
         const nuevaLista = [...cartList];
-        productSelected.quantity=productQuantity;
+        productSelected.quantity = productQuantity;
         nuevaLista.push(productSelected);
         setCartList(nuevaLista);
       } else {
@@ -51,7 +51,9 @@ export const DetailProduct = () => {
   };
 
   const incrementQuantity = () => {
-    setProductQuantity(productQuantity + 1);
+    if (productQuantity < productSelected.stock) {
+      setProductQuantity(productQuantity + 1);
+    }
   };
   const decrementQuantity = () => {
     if (productQuantity > 1) {
@@ -67,10 +69,10 @@ export const DetailProduct = () => {
       >
         <div className="ContainerImg">
           <div className="carousel w-full h-full">
-            <div className="carousel-item relative  flex justify-center items-center w-full h-full">
+            <div className="carousel-item relative flex justify-center items-center w-full h-full">
               <img
                 src={productSelected.image}
-                alt="imagen  de el vino"
+                alt="imagen de el vino"
                 className="z-10 w-full h-full object-contain"
               />
               <div className="absolute flex justify-between w-full top-1/2">
@@ -81,7 +83,14 @@ export const DetailProduct = () => {
                   <FaCaretRight />
                 </a>
               </div>
-              <div className="absolute lg:w-3/4 lg:h-3/4 bg-accent rounded-full"></div>
+              <div className="absolute lg:w-3/5 lg:h-3/5 lg:bg-accent rounded-full flex justify-center overflow-hidden">
+                <img
+                  style={{ transform: 'rotate(85deg)' }}
+                  src="https://video-public.canva.com/VAFGRruTyzw/v/03eab254de.gif"
+                  alt=""
+                  className="object-cover"
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -101,7 +110,7 @@ export const DetailProduct = () => {
               className="uppercase"
               style={{ fontSize: "16px", letterSpacing: "1px" }}
             >
-              {productSelected.price}
+              ${productSelected.price}
             </h3>
           </div>
           <div className="w-full">
@@ -123,7 +132,7 @@ export const DetailProduct = () => {
             </h4>
             <div>
               <button
-                className="rounded-box btn hover:bg-primary bg-secondary text-base-100 uppercase border text-center my-2 p-2 w-full"
+                className="rounded-box btn bg-accent text-base-100 uppercase border text-center my-2 p-2 w-full"
                 style={{
                   fontSize: "13px",
                   fontWeight: "inherit",

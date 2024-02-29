@@ -3,7 +3,7 @@
     "id": 1,
     "name": "Gran Reserva",
     "description": "Tinto gran reserva, frutas maduras y vainilla.",
-    "price": "$20",
+    "price": 20,
     "image": "https://www.vinoselkiosco.com/wp-content/uploads/2020/10/VinoGranReservaSerieRiberasCabernet750.png",
     "bodega": "Bodega Gran Reserva",
     "stock": 78
@@ -12,7 +12,7 @@
     "id": 2,
     "name": "Syrah Australiano",
     "description": "Tinto australiano equilibrado, frutas rojas y chocolate.",
-    "price": "$15",
+    "price": 15,
     "image": "https://www.tierraderenacimiento.com/wp-content/uploads/2021/02/Disen%CC%83o-sin-ti%CC%81tulo77.png",
     "bodega": "Bodega Australiana",
     "stock": 42
@@ -21,7 +21,7 @@
     "id": 3,
     "name": "Chardonnay Australiano",
     "description": "Blanco australiano fresco, frutas tropicales y madera.",
-    "price": "$25",
+    "price": 25,
     "image": "https://www.enjoywinebcn.com/4055-large_default/cullen-kevin-john-chardonnay-2017.jpg",
     "bodega": "Bodega Chardonnay",
     "stock": 15
@@ -30,7 +30,7 @@
     "id": 4,
     "name": "Malbec Argentino",
     "description": "Tinto argentino, frutas y especias.",
-    "price": "$18",
+    "price": 18,
     "image": "https://www.1898drinksboutique.com/wp-content/uploads/401642.png",
     "bodega": "Bodega Malbec",
     "stock": 90
@@ -39,7 +39,7 @@
     "id": 5,
     "name": "Vino Reserva",
     "description": "Tinto reserva, suaves taninos, frutas rojas y vainilla.",
-    "price": "$20",
+    "price": 20,
     "image": "https://www.solyvinomendoza.com/14462-large_default/vino-blend-la-azul-reserva-750-ml.jpg",
     "bodega": "Bodega Reserva",
     "stock": 63
@@ -48,7 +48,7 @@
     "id": 6,
     "name": "Merlot Francés",
     "description": "Tinto francés, cuerpo medio, frutas rojas y especias.",
-    "price": "$15",
+    "price": 15,
     "image": "https://www.vinoselkiosco.com/wp-content/uploads/2021/05/Vino-Frances-BG-Reserve-Merlot-Tinto-750-mL.png",
     "bodega": "Bodega Merlot",
     "stock": 31
@@ -57,7 +57,7 @@
     "id": 7,
     "name": "Blanco de Altura",
     "description": "Blanco de altura, acidez refrescante, frutas tropicales y cítricos.",
-    "price": "$25",
+    "price": 25,
     "image": "https://static.wixstatic.com/media/5ff6ba_6aabfd81635c4d37a65627812d1dc891~mv2.png/v1/fill/w_244,h_960,al_c,lg_1,q_85,enc_auto/Blanco%20de%20Altura%20Chardonnay2.png",
     "bodega": "Bodega Altura",
     "stock": 84
@@ -66,7 +66,7 @@
     "id": 8,
     "name": "Carmenere Chileno",
     "description": "Tinto chileno, pimienta negra y frutos oscuros.",
-    "price": "$18",
+    "price": 18,
     "image": "https://www.conosur.com/wp-content/uploads/2017/05/RE-CAR-1.png",
     "bodega": "Bodega Carmenere",
     "stock": 52
@@ -75,7 +75,7 @@
     "id": 9,
     "name": "Sauvignon Blanc Neozelandés",
     "description": "Blanco neozelandés, cítricos y hierba.",
-    "price": "$22",
+    "price": 22,
     "image": "https://felixsolisavantis.com/app/uploads/2023/03/southern-ocean.png",
     "bodega": "Bodega Sauvignon Blanc",
     "stock": 73
@@ -84,7 +84,7 @@
     "id": 10,
     "name": "Pinot Noir Francés",
     "description": "Tinto francés, frutos rojos y especias.",
-    "price": "$19",
+    "price": 19,
     "image": "https://www.aromadevid.com.ar/wp-content/uploads/2022/08/HERMANDAD-WMS-PINOT-2020.png",
     "bodega": "Bodega Pinot Noir",
     "stock": 21
@@ -93,7 +93,7 @@
     "id": 11,
     "name": "Tempranillo Español",
     "description": "Tinto español, cuerpo medio, frutas rojas y vainilla.",
-    "price": "$30",
+    "price": 30,
     "image": "https://acdn.mitiendanube.com/stores/087/677/products/partida_unica_tempranillo1-8bfb25ef2263ea4cc116329465558238-640-0.png",
     "bodega": "Bodega Tempranillo",
     "stock": 37
@@ -102,7 +102,7 @@
     "id": 12,
     "name": "Riesling Alemán",
     "description": "Blanco alemán, acidez y notas florales.",
-    "price": "$24",
+    "price": 24,
     "image": "https://cdn.vinissimus.com/img/unsafe/p250x/plain/local:///prfmtgrande/vi/bwrup21_anv800.png",
     "bodega": "Bodega Riesling",
     "stock": 95

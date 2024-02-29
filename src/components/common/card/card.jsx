@@ -20,7 +20,7 @@ export const Card = ({ product }) => {
 
         <div className='w-full h-auto flex justify-between items-center px-4 gap-1'>
           <h3 className="text-accent" style={{ letterSpacing: "2px", fontSize: "12px" }}>
-            {product.price}
+            ${product.price}
           </h3>
             <Link  to={`detalles-vino/${product.id}`} style={{ fontSize: "10px", letterSpacing: "2px" }} className='h-full bg-secondary rounded-box p-2 uppercase'>
             Lo quiero

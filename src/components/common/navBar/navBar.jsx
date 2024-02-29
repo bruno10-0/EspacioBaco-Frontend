@@ -62,7 +62,9 @@ export const NavBar = () => {
     "sunset",
   ];
 
-  const { changeTheme, cartList } = useContexto();
+  const { changeTheme, cartList, totalCompra, cantidad, freeShipping } =
+    useContexto();
+
   useEffect(() => {
     const storedTheme = localStorage.getItem("reactMarketTheme");
     if (storedTheme) {
@@ -211,7 +213,7 @@ export const NavBar = () => {
           </div>
           <div
             tabIndex={0}
-            className="cart relative  dropdown dropdown-end max-h-[calc(100vh-300px)]"
+            className="cart relative dropdown dropdown-end max-h-[calc(100vh-300px)]"
           >
             <FiShoppingCart tabIndex={0} role="button" className="text-2xl" />
             {cartList.length >= 1 && (
@@ -229,26 +231,77 @@ export const NavBar = () => {
             )}
             <div
               tabIndex={0}
-              className="ml-48 shadow-2xl mt-8 rounded-badge dropdown-content  h-[calc(100vh-8rem)] w-72 md:w-96 overflow-y-auto bg-base-100 flex flex-col gap-2 p-4"
+              className="relative shadow-2xl rounded-badge dropdown-content h-auto max-h-[calc(100vh-90px)] w-72 md:w-96 overflow-hidden overflow-y-auto bg-base-100 flex flex-col gap-2 p-4 mt-8"
             >
-              <h1 className="uppercase py-2 font-bold text-primary">Carrito</h1>
-              <h2
-                className="border-y py-2 text-primary"
-                style={{ letterSpacing: "0px", fontSize: "12px" }}
-              >
-                Gasta $15.000 o más y obtén envío gratis! (SOLO DISPONIBLE PARA
-                PEDIDOS DE POSADAS)
-              </h2>
-              {cartList.length < 1 && (
-                <div className="flex justify-start items-center text-primary">
-                  Tu carrito está vacio
-                </div>
-              )}
+              <div className="sticky -top-4 bg-base-100">
+                <h1 className="uppercase py-2 font-bold">Carrito</h1>
+                {!freeShipping && (
+                  <h2
+                    className="border-y py-2"
+                    style={{ letterSpacing: "0px", fontSize: "12px" }}
+                  >
+                    Gasta $100 o más y obtén envío gratis! (SOLO DISPONIBLE PARA
+                    PEDIDOS DE POSADAS)
+                  </h2>
+                )}
+                {freeShipping && (
+                  <h2
+                    className="border-y py-2 text-success"
+                    style={{ letterSpacing: "0px", fontSize: "12px" }}
+                  >
+                    Felicidades, tus compras califican para envío gratuito.
+                  </h2>
+                )}
+                {cartList.length < 1 && (
+                  <div>
+                    <div className="flex justify-center items-center p-2 gap-4">
+                      <img
+                        className="w-1/2 h-auto"
+                        src="https://media-public.canva.com/_IA5g/MAD_3i_IA5g/1/t.png"
+                        alt="img"
+                      />
+                      <h3 className="text-xs">
+                        ¡Sr. Bigotes exploró tu carrito y encontró menos que una
+                        botella vacía en una fiesta! ¿Qué tal llenarlo con
+                        algunos vinos exquisitos para ti?
+                      </h3>
+                    </div>
+                    <button className="my-2 w-full btn">
+                      <Link to="/vinoteca">Explorar vinoteca</Link>
+                    </button>
+                  </div>
+                )}
+              </div>
+
               {cartList.length >= 1 && (
                 <div>
                   {cartList.map((item, index) => (
-                    <DropdownItem key={index} item={item}/>
+                    <DropdownItem key={index} item={item} />
                   ))}
+                  <div className="sticky bg-base-100 p-4 -bottom-4 left-0 w-full h-auto  flex flex-col items-center">
+                    <div className="w-full h-auto my-2 flex justify-between text-xs">
+                      <h2>Productos({cantidad})</h2>
+                      <h3>${totalCompra}</h3>
+                    </div>
+                    {freeShipping && (
+                      <div className="w-full flex mb-2 justify-between text-xs">
+                        <h2>Envios</h2>
+                        <h3 className="text-success">Gratis</h3>
+                      </div>
+                    )}
+                    <div className="w-full flex mb-2 justify-between">
+                      <h1
+                        style={{ letterSpacing: "5px" }}
+                        className="bold text uppercase"
+                      >
+                        Total
+                      </h1>
+                      <h1 className="bold">${totalCompra}</h1>
+                    </div>
+                    <button className="w-full btn bg-accent">
+                      Continuar Compra
+                    </button>
+                  </div>
                 </div>
               )}
             </div>
