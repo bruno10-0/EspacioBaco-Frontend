@@ -66,7 +66,7 @@ export const NavBar = () => {
     useContexto();
 
   useEffect(() => {
-    const storedTheme = localStorage.getItem("reactMarketTheme");
+    const storedTheme = localStorage.getItem("espacioBacoTheme");
     if (storedTheme) {
       changeTheme(storedTheme);
     }
