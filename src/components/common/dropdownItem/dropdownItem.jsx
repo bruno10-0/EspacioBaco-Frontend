@@ -2,7 +2,7 @@ import { IoRemoveSharp, IoAddSharp } from "react-icons/io5";
 import { useState } from "react";
 import { useContexto } from "../../../context/Context";
 export const DropdownItem = ({ item }) => {
-  const { cartList, setCartList } = useContexto();
+  const { cartList, setCartList,eliminarItem } = useContexto();
   const [input, setInput] = useState(item.quantity);
 
   const replaceObject = () => {
@@ -16,6 +16,7 @@ export const DropdownItem = ({ item }) => {
       setCartList(nuevaLista);
     });
   };
+
   const incrementBTN = () => {
     if (input < item.stock) {
       setInput(parseInt(input) + 1);
@@ -23,6 +24,7 @@ export const DropdownItem = ({ item }) => {
       replaceObject();
     }
   };
+
   const decrementBTN = () => {
     if (parseInt(input) > 1) {
       setInput(parseInt(input) - 1);
@@ -30,6 +32,10 @@ export const DropdownItem = ({ item }) => {
       replaceObject();
     }
   };
+
+  const handleEliminarItem=()=>{
+    setCartList(eliminarItem(cartList,item.id))
+  }
   return (
     <div
       style={{ height: "120px" }}
@@ -53,18 +59,18 @@ export const DropdownItem = ({ item }) => {
         <div className="w-full flex items-center justify-between">
           <div className=" p-2 border flex items-center">
             <IoRemoveSharp
-              className="cursor-pointer mr-4"
+              className="cursor-pointer mr-6 ml-2"
               onClick={decrementBTN}
             />
             <span className="select-none">{input}</span>
             <IoAddSharp
-              className="cursor-pointer ml-4"
+              className="cursor-pointer ml-6 mr-2"
               onClick={incrementBTN}
             />
           </div>
-          <h3 className="border-primary hover:border-b primary ml-2 uppercase text-xs cursor-pointer">
+          <button onClick={handleEliminarItem} className="border-primary hover:border-b primary ml-2 uppercase text-xs cursor-pointer">
             Remover
-          </h3>
+          </button>
         </div>
       </div>
     </div>

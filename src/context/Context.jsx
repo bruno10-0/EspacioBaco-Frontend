@@ -14,7 +14,7 @@ export const Context = ({ children }) => {
       localStorage.getItem("reactMarketTheme") || "light"
     )
   );
-  // Función para cambiar el tema y guardar en localStorage
+
   const changeTheme = (newTheme) => {
     setTheme(newTheme);
     localStorage.setItem("reactMarketTheme", newTheme);
@@ -32,7 +32,7 @@ export const Context = ({ children }) => {
       setFreeShipping(false);
     }
   };
-  // Función para calcular el total de la compra
+
   const calcularTotalCompra = () => {
     let total = 0;
     // Recorremos cada objeto en 'cartList'
@@ -43,7 +43,7 @@ export const Context = ({ children }) => {
     });
     return total;
   };
-  // Función para calcular la cantidad de productos en la compra
+
   const calcularCantidad = () => {
     var cantidad = 0;
     cartList.forEach((item) => {
@@ -51,15 +51,24 @@ export const Context = ({ children }) => {
     });
     return cantidad;
   };
-  // useEffect para actualizar el total cuando cambie 'cartList'
+
+  const eliminarItem = (estado, id) => {
+    var nuevoEstado = [];
+    for (var i = 0; i < estado.length; i++) {
+      if (estado[i].id !== id) {
+        nuevoEstado.push(estado[i]);
+      }
+    }
+    return nuevoEstado;
+  };
+
   useEffect(() => {
-    // Calculamos el total de la compra cada vez que 'cartList' cambie
     const total = calcularTotalCompra();
-    setTotalCompra(total);
     const cantidad = calcularCantidad();
+    setTotalCompra(total);
     setCantidad(cantidad);
     isFree();
-  }, [cartList,setCartList, totalCompra]);
+  }, [cartList, setCartList, totalCompra]);
 
   return (
     <createdContext.Provider
@@ -70,7 +79,8 @@ export const Context = ({ children }) => {
         setCartList,
         totalCompra,
         cantidad,
-        freeShipping
+        freeShipping,
+        eliminarItem
       }}
     >
       {children}

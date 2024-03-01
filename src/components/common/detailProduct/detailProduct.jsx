@@ -7,9 +7,11 @@ import { useState } from "react";
 import { NavBar } from "../navBar/navBar";
 import { useParams } from "react-router-dom";
 import { useContexto } from "../../../context/Context";
+import { CiCircleCheck } from "react-icons/ci";
 export const DetailProduct = () => {
   const { cartList, setCartList } = useContexto();
   const [productQuantity, setProductQuantity] = useState(1);
+  const [itemAgregado, setItemAgregado] = useState(false);
 
   const { id } = useParams();
   const productSelected = vinos.find((vino) => vino.id == id);
@@ -28,14 +30,18 @@ export const DetailProduct = () => {
 
     if (!existeObjeto) {
       if (productQuantity <= productSelected.stock) {
-        window.scrollBy({
-          top: -1,
-          behavior: "smooth",
-        });
         const nuevaLista = [...cartList];
         productSelected.quantity = productQuantity;
         nuevaLista.push(productSelected);
         setCartList(nuevaLista);
+        setItemAgregado(true);
+        setTimeout(() => {
+          setItemAgregado(false);
+        }, 2000);
+        window.scrollBy({
+          top: -1,
+          behavior: "smooth",
+        });
       } else {
         setErrorCantidad(true);
         setTimeout(() => {
@@ -65,7 +71,7 @@ export const DetailProduct = () => {
       <NavBar />
       <div
         style={{ marginTop: "70px" }}
-        className="mb-2 p-2 w-full flex flex-col items-center lg:items-start lg:flex-row justify-around"
+        className="relative mb-2 p-2 w-full flex flex-col items-center lg:items-start lg:flex-row justify-around"
       >
         <div className="ContainerImg">
           <div className="carousel w-full h-full">
@@ -83,9 +89,9 @@ export const DetailProduct = () => {
                   <FaCaretRight />
                 </a>
               </div>
-              <div className="absolute lg:w-3/5 lg:h-3/5 lg:bg-accent rounded-full flex justify-center overflow-hidden">
+              <div className="absolute w-full lg:w-3/5 lg:h-3/5 lg:bg-accent lg:rounded-full flex justify-center overflow-hidden">
                 <img
-                  style={{ transform: 'rotate(85deg)' }}
+                  style={{ transform: "rotate(85deg)" }}
                   src="https://video-public.canva.com/VAFGRruTyzw/v/03eab254de.gif"
                   alt=""
                   className="object-cover"
@@ -156,6 +162,15 @@ export const DetailProduct = () => {
                   <VscError className="text-2xl" />
                   <p className="text-sm">
                     Al parecer ya tienes esta botella en tu carrito.
+                  </p>
+                </div>
+              )}
+
+              {itemAgregado && (
+                <div className=" rounded-box text-base-200 bg-success p-3 flex items-center justify-center gap-2 mb-2">
+                  <CiCircleCheck className="text-2xl" />
+                  <p className="text-sm">
+                    Agregaste con exito esta botella al carrito.
                   </p>
                 </div>
               )}

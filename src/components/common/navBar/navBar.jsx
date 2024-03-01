@@ -266,9 +266,9 @@ export const NavBar = () => {
                         algunos vinos exquisitos para ti?
                       </h3>
                     </div>
-                    <button className="my-2 w-full btn">
-                      <Link to="/vinoteca">Explorar vinoteca</Link>
-                    </button>
+                    <Link to="/vinoteca"className="my-2 w-full btn">
+                      <h2 >Explorar vinoteca</h2>
+                    </Link>
                   </div>
                 )}
               </div>
