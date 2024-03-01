@@ -14,7 +14,7 @@ export const Context = ({ children }) => {
   const [theme, setTheme] = useState(
     document.documentElement.setAttribute(
       "data-theme",
-      localStorage.getItem("reactMarketTheme") || "light"
+      localStorage.getItem("espacioBacoTheme") || "light"
     )
   );
 
