@@ -256,18 +256,19 @@ export const NavBar = () => {
                   <div>
                     <div className="flex justify-center items-center p-2 gap-4">
                       <img
-                        className="w-1/2 h-auto"
-                        src="https://media-public.canva.com/_IA5g/MAD_3i_IA5g/1/t.png"
+                        className="w-1/3 h-auto"
+                        src="https://media-public.canva.com/Tu5po/MAFf4dTu5po/1/t.png"
                         alt="img"
                       />
                       <h3 className="text-xs">
-                        ¡Sr. Bigotes exploró tu carrito y encontró menos que una
-                        botella vacía en una fiesta! ¿Qué tal llenarlo con
-                        algunos vinos exquisitos para ti?
+                        ¡Hola, amiga/o del buen sabor! 🍷 ¿Te unes a mí en una
+                        aventura vinícola? Descubre el mundo de los vinos
+                        conmigo, ¡te aseguro que será un viaje inolvidable!
+                        ¡Salud y miau! 🐾🍇
                       </h3>
                     </div>
-                    <Link to="/vinoteca"className="my-2 w-full btn">
-                      <h2 >Explorar vinoteca</h2>
+                    <Link to="/vinoteca" className="my-2 w-full btn bg-accent text-base-100 hover:text-primary">
+                      <h2 className="text-xs">Descubrir el mundo de los vinos</h2>
                     </Link>
                   </div>
                 )}
@@ -298,7 +299,7 @@ export const NavBar = () => {
                       </h1>
                       <h1 className="bold">${totalCompra}</h1>
                     </div>
-                    <button className="w-full btn bg-accent">
+                    <button className="w-full btn text-base-100 hover:text-primary bg-accent">
                       Continuar Compra
                     </button>
                   </div>
