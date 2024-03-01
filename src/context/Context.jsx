@@ -7,7 +7,10 @@ export const Context = ({ children }) => {
   const [freeShipping, setFreeShipping] = useState(false);
   const [cantidad, setCantidad] = useState(0);
   const [totalCompra, setTotalCompra] = useState(0);
-  const [cartList, setCartList] = useState([]);
+  const [cartList, setCartList] = useState(() => {
+    const storedValue = localStorage.getItem("carritoCompras");
+    return storedValue ? JSON.parse(storedValue) : [];
+  });
   const [theme, setTheme] = useState(
     document.documentElement.setAttribute(
       "data-theme",
@@ -17,14 +20,9 @@ export const Context = ({ children }) => {
 
   const changeTheme = (newTheme) => {
     setTheme(newTheme);
-    localStorage.setItem("reactMarketTheme", newTheme);
+    localStorage.setItem("espacioBacoTheme", newTheme);
   };
-  useEffect(() => {
-    const storedTheme = localStorage.getItem("reactMarketTheme");
-    if (storedTheme) {
-      setTheme(storedTheme);
-    }
-  }, []);
+
   const isFree = () => {
     if (totalCompra > 99) {
       setFreeShipping(true);
@@ -70,6 +68,17 @@ export const Context = ({ children }) => {
     isFree();
   }, [cartList, setCartList, totalCompra]);
 
+  useEffect(() => {
+    const storedTheme = localStorage.getItem("espacioBacoTheme");
+    if (storedTheme) {
+      setTheme(storedTheme);
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("carritoCompras", JSON.stringify(cartList));
+  }, [cartList]);
+
   return (
     <createdContext.Provider
       value={{
@@ -80,7 +89,7 @@ export const Context = ({ children }) => {
         totalCompra,
         cantidad,
         freeShipping,
-        eliminarItem
+        eliminarItem,
       }}
     >
       {children}
