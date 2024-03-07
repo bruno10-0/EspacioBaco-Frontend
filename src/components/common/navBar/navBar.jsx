@@ -1,32 +1,23 @@
-import { CiSearch } from "react-icons/ci";
-import { FaInstagram, FaWhatsapp, FaFacebookF } from "react-icons/fa6";
-import { FiShoppingCart } from "react-icons/fi";
-import { FaBars } from "react-icons/fa";
-import { TbColorSwatch } from "react-icons/tb";
 import { useState, useEffect } from "react";
 import { useContexto } from "../../../context/Context";
 import { Link } from "react-router-dom";
-import "./navBar.css";
+import { CiSearch } from "react-icons/ci";
+import { FiUser } from "react-icons/fi";
+import { FaInstagram, FaWhatsapp, FaFacebookF, FaBars } from "react-icons/fa";
+import { FiShoppingCart } from "react-icons/fi";
+import { TbColorSwatch } from "react-icons/tb";
 import { DropdownItem } from "../dropdownItem/dropdownItem";
+import "./navBar.css";
+
 export const NavBar = () => {
   const [prevScrollPos, setPrevScrollPos] = useState(0);
   const [visible, setVisible] = useState(true);
-  //escucha los eventos del scroll, sirve para ainmar la subida y bajada del navBar
-  useEffect(() => {
-    const handleScroll = () => {
-      const currentScrollPos = window.pageYOffset;
-      setVisible(prevScrollPos > currentScrollPos || currentScrollPos === 0);
-      setPrevScrollPos(currentScrollPos);
-    };
+  const { changeTheme, cartList, total, cantidad, envioGratis } = useContexto();
 
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [prevScrollPos]);
-  //define la altura a la que se desplazara hacia el top(arriba) el nav bar al hacer scroll hacia abajo
   const navStyle = {
     top: visible ? "0px" : "-70px",
   };
-  //lista de themas, nos ayudara a listar los botones para cambiar de tema
+
   const themes = [
     "light",
     "dark",
@@ -62,8 +53,10 @@ export const NavBar = () => {
     "sunset",
   ];
 
-  const { changeTheme, cartList, totalCompra, cantidad, freeShipping } =
-    useContexto();
+  const handleThemeChange = (newTheme) => {
+    changeTheme(newTheme);
+    localStorage.setItem("espacioBacoTheme", newTheme);
+  };
 
   useEffect(() => {
     const storedTheme = localStorage.getItem("espacioBacoTheme");
@@ -72,10 +65,17 @@ export const NavBar = () => {
     }
   }, [changeTheme]);
 
-  const handleThemeChange = (newTheme) => {
-    changeTheme(newTheme);
-    localStorage.setItem("reactMarketTheme", newTheme);
-  };
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollPos = window.pageYOffset;
+      setVisible(prevScrollPos > currentScrollPos || currentScrollPos === 0);
+      setPrevScrollPos(currentScrollPos);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [prevScrollPos]);
+
   return (
     <div>
       <header
@@ -231,11 +231,11 @@ export const NavBar = () => {
             )}
             <div
               tabIndex={0}
-              className="relative shadow-2xl rounded-badge dropdown-content h-auto max-h-[calc(100vh-90px)] w-72 md:w-96 overflow-hidden overflow-y-auto bg-base-100 flex flex-col gap-2 p-4 mt-8"
+              className="relative shadow-2xl rounded-badge dropdown-content h-auto max-h-[calc(100vh-90px)] w-72 md:w-96 overflow-hidden overflow-y-auto bg-base-100 flex flex-col gap-2 px-4 mt-8"
             >
-              <div className="sticky -top-4 bg-base-100">
+              <div className="sticky top-0 p-2 bg-base-100 z-10">
                 <h1 className="uppercase py-2 font-bold">Carrito</h1>
-                {!freeShipping && (
+                {!envioGratis && (
                   <h2
                     className="border-y py-2"
                     style={{ letterSpacing: "0px", fontSize: "12px" }}
@@ -244,7 +244,8 @@ export const NavBar = () => {
                     PEDIDOS DE POSADAS)
                   </h2>
                 )}
-                {freeShipping && (
+
+                {envioGratis && (
                   <h2
                     className="border-y py-2 text-success"
                     style={{ letterSpacing: "0px", fontSize: "12px" }}
@@ -252,6 +253,7 @@ export const NavBar = () => {
                     Felicidades, tus compras califican para envío gratuito.
                   </h2>
                 )}
+
                 {cartList.length < 1 && (
                   <div>
                     <div className="flex justify-center items-center p-2 gap-4">
@@ -267,8 +269,13 @@ export const NavBar = () => {
                         ¡Salud y miau! 🐾🍇
                       </h3>
                     </div>
-                    <Link to="/vinoteca" className="my-2 w-full btn bg-accent text-base-100 hover:text-primary">
-                      <h2 className="text-xs">Descubrir el mundo de los vinos</h2>
+                    <Link
+                      to="/vinoteca"
+                      className="my-2 w-full btn bg-accent text-base-100 hover:text-primary"
+                    >
+                      <h2 className="text-xs">
+                        Descubrir el mundo de los vinos
+                      </h2>
                     </Link>
                   </div>
                 )}
@@ -279,12 +286,12 @@ export const NavBar = () => {
                   {cartList.map((item, index) => (
                     <DropdownItem key={index} item={item} />
                   ))}
-                  <div className="sticky bg-base-100 p-4 -bottom-4 left-0 w-full h-auto  flex flex-col items-center">
+                  <div className="sticky bottom-0 bg-base-100 p-4  w-full h-auto  flex flex-col items-center">
                     <div className="w-full h-auto my-2 flex justify-between text-xs">
                       <h2>Productos({cantidad})</h2>
-                      <h3>${totalCompra}</h3>
+                      <h3>${total}</h3>
                     </div>
-                    {freeShipping && (
+                    {envioGratis && (
                       <div className="w-full flex mb-2 justify-between text-xs">
                         <h2>Envios</h2>
                         <h3 className="text-success">Gratis</h3>
@@ -297,7 +304,7 @@ export const NavBar = () => {
                       >
                         Total
                       </h1>
-                      <h1 className="bold">${totalCompra}</h1>
+                      <h1 className="bold">${total}</h1>
                     </div>
                     <button className="w-full btn text-base-100 hover:text-primary bg-accent">
                       Continuar Compra
@@ -307,6 +314,9 @@ export const NavBar = () => {
               )}
             </div>
           </div>
+          <Link to="/admin">
+            <FiUser className="text-2xl" />
+          </Link>
         </div>
         {/*icono de despliegue lateral del menu (visible en pantallas menores a 1000px)*/}
         <label htmlFor="chk1" className="Menu">

@@ -1,72 +1,56 @@
 /* eslint-disable react/prop-types */
 import { createContext, useContext, useState, useEffect } from "react";
-
+import { dataDecrypt } from "../helpers/data-decrypt.js";
+import { dataEncrypt } from "../helpers/data-encrypt.js";
 const createdContext = createContext();
 
 export const Context = ({ children }) => {
-  const [freeShipping, setFreeShipping] = useState(false);
+  const [total, setTotal] = useState(0);
+  const [envioGratis, setEnvioGratis] = useState(false);
   const [cantidad, setCantidad] = useState(0);
-  const [totalCompra, setTotalCompra] = useState(0);
   const [cartList, setCartList] = useState(() => {
-    const storedValue = localStorage.getItem("carritoCompras");
-    return storedValue ? JSON.parse(storedValue) : [];
+    try {
+      const storedValue = localStorage.getItem("carritoCompras");
+      return storedValue ? JSON.parse(dataDecrypt(storedValue)) : [];
+    } catch (error) {
+      console.error(
+        "Error al desencriptar los datos del carrito de compras:",
+        error
+      );
+      return [];
+    }
   });
+
+  const calcularTotal = () => {
+    let total = 0;
+    cartList.forEach((item) => {
+      total += item.cantidad * item.precio;
+    });
+    if (total > 100) {
+      setEnvioGratis(true);
+    }else{
+      setEnvioGratis(false)
+    }
+    total = Math.round(total * 100) / 100;
+    setTotal(total);
+  };
+  const calcularCantidad = () => {
+    let cantidadTotal = 0;
+    cartList.forEach((item) => {
+      cantidadTotal += item.cantidad;
+    });
+    setCantidad(cantidadTotal);
+  };
   const [theme, setTheme] = useState(
     document.documentElement.setAttribute(
       "data-theme",
       localStorage.getItem("espacioBacoTheme") || "light"
     )
   );
-
   const changeTheme = (newTheme) => {
     setTheme(newTheme);
     localStorage.setItem("espacioBacoTheme", newTheme);
   };
-
-  const isFree = () => {
-    if (totalCompra > 99) {
-      setFreeShipping(true);
-    } else {
-      setFreeShipping(false);
-    }
-  };
-
-  const calcularTotalCompra = () => {
-    let total = 0;
-    // Recorremos cada objeto en 'cartList'
-    cartList.forEach((item) => {
-      const precio = item.price;
-      // Multiplicamos el precio por la cantidad y lo sumamos al total
-      total += precio * item.quantity;
-    });
-    return total;
-  };
-
-  const calcularCantidad = () => {
-    var cantidad = 0;
-    cartList.forEach((item) => {
-      cantidad += item.quantity;
-    });
-    return cantidad;
-  };
-
-  const eliminarItem = (estado, id) => {
-    var nuevoEstado = [];
-    for (var i = 0; i < estado.length; i++) {
-      if (estado[i].id !== id) {
-        nuevoEstado.push(estado[i]);
-      }
-    }
-    return nuevoEstado;
-  };
-
-  useEffect(() => {
-    const total = calcularTotalCompra();
-    const cantidad = calcularCantidad();
-    setTotalCompra(total);
-    setCantidad(cantidad);
-    isFree();
-  }, [cartList, setCartList, totalCompra]);
 
   useEffect(() => {
     const storedTheme = localStorage.getItem("espacioBacoTheme");
@@ -76,8 +60,13 @@ export const Context = ({ children }) => {
   }, []);
 
   useEffect(() => {
-    localStorage.setItem("carritoCompras", JSON.stringify(cartList));
-  }, [cartList]);
+    localStorage.setItem(
+      "carritoCompras",
+      dataEncrypt(JSON.stringify(cartList))
+    );
+    calcularTotal();
+    calcularCantidad();
+  }, [cartList, setCartList]);
 
   return (
     <createdContext.Provider
@@ -86,10 +75,9 @@ export const Context = ({ children }) => {
         changeTheme,
         cartList,
         setCartList,
-        totalCompra,
+        total,
         cantidad,
-        freeShipping,
-        eliminarItem,
+        envioGratis,
       }}
     >
       {children}

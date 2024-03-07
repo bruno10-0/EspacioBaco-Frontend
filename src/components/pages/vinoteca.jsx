@@ -3,13 +3,26 @@ import { Footer } from "../common/footer/footer";
 import { Card } from "../common/card/card";
 import { Pagination } from "../common/pagination/pagination";
 import { useState } from "react";
-import vino from "./vinos.json";
+import { getProducts } from "../../api/auth.js";
+import { useEffect } from "react";
 export const VinoTeca = () => {
-  const [pagina, setPagina] = useState(1);
-  // eslint-disable-next-line no-unused-vars
-  const [porPagina, setPorPagina] = useState(8);
 
-  const maximo = vino.length / porPagina;
+  const [products, setProducts] = useState([]);
+  const [pagina, setPagina] = useState(1);
+  const [porPagina, setPorPagina] = useState(8);
+  const maximo = products.length / porPagina;
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const response = await getProducts();
+        setProducts(response.data);
+      } catch (error) {
+        console.error("Error al buscar los productos:", error);
+      }
+    };
+    fetchProducts();
+  }, []);
 
   return (
     <div>
@@ -19,7 +32,7 @@ export const VinoTeca = () => {
         style={{ marginTop: "70px" }}
       >
         <div className="h-auto w-full md:w-3/4 grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-10 lg:gap-5 m-4">
-          {vino
+          {products
             .slice(
               (pagina - 1) * porPagina,
               (pagina - 1) * porPagina + porPagina

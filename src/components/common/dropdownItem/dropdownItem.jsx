@@ -1,41 +1,55 @@
 import { IoRemoveSharp, IoAddSharp } from "react-icons/io5";
 import { useState } from "react";
 import { useContexto } from "../../../context/Context";
+import { getProductById } from "../../../api/auth.js";
+import { useEffect } from "react";
 export const DropdownItem = ({ item }) => {
-  const { cartList, setCartList,eliminarItem } = useContexto();
-  const [input, setInput] = useState(item.quantity);
-
-  const replaceObject = () => {
-    let nuevaLista = [];
-    cartList.forEach((objeto) => {
-      if (objeto.id === item.id) {
-        nuevaLista.push(item);
-      } else {
-        nuevaLista.push(objeto);
-      }
-      setCartList(nuevaLista);
-    });
-  };
+  const { cartList, setCartList } = useContexto();
+  const [product, setProduct] = useState([]);
+  const [input, setInput] = useState(item.cantidad);
 
   const incrementBTN = () => {
-    if (input < item.stock) {
-      setInput(parseInt(input) + 1);
-      item.quantity = input + 1;
-      replaceObject();
+    const index = cartList.findIndex((product) => product.id == item.id);
+    if (index !== -1) {
+      if (cartList[index].cantidad < cartList[index].stock) {
+        const updatedCart = [...cartList];
+        updatedCart[index].cantidad += 1;
+        setCartList(updatedCart);
+        setInput(input + 1);
+      }
     }
   };
 
   const decrementBTN = () => {
-    if (parseInt(input) > 1) {
-      setInput(parseInt(input) - 1);
-      item.quantity = input - 1;
-      replaceObject();
+    const index = cartList.findIndex((product) => product.id == item.id);
+    if (index !== -1) {
+      if (cartList[index].cantidad > 1) {
+        const updatedCart = [...cartList];
+        updatedCart[index].cantidad -= 1;
+        setCartList(updatedCart);
+        setInput(input - 1);
+      }
     }
   };
 
-  const handleEliminarItem=()=>{
-    setCartList(eliminarItem(cartList,item.id))
-  }
+  const removeFromCart = (idToRemove) => {
+    setCartList((prevCartList) =>
+      prevCartList.filter((item) => item.id !== idToRemove)
+    );
+  };
+
+  useEffect(() => {
+    const fetchProduct = async () => {
+      try {
+        const response = await getProductById(item.id);
+        setProduct(response.data);
+      } catch (error) {
+        console.error("Error al buscar los productos:", error);
+      }
+    };
+    fetchProduct();
+  }, []);
+
   return (
     <div
       style={{ height: "120px" }}
@@ -46,29 +60,32 @@ export const DropdownItem = ({ item }) => {
         style={{ width: "100px", height: "80px" }}
       >
         <img
-          src={item.image}
+          src={product.imagen}
           alt="miniatura de el vino"
           className="z-10 w-full h-full object-contain"
         />
       </div>
       <div className="w-full h-full gap-4 flex flex-col p-2">
         <div className="w-full h-full gap-4 flex flex-col">
-          <h1 className="bold text-sm">{item.name}</h1>
-          <h2 className="text-sm">${item.price}c/u</h2>
+          <h1 className="bold text-sm">{product.nombre}</h1>
+          <h2 className="text-sm">${product.precio}c/u</h2>
         </div>
         <div className="w-full flex items-center justify-between">
           <div className=" p-2 border flex items-center">
             <IoRemoveSharp
-              className="cursor-pointer mr-6 ml-2"
               onClick={decrementBTN}
+              className="cursor-pointer mr-6 ml-2"
             />
             <span className="select-none">{input}</span>
             <IoAddSharp
-              className="cursor-pointer ml-6 mr-2"
               onClick={incrementBTN}
+              className="cursor-pointer ml-6 mr-2"
             />
           </div>
-          <button onClick={handleEliminarItem} className="border-primary hover:border-b primary ml-2 uppercase text-xs cursor-pointer">
+          <button
+            onClick={() => removeFromCart(item.id)}
+            className="border-primary hover:border-b primary ml-2 uppercase text-xs cursor-pointer"
+          >
             Remover
           </button>
         </div>
