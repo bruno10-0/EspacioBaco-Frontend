@@ -165,7 +165,7 @@ export const NavBarAdmin = () => {
                   tabIndex={0}
                   className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
                 >
-                  <div className="flex items-center gap-2 btn rounded-badge border-none">
+                  <div className="flex items-center gap-2 btn hover:bg-red-500 hover:text-base-100 rounded-badge border-none">
                     <FaPowerOff />
                     <a>Cerrar la sesión</a>
                   </div>
