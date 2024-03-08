@@ -2,6 +2,8 @@ import { useEffect } from "react";
 import { TbColorSwatch } from "react-icons/tb";
 import { useContexto } from "../../../context/Context";
 import { Link } from "react-router-dom";
+import { FaBars } from "react-icons/fa";
+import { FaPowerOff } from "react-icons/fa6";
 export const NavBarAdmin = () => {
   const { changeTheme } = useContexto();
 
@@ -53,32 +55,20 @@ export const NavBarAdmin = () => {
   }, [changeTheme]);
 
   return (
-    <div class="drawer">
-      <input id="my-drawer-3" type="checkbox" class="drawer-toggle" />
-      <div class="drawer-content flex flex-col">
-        <div class="w-full navbar bg-base-100">
-          <div class="flex-none lg:hidden">
+    <div className="drawer">
+      <input id="my-drawer-3" type="checkbox" className="drawer-toggle" />
+      <div className="drawer-content flex flex-col">
+        <div className="w-full navbar bg-base-100">
+          <div className="flex-none lg:hidden">
             <label
-              for="my-drawer-3"
+              htmlFor="my-drawer-3"
               aria-label="open sidebar"
-              class="btn btn-square btn-ghost"
+              className="btn btn-square btn-ghost"
             >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                class="inline-block w-6 h-6 stroke-current"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M4 6h16M4 12h16M4 18h16"
-                ></path>
-              </svg>
+              <FaBars></FaBars>
             </label>
           </div>
-          <div class="flex-1 px-2 mx-2">
+          <div className="flex-1 px-2 mx-2">
             <div className="flex justify-center">
               <div className="flex gap-10">
                 <svg
@@ -99,10 +89,6 @@ export const NavBarAdmin = () => {
                 </h1>
               </Link>
             </div>
-          </div>
-          <div className="hidden lg:flex flex-1 gap-4 uppercase text-sm" style={{letterSpacing:"2px"}}>
-            <Link to="">Inicio</Link>
-            <Link to="">Productos</Link>
           </div>
           <div className="felx gap-6 mx-4">
             <div
@@ -179,31 +165,23 @@ export const NavBarAdmin = () => {
                   tabIndex={0}
                   className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
                 >
-                  <li>
-                    <a className="justify-between">
-                      Profile
-                      <span className="badge">New</span>
-                    </a>
-                  </li>
-                  <li>
-                    <a>Settings</a>
-                  </li>
-                  <li>
-                    <a>Logout</a>
-                  </li>
+                  <div className="flex items-center gap-2 btn rounded-badge border-none">
+                    <FaPowerOff />
+                    <a>Cerrar la sesión</a>
+                  </div>
                 </ul>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <div class="drawer-side">
+      <div className="drawer-side z-10">
         <label
-          for="my-drawer-3"
+          htmlFor="my-drawer-3"
           aria-label="close sidebar"
-          class="drawer-overlay"
+          className="drawer-overlay"
         ></label>
-        <ul class="menu p-4 w-80 min-h-full bg-base-200">
+        <ul className="menu p-4 w-80 min-h-full bg-base-200">
           <li>
             <a>Sidebar Item 1</a>
           </li>

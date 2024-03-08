@@ -4,6 +4,7 @@ import {About} from "./components/pages/about"
 import {Details} from "./components/pages/details"
 import {NotFound} from "./components/pages/notFound"
 import { Admin } from "./components/pages/admin"
+import {AdminEditProduct} from "./components/pages/adminEditProduct"
 import { BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 
 function App() {
@@ -15,7 +16,9 @@ function App() {
         <Route path="/vinoteca" element={<VinoTeca />} />
         <Route path="/nosotros" element={<About />} />
         <Route path="/vinoteca/detalles-vino/:id" element={<Details />} />
+
         <Route path="/admin" element={<Admin />} />
+        <Route path="/admin/editar/vino/:id" element={<AdminEditProduct/>} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>

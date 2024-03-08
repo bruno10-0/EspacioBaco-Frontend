@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams  } from "react-router-dom";
 import { useContexto } from "../../../context/Context.jsx";
 import { getProductById } from "../../../api/auth.js";
 import { IoRemoveSharp, IoAddSharp } from "react-icons/io5";

@@ -6,7 +6,6 @@ import { useState } from "react";
 import { getProducts } from "../../api/auth.js";
 import { useEffect } from "react";
 export const VinoTeca = () => {
-
   const [products, setProducts] = useState([]);
   const [pagina, setPagina] = useState(1);
   const [porPagina, setPorPagina] = useState(8);
@@ -37,9 +36,18 @@ export const VinoTeca = () => {
               (pagina - 1) * porPagina,
               (pagina - 1) * porPagina + porPagina
             )
-            .map((product) => (
-              <Card key={product.id} product={product} />
-            ))}
+            .map((producto) =>
+              producto ? (
+                <Card key={producto.id} product={producto} />
+              ) : (
+                <div className="flex flex-col gap-4 w-52">
+                  <div className="skeleton h-32 w-full"></div>
+                  <div className="skeleton h-4 w-28"></div>
+                  <div className="skeleton h-4 w-full"></div>
+                  <div className="skeleton h-4 w-full"></div>
+                </div>
+              )
+            )}
           <Pagination pagina={pagina} setPagina={setPagina} maximo={maximo} />
         </div>
       </div>

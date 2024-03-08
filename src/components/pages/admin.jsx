@@ -1,10 +1,10 @@
 import { NavBarAdmin } from "../common/navBarAdmin/navBarAdmin";
-import {Products} from "../common/products/products"
+import { OptionsAdmin } from "../common/optionsAdmin/optionsAdmin";
 export const Admin = () => {
   return (
     <div>
-      <NavBarAdmin />
-      <Products/>
+      <NavBarAdmin/>
+      <OptionsAdmin/>
     </div>
   );
 };
