@@ -14,6 +14,11 @@ export const OptionsAdmin = () => {
           para mantener todo en orden y en marcha.{" "}
         </h2>
       </div>
+
+      <div style={{ letterSpacing: "4px" }} className="mt-10 mx-6 uppercase">
+        <h1>Sección de productos (Vinos)</h1>
+      </div>
+
       <div className="w-full h-auto grid grid-cols-1 md:grid-cols-2 gap-4 p-6">
         <div className="w-full bg-base-100 glass p-4 col-span-1 rounded-badge shadow-lg">
           <div className="w-full h-full flex flex-col gap-2">
@@ -25,7 +30,10 @@ export const OptionsAdmin = () => {
               En esta seccion podras crear todo tus productos y mostrarlos a los
               clientes.
             </p>
-            <button className="btn bg-accent text-base-100 hover:text-primary">
+            <button
+              style={{ letterSpacing: "4px" }}
+              className="text-xs btn bg-accent text-base-100 hover:text-primary uppercase"
+            >
               Crear
             </button>
           </div>
@@ -38,7 +46,10 @@ export const OptionsAdmin = () => {
               <h1>Visualizar</h1>
             </div>
             <p>En esta seccion podras visualizar todo tu stock de vinos.</p>
-            <button className="btn bg-accent text-base-100 hover:text-primary">
+            <button
+              style={{ letterSpacing: "4px" }}
+              className="text-xs btn bg-accent text-base-100 hover:text-primary uppercase"
+            >
               Ver
             </button>
           </div>
@@ -53,7 +64,10 @@ export const OptionsAdmin = () => {
             <p>
               En esta seccion podras eliminar registros de tu stock de vinos.
             </p>
-            <button className="btn bg-accent text-base-100 hover:text-primary">
+            <button
+              style={{ letterSpacing: "4px" }}
+              className="text-xs btn bg-accent text-base-100 hover:text-primary uppercase"
+            >
               Eliminar
             </button>
           </div>
@@ -65,10 +79,11 @@ export const OptionsAdmin = () => {
               <CiEdit className="text-2xl" />
               <h1>Editar</h1>
             </div>
-            <p>
-              En esta seccion podras editar registros de tu stock de vinos.
-            </p>
-            <button className="btn bg-accent text-base-100 hover:text-primary">
+            <p>En esta seccion podras editar registros de tu stock de vinos.</p>
+            <button
+              style={{ letterSpacing: "4px" }}
+              className="text-xs btn bg-accent text-base-100 hover:text-primary uppercase"
+            >
               Editar
             </button>
           </div>
