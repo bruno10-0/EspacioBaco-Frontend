@@ -2,7 +2,7 @@ import "./aboutSection.css";
 
 export const AboutSection = () => {
   return (
-    <section className="about" style={{ marginTop: "70px" }}>
+    <section className="about mt-28">
       <div className="md:flex gap-2">
         <div className="text-box md:w-8/12 lg:w-1/2">
           <h1 className="animation">Espacio Baco</h1>

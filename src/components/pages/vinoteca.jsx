@@ -1,10 +1,10 @@
-import { NavBar } from "../common/navBar/navBar";
 import { Footer } from "../common/footer/footer";
 import { Card } from "../common/card/card";
 import { Pagination } from "../common/pagination/pagination";
 import { useState } from "react";
 import { getProducts } from "../../api/auth.js";
 import { useEffect } from "react";
+import { NavBar } from "../common/navBar/navBar.jsx";
 export const VinoTeca = () => {
   const [products, setProducts] = useState([]);
   const [pagina, setPagina] = useState(1);
@@ -27,8 +27,7 @@ export const VinoTeca = () => {
     <div>
       <NavBar />
       <div
-        className="flex justify-center items-center w-full h-auto bg-base-200"
-        style={{ marginTop: "70px" }}
+        className="flex justify-center items-center w-full h-auto mt-28 p-10 bg-base-200"
       >
         <div className="h-auto w-full md:w-3/4 grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-10 lg:gap-5 m-4">
           {products

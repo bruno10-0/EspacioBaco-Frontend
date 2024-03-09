@@ -19,7 +19,7 @@ export const SliderAuto = ({ items }) => {
         return () => clearInterval(interval);
     }, []);
     return (
-        <div className="Carousel mt-16 -mb-5">
+        <div className="Carousel mt-28 -mb-5">
 
             <button className="btn z-10 p-2 rounded-r-badge rounded-l-none bg-base-100  Carousel-button Carousel-button-left" onClick={prevSlide}>
                 <FaChevronLeft className='text-primary text-2xl ml-4' />
@@ -27,7 +27,7 @@ export const SliderAuto = ({ items }) => {
 
             <div className="Carousel-inner w-full h-full" style={{ transform: `translateX(-${currentIndex * 100}%)` }}>
                 {items.map((item, index) => (
-                    <div key={index} className="Carousel-item">
+                    <div key={index} className="Carousel-item w-full h-full">
                         {/* Imagen para pantallas mayores a 780px */}
                         <img src={item.imageUrlLarge} alt={item.altText} className="w-full h-full object-fill lg:block hidden" />
 

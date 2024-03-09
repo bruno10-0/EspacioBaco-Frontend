@@ -4,7 +4,7 @@ import { useContexto } from "../../../context/Context.jsx";
 import { getProductById } from "../../../api/auth.js";
 import { IoRemoveSharp, IoAddSharp } from "react-icons/io5";
 import { FaCaretLeft, FaCaretRight } from "react-icons/fa";
-import { NavBar } from "../navBar/navBar";
+import {NavBar} from "../navBar/Navbar.jsx"
 import "./detailProduct.css";
 
 export const DetailProduct = () => {
@@ -73,8 +73,7 @@ export const DetailProduct = () => {
     <>
       <NavBar />
       <div
-        style={{ marginTop: "70px" }}
-        className="relative mb-2 p-2 w-full flex flex-col items-center lg:items-start lg:flex-row justify-around"
+        className="mt-28 relative mb-2 w-full flex flex-col items-center lg:items-start lg:flex-row justify-around p-10"
       >
         <div className="ContainerImg">
           <div className="carousel w-full h-full">

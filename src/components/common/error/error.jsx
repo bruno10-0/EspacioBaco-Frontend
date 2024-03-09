@@ -3,7 +3,7 @@ import { Link } from "react-router-dom"
 export const Error = () => {
     return (
         <div>
-            <div className="relative body-error bg-base-300 w-full flex flex-col justify-center text-center items-center gap-4"style={{ height: "calc(100vh - 80px)" }}>
+            <div className="relative body-error bg-base-200 w-full flex flex-col justify-center text-center items-center gap-4"style={{ height: "calc(100vh - 80px)" }}>
                 <h1 className="text-error text-5xl">404</h1>
                 <h2 style={{ letterSpacing: "1px" }}>La página que estás buscando no se encontró</h2>
                 <button>

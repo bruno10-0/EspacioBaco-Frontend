@@ -1,57 +1,28 @@
 import { useState, useEffect } from "react";
-import { useContexto } from "../../../context/Context";
-import { Link } from "react-router-dom";
-import { CiSearch } from "react-icons/ci";
-import { FiUser } from "react-icons/fi";
-import { FaInstagram, FaWhatsapp, FaFacebookF, FaBars } from "react-icons/fa";
-import { FiShoppingCart } from "react-icons/fi";
+import { useRef } from "react";
+import { useContexto } from "../../../context/Context.jsx";
+import { Link, useLocation } from "react-router-dom";
+import { themes } from "../../../constants/themes.js";
+import { DropdownItem } from "../dropdownItem/dropdownItem.jsx";
 import { TbColorSwatch } from "react-icons/tb";
-import { DropdownItem } from "../dropdownItem/dropdownItem";
-import "./navBar.css";
+import {
+  IoReorderThreeOutline,
+  IoSearchOutline,
+  IoCloseOutline,
+  IoBagOutline,
+} from "react-icons/io5";
+import { AiOutlineUser } from "react-icons/ai";
 
 export const NavBar = () => {
-  const [prevScrollPos, setPrevScrollPos] = useState(0);
-  const [visible, setVisible] = useState(true);
   const { changeTheme, cartList, total, cantidad, envioGratis } = useContexto();
 
-  const navStyle = {
-    top: visible ? "0px" : "-70px",
-  };
+  const detailsRef = useRef(null);
 
-  const themes = [
-    "light",
-    "dark",
-    "cupcake",
-    "bumblebee",
-    "emerald",
-    "corporate",
-    "synthwave",
-    "retro",
-    "cyberpunk",
-    "valentine",
-    "halloween",
-    "garden",
-    "forest",
-    "aqua",
-    "lofi",
-    "pastel",
-    "fantasy",
-    "wireframe",
-    "black",
-    "luxury",
-    "dracula",
-    "cmyk",
-    "autumn",
-    "business",
-    "acid",
-    "lemonade",
-    "night",
-    "coffee",
-    "winter",
-    "dim",
-    "nord",
-    "sunset",
-  ];
+  const handleCloseDetails = () => {
+    if (detailsRef.current) {
+      detailsRef.current.removeAttribute("open");
+    }
+  };
 
   const handleThemeChange = (newTheme) => {
     changeTheme(newTheme);
@@ -65,264 +36,284 @@ export const NavBar = () => {
     }
   }, [changeTheme]);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      const currentScrollPos = window.pageYOffset;
-      setVisible(prevScrollPos > currentScrollPos || currentScrollPos === 0);
-      setPrevScrollPos(currentScrollPos);
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [prevScrollPos]);
-
   return (
-    <div>
-      <header
-        className="glass border-none headerNav bg-base-100"
-        style={navStyle}
-      >
-        <input type="checkbox" name="" id="chk1" />
-        {/*Logo y nombre de la pagina*/}
-        <div className="logo cursor-pointer">
-          <Link to="/">
-            <div className="nav-logo">
-              <svg
-                width="30"
-                height="30"
-                viewBox="0 0 100 100"
-                xmlns="http://www.w3.org/2000/svg"
+    <div className="fixed top-0 h-auto w-full z-40">
+      <div className="w-full h-full bg-base-100 ">
+        <div
+          className="navbar "
+          style={{ transition: "background-color 0.3s ease" }}
+        >
+          <div className="navbar-start">
+            {/*Hamburger*/}
+            <div className="dropdown dropdown-bottom md:hidden">
+              <div
+                tabIndex={0}
+                role="button"
+                className=" btn btn-ghost btn-circle"
               >
-                <path
-                  d="M37.5274 0L75.0548 65H0L37.5274 0Z"
-                  className="fill-primary"
-                />
-              </svg>
+                <IoReorderThreeOutline className="text-2xl" />
+              </div>
+              <ul
+                tabIndex={0}
+                className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
+              >
+                <li>
+                  <a>Homepage</a>
+                </li>
+                <li>
+                  <a>Portfolio</a>
+                </li>
+                <li>
+                  <a>About</a>
+                </li>
+              </ul>
             </div>
-          </Link>
-          <div className="flex items-center justify-between">
-            <Link to="/">
-              <h1>
-                <span className="text-lg font-bold ">Espacio</span>Baco
-              </h1>
-            </Link>
           </div>
-        </div>
-        {/*barra de busqueda*/}
-        <div className="search-box">
-          <form action="">
-            <input
-              className="text-sm border rounded-badge"
-              type="text"
-              name="search"
-              placeholder="BUSCAR..."
-              id="srch"
-            />
-            <button type="submit" className="bg-primary rounded-badge">
-              <CiSearch className="text-2xl text-base-100" />
-            </button>
-          </form>
-        </div>
-        {/*lista de secciones de la pagina, ejemplo: Inicio. 
-                Incluye las redes solicales(visible en pantallas menores a 1000px) */}
-        <div className="w-auto h-auto"></div>
-        <ul className="mx-12 py-40 bg-base-100 lg:py-0 lg:bg-transparent">
-          <li>
-            <Link
-              to="/"
-              className="lg:hidden uppercase text-sm transition-all hover:border-b-2 border-primary"
+
+          <div className="navbar-center">
+            <a
+              style={{ letterSpacing: "8px", fontWeight: "bolder" }}
+              className="hidden md:block text-xl uppercase cursor-pointer select-none"
             >
-              Inicio
-            </Link>
-          </li>
-          <li>
-            <Link
-              to="/vinoteca"
-              className="uppercase text-sm hover:border-b-2 border-primary cursor-pointer"
-            >
-              Vinoteca
-            </Link>
-          </li>
-          <li>
-            <Link
-              to="/nosotros"
-              className="uppercase text-sm transition-all hover:border-b-2 border-primary"
-            >
-              Nosotros
-            </Link>
-          </li>
-          <div className="items-center justify-evenly gap-10 flex lg:hidden">
-            <FaInstagram className="text-2xl cursor-pointer" />
-            <FaWhatsapp className="text-2xl cursor-pointer" />
-            <FaFacebookF className="text-2xl cursor-pointer" />
+              EspacioBaco
+            </a>
           </div>
-        </ul>
-        {/*contenedor de iconos de tema y carrito*/}
-        <div className="gap-4 flex justify-center items-center mx-4 lg:mr-12">
-          <div
-            tabIndex={0}
-            className="dropdown dropdown-end max-h-[calc(100vh-300px)]"
-          >
-            <TbColorSwatch tabIndex={0} role="button" className="text-2xl" />
+
+          {/*User, cart search, theme*/}
+          <div className="navbar-end">
             <div
               tabIndex={0}
-              className=" shadow-2xl mt-8 rounded-badge dropdown-content max-h-[calc(100vh-20rem)] md:max-h-[calc(100vh-10rem)] w-48 md:w-56 overflow-y-auto bg-base-100 flex flex-col gap-2 p-4"
+              className="btn btn-ghost btn-circle dropdown dropdown-end max-h-[calc(100vh-300px)]"
             >
-              {themes.map((theme, index) => (
-                <button
-                  data-theme={theme}
-                  key={index}
-                  className="px-4 py-3 gap-2 outline-offset-4 flex justify-evenly items-center rounded-badge bg-base-200 hover:scale-105 ease-in-out duration-100"
-                  onClick={() => handleThemeChange(theme)}
-                >
-                  <p
+              <div
+                tabIndex={0}
+                role="button"
+                className="w-full h-full flex justify-center items-center cursor-pointer select-none"
+              >
+                <TbColorSwatch className="text-2xl" />
+              </div>
+              <div
+                tabIndex={0}
+                className=" mt-3 md:mt-12 rounded-badge dropdown-content max-h-[calc(100vh-20rem)] md:max-h-[calc(100vh-10rem)] w-48 md:w-56 overflow-y-auto bg-base-100 flex flex-col gap-2 p-4 z-50"
+              >
+                {themes.map((theme, index) => (
+                  <button
                     data-theme={theme}
-                    className="flex-grow text-sm bg-base-200"
+                    key={index}
+                    className="px-4 py-3 gap-2 outline-offset-4 flex justify-evenly items-center rounded-badge bg-base-200 hover:scale-105 ease-in-out duration-100"
+                    onClick={() => handleThemeChange(theme)}
                   >
-                    {theme}
-                  </p>
-                  <div className="flex h-full gap-1">
-                    <span
+                    <p
                       data-theme={theme}
-                      className="bg-primary rounded-badge w-2 text-primary"
+                      className="flex-grow text-sm bg-base-200"
                     >
-                      1
-                    </span>
-                    <span
-                      data-theme={theme}
-                      className="bg-secondary rounded-badge w-2 text-secondary"
-                    >
-                      2
-                    </span>
-                    <span
-                      data-theme={theme}
-                      className="bg-accent rounded-badge w-2 text-accent"
-                    >
-                      3
-                    </span>
-                    <span
-                      data-theme={theme}
-                      className="bg-neutral rounded-badge w-2 text-neutral"
-                    >
-                      1
-                    </span>
-                  </div>
-                </button>
-              ))}
+                      {theme}
+                    </p>
+                    <div className="flex h-full gap-1">
+                      <span
+                        data-theme={theme}
+                        className="bg-primary rounded-badge w-2 text-primary"
+                      >
+                        .
+                      </span>
+                      <span
+                        data-theme={theme}
+                        className="bg-secondary rounded-badge w-2 text-secondary"
+                      >
+                        .
+                      </span>
+                      <span
+                        data-theme={theme}
+                        className="bg-accent rounded-badge w-2 text-accent"
+                      >
+                        .
+                      </span>
+                      <span
+                        data-theme={theme}
+                        className="bg-neutral rounded-badge w-2 text-neutral"
+                      >
+                        .
+                      </span>
+                    </div>
+                  </button>
+                ))}
+              </div>
             </div>
-          </div>
-          <div
-            tabIndex={0}
-            className="cart relative dropdown dropdown-end max-h-[calc(100vh-300px)]"
-          >
-            <FiShoppingCart tabIndex={0} role="button" className="text-2xl" />
-            {cartList.length >= 1 && (
-              <i className="w-5 h-5 flex items-center justify-center absolute -top-2 -right-3 rounded-full bg-secondary text-base-100">
-                <p
-                  style={{
-                    letterSpacing: "0px",
-                    fontFamily: "sans-serif",
-                    fontSize: "10px",
-                  }}
-                >
-                  {cartList.length}
-                </p>
-              </i>
-            )}
+
+            <Link to="/admin">
+              <button className="btn btn-ghost btn-circle">
+                <AiOutlineUser className="text-2xl" />
+              </button>
+            </Link>
+
             <div
               tabIndex={0}
-              className="relative shadow-2xl rounded-badge dropdown-content h-auto max-h-[calc(100vh-90px)] w-72 md:w-96 overflow-hidden overflow-y-auto bg-base-100 flex flex-col gap-2 px-4 mt-8"
+              className="p-4 dropdown dropdown-end max-h-[calc(100vh-300px)]"
             >
-              <div className="sticky top-0 p-2 bg-base-100 z-10">
-                <h1 className="uppercase py-2 font-bold">Carrito</h1>
-                {!envioGratis && (
-                  <h2
-                    className="border-y py-2"
-                    style={{ letterSpacing: "0px", fontSize: "12px" }}
-                  >
-                    Gasta $100 o más y obtén envío gratis! (SOLO DISPONIBLE PARA
-                    PEDIDOS DE POSADAS)
-                  </h2>
-                )}
+              <div
+                tabIndex={0}
+                role="button"
+                className="w-full h-full flex justify-center items-center cursor-pointer select-none"
+              >
+                <div className="indicator">
+                  <IoBagOutline className="text-2xl" />
+                  {cartList.length > 0 && (
+                    <span className="badge badge-xs badge-primary indicator-item"></span>
+                  )}
+                </div>
+              </div>
 
-                {envioGratis && (
-                  <h2
-                    className="border-y py-2 text-success"
-                    style={{ letterSpacing: "0px", fontSize: "12px" }}
+              <div
+                tabIndex={0}
+                className="relative rounded-badge dropdown-content h-auto max-h-[calc(100vh-90px)] w-72 md:w-96 overflow-hidden overflow-y-auto bg-base-100 flex flex-col gap-2 px-4 mt-6 md:mt-16 z-50"
+              >
+                <div className="sticky top-0 p-2 bg-base-100">
+                  <h1
+                    style={{ letterSpacing: "4px" }}
+                    className="uppercase py-2"
                   >
-                    Felicidades, tus compras califican para envío gratuito.
-                  </h2>
-                )}
-
-                {cartList.length < 1 && (
-                  <div>
-                    <div className="flex justify-center items-center p-2 gap-4">
-                      <img
-                        className="w-1/3 h-auto"
-                        src="https://media-public.canva.com/Tu5po/MAFf4dTu5po/1/t.png"
-                        alt="img"
-                      />
-                      <h3 className="text-xs">
-                        ¡Hola, amiga/o del buen sabor! 🍷 ¿Te unes a mí en una
-                        aventura vinícola? Descubre el mundo de los vinos
-                        conmigo, ¡te aseguro que será un viaje inolvidable!
-                        ¡Salud y miau! 🐾🍇
-                      </h3>
-                    </div>
-                    <Link
-                      to="/vinoteca"
-                      className="my-2 w-full btn bg-accent text-base-100 hover:text-primary"
+                    Carrito
+                  </h1>
+                  {!envioGratis && (
+                    <h2
+                      className="border-y py-2"
+                      style={{ letterSpacing: "0px", fontSize: "12px" }}
                     >
-                      <h2 className="text-xs">
-                        Descubrir el mundo de los vinos
-                      </h2>
-                    </Link>
+                      Gasta $100 o más y obtén envío gratis! (SOLO DISPONIBLE
+                      PARA PEDIDOS DE POSADAS)
+                    </h2>
+                  )}
+
+                  {envioGratis && (
+                    <h2
+                      className="border-y py-2 text-success"
+                      style={{ letterSpacing: "0px", fontSize: "12px" }}
+                    >
+                      Felicidades, tus compras califican para envío gratuito.
+                    </h2>
+                  )}
+
+                  {cartList.length < 1 && (
+                    <div>
+                      <div
+                        style={{ letterSpacing: "4px" }}
+                        className="text-xs flex justify-center items-center p-2 gap-4 uppercase"
+                      >
+                        Tu carrito esta vacio
+                      </div>
+                      <Link
+                        to="/vinoteca"
+                        className="my-2 w-full btn bg-accent text-base-100 hover:text-primary"
+                      >
+                        <h2 className="text-xs">
+                          Descubrir el mundo de los vinos
+                        </h2>
+                      </Link>
+                    </div>
+                  )}
+                </div>
+
+                {cartList.length >= 1 && (
+                  <div>
+                    {cartList.map((item, index) => (
+                      <DropdownItem key={index} item={item} />
+                    ))}
+                    <div className="sticky bottom-0 bg-base-100 p-4  w-full h-auto  flex flex-col items-center">
+                      <div className="w-full h-auto my-2 flex justify-between text-xs">
+                        <h2>Productos({cantidad})</h2>
+                        <h3>${total}</h3>
+                      </div>
+                      {envioGratis && (
+                        <div className="w-full flex mb-2 justify-between text-xs">
+                          <h2>Envios</h2>
+                          <h3 className="text-success">Gratis</h3>
+                        </div>
+                      )}
+                      <div className="w-full flex mb-2 justify-between">
+                        <h1
+                          style={{ letterSpacing: "5px" }}
+                          className="bold text uppercase"
+                        >
+                          Total
+                        </h1>
+                        <h1 className="bold">${total}</h1>
+                      </div>
+                      <button className="w-full btn text-base-100 hover:text-primary bg-accent">
+                        Continuar Compra
+                      </button>
+                    </div>
                   </div>
                 )}
               </div>
-
-              {cartList.length >= 1 && (
-                <div>
-                  {cartList.map((item, index) => (
-                    <DropdownItem key={index} item={item} />
-                  ))}
-                  <div className="sticky bottom-0 bg-base-100 p-4  w-full h-auto  flex flex-col items-center">
-                    <div className="w-full h-auto my-2 flex justify-between text-xs">
-                      <h2>Productos({cantidad})</h2>
-                      <h3>${total}</h3>
-                    </div>
-                    {envioGratis && (
-                      <div className="w-full flex mb-2 justify-between text-xs">
-                        <h2>Envios</h2>
-                        <h3 className="text-success">Gratis</h3>
-                      </div>
-                    )}
-                    <div className="w-full flex mb-2 justify-between">
-                      <h1
-                        style={{ letterSpacing: "5px" }}
-                        className="bold text uppercase"
-                      >
-                        Total
-                      </h1>
-                      <h1 className="bold">${total}</h1>
-                    </div>
-                    <button className="w-full btn text-base-100 hover:text-primary bg-accent">
-                      Continuar Compra
-                    </button>
-                  </div>
-                </div>
-              )}
             </div>
+
+            <details
+              ref={detailsRef}
+              className="p-4 dropdown dropdown-end"
+              tabIndex={0}
+            >
+              <summary
+                tabIndex={0}
+                role="button"
+                className="w-full h-full flex justify-center items-center cursor-pointer select-none"
+              >
+                <IoSearchOutline className="text-2xl" />
+              </summary>
+              <ul
+                tabIndex={0}
+                className="mt-3 md:mt-16 dropdown-content z-[1] menu p-4 shadow bg-base-100 w-screen -mr-2"
+              >
+                <div className="w-full h-full flex px-0 md:px-5 lg:px-10 items-center">
+                  <IoSearchOutline className="text-2xl text-gray-400" />
+                  <input
+                    autoFocus
+                    autoComplete="off"
+                    autoCorrect="off"
+                    autoCapitalize="off"
+                    type="text"
+                    placeholder="BUSCAR..."
+                    className="w-full p-2 bg-transparent mx-4 uppercase border-none"
+                    style={{ letterSpacing: "2px" }}
+                  />
+                  <IoCloseOutline
+                    onClick={handleCloseDetails}
+                    className="text-2xl cursor-pointer text-gray-400"
+                  />
+                </div>
+              </ul>
+            </details>
           </div>
-          <Link to="/admin">
-            <FiUser className="text-2xl" />
-          </Link>
         </div>
-        {/*icono de despliegue lateral del menu (visible en pantallas menores a 1000px)*/}
-        <label htmlFor="chk1" className="Menu">
-          <FaBars className="text-2xl cursor-pointer" />
-        </label>
-      </header>
+        <nav className="hidden w-full md:flex justify-center items-center gap-6 pb-2">
+          <Link
+            to="/"
+            className={`uppercase text-xs p-2 ${
+              location.pathname === "/" ? "border-b border-primary" : ""
+            }`}
+            style={{ letterSpacing: "6px" }}
+          >
+            Inicio
+          </Link>
+          <Link
+            to="/vinoteca"
+            className={`uppercase text-xs p-2 ${
+              location.pathname === "/vinoteca" ? "border-b border-primary" : ""
+            }`}
+            style={{ letterSpacing: "6px" }}
+          >
+            Vinoteca
+          </Link>
+          <Link
+            to="/nosotros"
+            className={`uppercase text-xs p-2 ${
+              location.pathname === "/nosotros" ? "border-b border-primary" : ""
+            }`}
+            style={{ letterSpacing: "6px" }}
+          >
+            Nosotros
+          </Link>
+        </nav>
+      </div>
     </div>
   );
 };
