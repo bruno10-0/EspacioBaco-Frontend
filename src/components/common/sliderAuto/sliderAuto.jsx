@@ -19,7 +19,7 @@ export const SliderAuto = ({ items }) => {
         return () => clearInterval(interval);
     }, []);
     return (
-        <div className="Carousel mt-28 -mb-5">
+        <div className="Carousel mt-16 md:mt-28 -mb-5">
 
             <button className="btn z-10 p-2 rounded-r-badge rounded-l-none bg-base-100  Carousel-button Carousel-button-left" onClick={prevSlide}>
                 <FaChevronLeft className='text-primary text-2xl ml-4' />

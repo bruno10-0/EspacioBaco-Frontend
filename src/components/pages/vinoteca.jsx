@@ -30,7 +30,7 @@ export const VinoTeca = () => {
       <NavBar />
       <div
         style={{ minHeight: "calc(100vh - 120px)" }}
-        className="flex justify-center items-center w-full h-auto mt-28 p-10 bg-base-200"
+        className="flex justify-center items-center w-full h-auto mt-16 md:mt-28 p-10 bg-base-200"
       >
         {products.length === 0 && <Loading />}
         {products.length != 0 && (

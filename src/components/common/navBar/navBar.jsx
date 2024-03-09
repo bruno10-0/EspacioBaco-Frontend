@@ -55,17 +55,41 @@ export const NavBar = () => {
               </div>
               <ul
                 tabIndex={0}
-                className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
+                className=" text-base-100 menu menu-sm flex justify-center items-center p-4  gap-10 -ml-2 dropdown-content mt-2 z-[1] shadow bg-primary w-screen"
               >
-                <li>
-                  <a>Homepage</a>
-                </li>
-                <li>
-                  <a>Portfolio</a>
-                </li>
-                <li>
-                  <a>About</a>
-                </li>
+                <Link
+                  to="/"
+                  className={`uppercase text-xs p-2 ${
+                    location.pathname === "/"
+                      ? "border-b border-base-100 scale-110"
+                      : ""
+                  }`}
+                  style={{ letterSpacing: "6px" }}
+                >
+                  Inicio
+                </Link>
+                <Link
+                  to="/vinoteca"
+                  className={`uppercase text-xs p-2 ${
+                    location.pathname === "/vinoteca"
+                      ? "border-b border-base-100 scale-110"
+                      : ""
+                  }`}
+                  style={{ letterSpacing: "6px" }}
+                >
+                  Vinoteca
+                </Link>
+                <Link
+                  to="/nosotros"
+                  className={`uppercase text-xs p-2 ${
+                    location.pathname === "/nosotros"
+                      ? "border-b border-base-100 scale-110"
+                      : ""
+                  }`}
+                  style={{ letterSpacing: "6px" }}
+                >
+                  Nosotros
+                </Link>
               </ul>
             </div>
           </div>
@@ -205,7 +229,10 @@ export const NavBar = () => {
                         to="/vinoteca"
                         className="my-2 w-full btn bg-accent text-base-100 hover:text-primary"
                       >
-                        <h2 style={{letterSpacing:"2px"}} className="text-xs uppercase">
+                        <h2
+                          style={{ letterSpacing: "2px" }}
+                          className="text-xs uppercase"
+                        >
                           Exporar tienda
                         </h2>
                       </Link>
@@ -288,7 +315,9 @@ export const NavBar = () => {
           <Link
             to="/"
             className={`uppercase text-xs p-2 ${
-              location.pathname === "/" ? "border-b border-base-100 text-base-100 scale-110" : ""
+              location.pathname === "/"
+                ? "border-b border-base-100 text-base-100 scale-110"
+                : ""
             }`}
             style={{ letterSpacing: "6px" }}
           >
@@ -297,7 +326,9 @@ export const NavBar = () => {
           <Link
             to="/vinoteca"
             className={`uppercase text-xs p-2 ${
-              location.pathname === "/vinoteca" ? "border-b border-base-100 text-base-100 scale-110" : ""
+              location.pathname === "/vinoteca"
+                ? "border-b border-base-100 text-base-100 scale-110"
+                : ""
             }`}
             style={{ letterSpacing: "6px" }}
           >
@@ -306,7 +337,9 @@ export const NavBar = () => {
           <Link
             to="/nosotros"
             className={`uppercase text-xs p-2 ${
-              location.pathname === "/nosotros" ? "border-b border-base-100 text-base-100 scale-110" : ""
+              location.pathname === "/nosotros"
+                ? "border-b border-base-100 text-base-100 scale-110"
+                : ""
             }`}
             style={{ letterSpacing: "6px" }}
           >
