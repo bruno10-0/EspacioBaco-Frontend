@@ -73,7 +73,7 @@ export const DetailProduct = () => {
     <>
       <NavBar />
       <div
-        className="mt-28 relative mb-2 w-full flex flex-col items-center lg:items-start lg:flex-row justify-around p-10"
+        className="mt-28 relative mb-2 w-full flex flex-col items-center lg:items-start lg:flex-row justify-around"
       >
         <div className="ContainerImg">
           <div className="carousel w-full h-full">

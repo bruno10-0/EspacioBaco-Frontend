@@ -170,7 +170,7 @@ export const NavBar = () => {
                 <div className="sticky top-0 p-2 bg-base-100">
                   <h1
                     style={{ letterSpacing: "4px" }}
-                    className="uppercase py-2"
+                    className="uppercase py-2 font-semibold"
                   >
                     Carrito
                   </h1>
@@ -197,16 +197,16 @@ export const NavBar = () => {
                     <div>
                       <div
                         style={{ letterSpacing: "4px" }}
-                        className="text-xs flex justify-center items-center p-2 gap-4 uppercase"
+                        className="text-xs flex justify-center items-center p-4 gap-4 uppercase"
                       >
-                        Tu carrito esta vacio
+                        Carrito vacio
                       </div>
                       <Link
                         to="/vinoteca"
                         className="my-2 w-full btn bg-accent text-base-100 hover:text-primary"
                       >
-                        <h2 className="text-xs">
-                          Descubrir el mundo de los vinos
+                        <h2 style={{letterSpacing:"2px"}} className="text-xs uppercase">
+                          Exporar tienda
                         </h2>
                       </Link>
                     </div>
@@ -284,11 +284,11 @@ export const NavBar = () => {
             </details>
           </div>
         </div>
-        <nav className="hidden w-full md:flex justify-center items-center gap-6 pb-2">
+        <nav className="hidden w-full md:flex justify-center items-center gap-6 p-3 -mt-3 bg-primary text-base-100">
           <Link
             to="/"
             className={`uppercase text-xs p-2 ${
-              location.pathname === "/" ? "border-b border-primary" : ""
+              location.pathname === "/" ? "border-b border-base-100 text-base-100 scale-110" : ""
             }`}
             style={{ letterSpacing: "6px" }}
           >
@@ -297,7 +297,7 @@ export const NavBar = () => {
           <Link
             to="/vinoteca"
             className={`uppercase text-xs p-2 ${
-              location.pathname === "/vinoteca" ? "border-b border-primary" : ""
+              location.pathname === "/vinoteca" ? "border-b border-base-100 text-base-100 scale-110" : ""
             }`}
             style={{ letterSpacing: "6px" }}
           >
@@ -306,7 +306,7 @@ export const NavBar = () => {
           <Link
             to="/nosotros"
             className={`uppercase text-xs p-2 ${
-              location.pathname === "/nosotros" ? "border-b border-primary" : ""
+              location.pathname === "/nosotros" ? "border-b border-base-100 text-base-100 scale-110" : ""
             }`}
             style={{ letterSpacing: "6px" }}
           >
