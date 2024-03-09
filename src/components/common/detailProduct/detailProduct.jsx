@@ -4,7 +4,7 @@ import { useContexto } from "../../../context/Context.jsx";
 import { getProductById } from "../../../api/auth.js";
 import { IoRemoveSharp, IoAddSharp } from "react-icons/io5";
 import { FaCaretLeft, FaCaretRight } from "react-icons/fa";
-import {NavBar} from "../navBar/Navbar.jsx"
+import {NavBar} from "../navBar/navBar.jsx"
 import "./detailProduct.css";
 
 export const DetailProduct = () => {
