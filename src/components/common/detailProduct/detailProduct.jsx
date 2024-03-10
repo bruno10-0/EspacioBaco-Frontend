@@ -10,11 +10,13 @@ import "./detailProduct.css";
 
 export const DetailProduct = () => {
   const { cartList, setCartList } = useContexto();
-  const [product, setProduct] = useState([])
+  const [product, setProduct] = useState([]);
   const [productQuantity, setProductQuantity] = useState(1);
+  const [response, setResponse] = useState(true);
+  const [loading, setLoading] = useState(true);
   const [itemFound, setItemFound] = useState(false);
   const { id } = useParams();
-console.log(product)
+
   const buscarVinoEnCartList = () => {
     let encontradoLocal = false;
     for (let i = 0; i < cartList.length; i++) {
@@ -56,12 +58,18 @@ console.log(product)
 
   useEffect(() => {
     const fetchProduct = async () => {
+      setLoading(true);
       try {
-        const response = await getProductById(id);
-        setProduct(response.data);
+        const res = await getProductById(id);
+        setProduct(res.data);
       } catch (error) {
-        console.error("Error al buscar los productos:", error);
+        if (error.response.status === 404) {
+          setResponse(false);
+        } else {
+          console.error("Error al buscar los productos:", error);
+        }
       }
+      setLoading(false);
     };
     fetchProduct();
   }, []);
@@ -69,20 +77,26 @@ console.log(product)
   useEffect(() => {
     handleIdSearch(id);
   }, [setCartList, cartList]);
-
   return (
     <>
       <NavBar />
-      {!product && (
-        <div
-          style={{ minHeight: "calc(100vh - 100px)" }}
-          className="mt-28 w-full flex justify-center items-center"
-        >
+
+      {loading && (
+        <div style={{minHeight: "calc(100vh - 100px)"}} className="w-full">
           <Loading />
         </div>
-      )
-      }
-      {product && (
+      )}
+
+      {response === false && !loading && (
+        <div
+          style={{minHeight: "calc(100vh - 100px)"}}
+          className=" w-full flex justify-center items-center text-center"
+        >
+          <p>El producto que estás buscando no se encontró. ¡Lo sentimos!</p>
+        </div>
+      )}
+
+      {response === true && !loading && (
         <div className="mt-28 relative mb-2 w-full flex flex-col items-center lg:items-start lg:flex-row justify-around">
           <div className="ContainerImg">
             <div className="carousel w-full h-full">
@@ -93,13 +107,13 @@ console.log(product)
                   className="z-10 w-full h-full object-contain select-none"
                 />
                 {/*<div className="absolute flex justify-between w-full top-1/2">
-                <a href="#slide1" className="ml-2 text-2xl text-secondary z-10">
-                  <FaCaretLeft />
-                </a>
-                <a href="#slide3" className="mr-2 text-2xl text-secondary z-10">
-                  <FaCaretRight />
-                </a>
-              </div>*/}
+                    <a href="#slide1" className="ml-2 text-2xl text-secondary z-10">
+                      <FaCaretLeft />
+                    </a>
+                    <a href="#slide3" className="mr-2 text-2xl text-secondary z-10">
+                      <FaCaretRight />
+                    </a>
+                  </div>*/}
                 <div className="absolute w-full lg:w-3/5 lg:h-3/5 lg:bg-accent lg:rounded-full flex justify-center overflow-hidden">
                   <img
                     style={{ transform: "rotate(85deg)" }}
