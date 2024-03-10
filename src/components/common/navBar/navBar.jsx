@@ -4,6 +4,7 @@ import { useContexto } from "../../../context/Context.jsx";
 import { Link, useLocation } from "react-router-dom";
 import { themes } from "../../../constants/themes.js";
 import { DropdownItem } from "../dropdownItem/dropdownItem.jsx";
+import {DropdownItemSkeleton} from "../dropdownItem/dropdownItemSkeleton.jsx"
 import { TbColorSwatch } from "react-icons/tb";
 import {
   IoReorderThreeOutline,
@@ -243,7 +244,7 @@ export const NavBar = () => {
                 {cartList.length >= 1 && (
                   <div>
                     {cartList.map((item, index) => (
-                      <DropdownItem key={index} item={item} />
+                      <DropdownItem key={index} item={item} /> || <DropdownItemSkeleton/>
                     ))}
                     <div className="sticky bottom-0 bg-base-100 p-4  w-full h-auto  flex flex-col items-center">
                       <div className="w-full h-auto my-2 flex justify-between text-xs">
