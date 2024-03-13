@@ -4,7 +4,6 @@ import { useContexto } from "../../../context/Context.jsx";
 import { Link, useLocation } from "react-router-dom";
 import { themes } from "../../../constants/themes.js";
 import { DropdownItem } from "../dropdownItem/dropdownItem.jsx";
-import {DropdownItemSkeleton} from "../dropdownItem/dropdownItemSkeleton.jsx"
 import { TbColorSwatch } from "react-icons/tb";
 import {
   IoReorderThreeOutline,
@@ -62,7 +61,7 @@ export const NavBar = () => {
                   to="/"
                   className={`uppercase text-xs p-2 ${
                     location.pathname === "/"
-                      ? "border-b border-base-100 scale-110"
+                      ? "text-secondary scale-110"
                       : ""
                   }`}
                   style={{ letterSpacing: "6px" }}
@@ -73,7 +72,7 @@ export const NavBar = () => {
                   to="/vinoteca"
                   className={`uppercase text-xs p-2 ${
                     location.pathname === "/vinoteca"
-                      ? "border-b border-base-100 scale-110"
+                      ? "text-secondary scale-110"
                       : ""
                   }`}
                   style={{ letterSpacing: "6px" }}
@@ -84,7 +83,7 @@ export const NavBar = () => {
                   to="/nosotros"
                   className={`uppercase text-xs p-2 ${
                     location.pathname === "/nosotros"
-                      ? "border-b border-base-100 scale-110"
+                      ? "text-secondary scale-110"
                       : ""
                   }`}
                   style={{ letterSpacing: "6px" }}
@@ -165,7 +164,7 @@ export const NavBar = () => {
               </div>
             </div>
 
-            <Link to="/admin">
+            <Link to="/iniciar-sesion">
               <button className="btn btn-ghost btn-circle">
                 <AiOutlineUser className="text-2xl" />
               </button>
@@ -244,7 +243,7 @@ export const NavBar = () => {
                 {cartList.length >= 1 && (
                   <div>
                     {cartList.map((item, index) => (
-                      <DropdownItem key={index} item={item} /> || <DropdownItemSkeleton/>
+                      <DropdownItem key={index} item={item} /> 
                     ))}
                     <div className="sticky bottom-0 bg-base-100 p-4  w-full h-auto  flex flex-col items-center">
                       <div className="w-full h-auto my-2 flex justify-between text-xs">
@@ -312,12 +311,12 @@ export const NavBar = () => {
             </details>
           </div>
         </div>
-        <nav className="hidden w-full md:flex justify-center items-center gap-6 p-3 -mt-3 bg-primary text-base-100">
+        <nav className="hidden w-full md:flex justify-center items-center gap-6 pb-4 pt-2 -mt-4 bg-primary text-base-100">
           <Link
             to="/"
             className={`uppercase text-xs p-2 ${
               location.pathname === "/"
-                ? "border-b border-base-100 text-base-100 scale-110"
+                ? "scale-x-110"
                 : ""
             }`}
             style={{ letterSpacing: "6px" }}
@@ -328,7 +327,7 @@ export const NavBar = () => {
             to="/vinoteca"
             className={`uppercase text-xs p-2 ${
               location.pathname === "/vinoteca"
-                ? "border-b border-base-100 text-base-100 scale-110"
+                ? "scale-x-110"
                 : ""
             }`}
             style={{ letterSpacing: "6px" }}
@@ -339,7 +338,7 @@ export const NavBar = () => {
             to="/nosotros"
             className={`uppercase text-xs p-2 ${
               location.pathname === "/nosotros"
-                ? "border-b border-base-100 text-base-100 scale-110"
+                ? "scale-x-110"
                 : ""
             }`}
             style={{ letterSpacing: "6px" }}

@@ -1,0 +1,22 @@
+export const terminosCargaVinos = [
+    "Vinificando",
+    "Embotellando",
+    "Decantando",
+    "Madurando",
+    "Fermentando",
+    "Aromatizando",
+    "Envejeciendo",
+    "Refinando",
+    "Catando",
+    "Sommelierizando",
+    "Dionisíaco",
+    "Bouquetizando",
+    "Crianza en progreso",
+    "Macerando",
+    "Estibando",
+    "Enólogamente",
+    "Vinosofisticando",
+    "Vinoterapia",
+    "Vinotinto en curso",
+    "Cosecha en proceso"
+];

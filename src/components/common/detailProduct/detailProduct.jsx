@@ -5,7 +5,7 @@ import { getProductById } from "../../../api/auth.js";
 import { IoRemoveSharp, IoAddSharp } from "react-icons/io5";
 import { FaCaretLeft, FaCaretRight } from "react-icons/fa";
 import { NavBar } from "../navBar/navBar.jsx";
-import { Loading } from "../loading/loading.jsx";
+import {Loading} from "../loading/loading.jsx"
 import "./detailProduct.css";
 
 export const DetailProduct = () => {
@@ -82,22 +82,22 @@ export const DetailProduct = () => {
       <NavBar />
 
       {loading && (
-        <div style={{minHeight: "calc(100vh - 100px)"}} className="w-full">
+        <div style={{minHeight: "calc(100vh - 80px)"}} className="w-full flex justify-center items-center">
           <Loading />
         </div>
       )}
 
       {response === false && !loading && (
         <div
-          style={{minHeight: "calc(100vh - 100px)"}}
-          className=" w-full flex justify-center items-center text-center"
+          style={{minHeight: "calc(100vh - 80px)"}}
+          className="w-full flex justify-center items-center text-center"
         >
           <p>El producto que estás buscando no se encontró. ¡Lo sentimos!</p>
         </div>
       )}
 
       {response === true && !loading && (
-        <div className="mt-28 relative mb-2 w-full flex flex-col items-center lg:items-start lg:flex-row justify-around">
+        <div className="mt-20 md:mt-28 relative mb-2 w-full flex flex-col items-center lg:items-start lg:flex-row justify-around">
           <div className="ContainerImg">
             <div className="carousel w-full h-full">
               <div className="carousel-item relative flex justify-center items-center w-full h-full">
