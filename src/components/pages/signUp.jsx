@@ -1,13 +1,21 @@
 import { NavBar } from "../common/navBar/navBar";
 import { Footer } from "../common/footer/footer";
 import { useFormik } from "formik";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import * as Yup from "yup";
-import { useState, useEffect } from "react";
-
+import { useEffect, useState } from "react";
+import { crearUsuario } from "../../api/auth.js";
+import { Loading2 } from "../common/loading/loading2.jsx";
+import { useContexto } from "../../context/Context.jsx";
+import { encryptToken } from "../../helpers/token-encrypt.js";
 export const SignUp = () => {
+  const { setIsAuthenticated, isAuthenticated } = useContexto();
+  const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
+  const [errors, setErrors] = useState({});
   const [currentSetp, setCurrentStep] = useState(0);
-  const [data, setData] = useState({
+
+  const [formData, setFormData] = useState({
     nombre: "",
     apellido: "",
     correo: "",
@@ -26,26 +34,39 @@ export const SignUp = () => {
       apellido: Yup.string().required("El apellido es obligatorio"),
     }),
     onSubmit: (values) => {
+      setFormData((prevData) => ({
+        ...prevData,
+        nombre: values.nombre,
+        apellido: values.apellido,
+      }));
       setCurrentStep(1);
-      data.nombre = values.nombre;
-      data.apellido = values.apellido;
     },
   });
+
   const form_1 = useFormik({
     initialValues: {
       telefono: "",
       direccion: "",
     },
     validationSchema: Yup.object({
-      telefono: Yup.string().required("El teléfono es obligatorio"),
-      direccion: Yup.string().required("La dirección es obligatoria"),
+      telefono: Yup.string()
+        .required("El celular es obligatorio")
+        .matches(/^\d+$/, "El celular debe contener solo números")
+        .min(10, "El celular debe tener al menos 10 dígitos"),
+      direccion: Yup.string()
+        .required("La dirección es obligatoria")
+        .min(15, "La dirección debe tener al menos 15 caracteres"),
     }),
     onSubmit: (values) => {
+      setFormData((prevData) => ({
+        ...prevData,
+        telefono: values.telefono,
+        direccion: values.direccion,
+      }));
       setCurrentStep(2);
-      data.telefono = values.telefono;
-      data.direccion = values.direccion;
     },
   });
+
   const form_2 = useFormik({
     initialValues: {
       correo: "",
@@ -55,11 +76,18 @@ export const SignUp = () => {
     validationSchema: Yup.object({
       correo: Yup.string()
         .email("Correo electrónico inválido")
-        .required("El correo electrónico es obligatorio"),
+        .required("El correo electrónico es obligatorio")
+        .matches(
+          /@(gmail\.com|hotmail\.com|outlook\.com)$/,
+          "El dominio del correo electrónico debe ser gmail.com, hotmail.com o outlook.com"
+        ),
       contrasenia: Yup.string()
         .required("La contraseña es obligatoria")
         .min(8, "La contraseña debe tener al menos 8 caracteres")
-        .matches(/[a-z]/, "La contraseña debe contener al menos una minúscula"),
+        .matches(
+          /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).*$/,
+          "La contraseña debe contener al menos una minúscula, una mayúscula y un número"
+        ),
       confirmar_contrasenia: Yup.string()
         .required("Confirmar contraseña es obligatorio")
         .oneOf(
@@ -67,17 +95,47 @@ export const SignUp = () => {
           "Las contraseñas deben coincidir"
         ),
     }),
-    onSubmit: (values) => {
-      const data = {
+    onSubmit: async (values) => {
+      setFormData((prevData) => ({
+        ...prevData,
         correo: values.correo,
         contrasenia: values.contrasenia,
-      };
-      console.log(data);
+      }));
+      setLoading(true);
+      setErrors({});
+      try {
+        console.log(formData);
+        const res = await crearUsuario(formData); // Assuming crearUsuario is defined elsewhere
+        console.log(res);
+        if (res.status === 201) {
+          const tokenEncrypted = encryptToken(res.data.token); // Assuming encryptToken is defined elsewhere
+          localStorage.setItem("nekot", tokenEncrypted);
+          setIsAuthenticated(true); // Assuming setIsAuthenticated is defined elsewhere
+        }
+      } catch (error) {
+        if (error.response && error.response.status === 400) {
+          setErrors({ correo: error.response.data.mensaje });
+        } else {
+          console.error("Error al crear usuario:", error);
+          setErrors({
+            general: "Error al crear usuario. Inténtalo de nuevo más tarde.",
+          });
+        }
+      } finally {
+        setLoading(false);
+      }
     },
   });
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate("/");
+    }
+  }, [isAuthenticated]);
   return (
     <div className="overflow-hidden">
       <NavBar />
+      {loading && <Loading2 />}
       <div className="mt-16 md:mt-20 w-full h-auto flex justify-between items-center">
         <div
           style={{ minHeight: "calc(100vh - 80px)" }}
@@ -123,7 +181,7 @@ export const SignUp = () => {
             </li>
           </ul>
 
-          <div className="w-2/3" onSubmit={form_0.handleSubmit}>
+          <div className="w-5/6 lg:w-2/3" onSubmit={form_0.handleSubmit}>
             {/* Campos del formulario */}
             <div className="w-full flex flex-col justify-start">
               {currentSetp === 0 && (
@@ -192,7 +250,7 @@ export const SignUp = () => {
                     htmlFor="telefono"
                     className="block my-2 uppercase text-xs text-start w-full"
                   >
-                    Telefono
+                    Celular
                   </label>
                   <input
                     type="text"
@@ -201,7 +259,7 @@ export const SignUp = () => {
                     value={form_1.values.telefono}
                     onChange={form_1.handleChange}
                     onBlur={form_1.handleBlur}
-                    placeholder="Telefono"
+                    placeholder="Celular"
                     className="px-6 w-full py-4 border bg-transparent focus:outline-none text-xs"
                   />
                   {form_1.touched.telefono && form_1.errors.telefono && (
@@ -323,11 +381,22 @@ export const SignUp = () => {
                   >
                     Registrarme
                   </button>
+
+                  {errors.correo && (
+                    <div className="my-1 text-error text-start text-xs">
+                      {errors.correo}
+                    </div>
+                  )}
+                  {errors.general && (
+                    <div className="my-1 text-error text-start text-xs">
+                      {errors.general}
+                    </div>
+                  )}
                 </form>
               )}
             </div>
 
-            <div className="w-full justify-center items-center mb-2 flex gap-2">
+            <div className="mt-4 -mb-4 w-full justify-center items-center flex gap-2">
               <h2>¿Ya tienes una cuenta?</h2>
               <Link to="/iniciar-sesion" className="link">
                 Iniciar sesión

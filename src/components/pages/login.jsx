@@ -1,34 +1,54 @@
 import { NavBar } from "../common/navBar/navBar";
 import { Footer } from "../common/footer/footer";
 import { useFormik } from "formik";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import * as Yup from "yup";
-
+import { useState, useEffect } from "react";
+import { iniciarSesion } from "../../api/auth.js";
+import { Loading2 } from "../common/loading/loading2.jsx";
+import { useContexto } from "../../context/Context.jsx";
+import { encryptToken } from "../../helpers/token-encrypt.js";
 export const Login = () => {
+  const { setIsAuthenticated, isAuthenticated } = useContexto();
+  const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
+  const [errors, setErrors] = useState({});
   const formik = useFormik({
     initialValues: {
-      email: "",
-      password: "",
+      correo: "",
+      contrasenia: "",
     },
     validationSchema: Yup.object({
-      email: Yup.string()
+      correo: Yup.string()
         .email("Correo electrónico inválido")
         .required("El correo electrónico es obligatorio"),
-      password: Yup.string()
-        .required("La contraseña es obligatoria")
-        .min(6, "La contraseña debe tener al menos 6 caracteres"),
+      contrasenia: Yup.string().required("La contraseña es obligatoria"),
     }),
-    onSubmit: (values, { setSubmitting }) => {
-      setTimeout(() => {
-        alert(JSON.stringify(values, null, 2));
-        setSubmitting(false);
-      }, 400);
+    onSubmit: async (values) => {
+      setLoading(true);
+      setErrors({});
+      try {
+        const res = await iniciarSesion(values);
+        setIsAuthenticated(true);
+        const tokenEcrypted = encryptToken(res.data.token);
+        localStorage.setItem("nekot",tokenEcrypted);
+      } catch (error) {
+        setErrors(error.response.data);
+      } finally {
+        setLoading(false);
+      }
     },
   });
 
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate("/");
+    }
+  }, [isAuthenticated]);
   return (
     <div className="overflow-hidden">
       <NavBar />
+      {loading && <Loading2 />}
       <div className="mt-16 md:mt-20 w-full h-auto flex justify-between items-center">
         <div
           style={{ minHeight: "calc(100vh - 80px)" }}
@@ -47,35 +67,35 @@ export const Login = () => {
             Ingrese sus credenciales
           </h1>
 
-          <form className="w-2/3" onSubmit={formik.handleSubmit}>
+          <form className="w-5/6 lg:w-2/3" onSubmit={formik.handleSubmit}>
             <div className="mb-4 w-full flex flex-col justify-start">
               <label
                 style={{ letterSpacing: "2px" }}
-                htmlFor="email"
+                htmlFor="correo"
                 className="block mb-1 uppercase text-xs text-start w-full"
               >
                 Correo electrónico
               </label>
               <input
-                type="email"
-                id="email"
-                name="email"
-                value={formik.values.email}
+                type="correo"
+                id="correo"
+                name="correo"
+                value={formik.values.correo}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
                 placeholder="Correo electrónico"
                 className="px-6 w-full py-4 border bg-transparent focus:outline-none text-xs"
               />
-              {formik.touched.email && formik.errors.email && (
+              {formik.touched.correo && formik.errors.correo && (
                 <div className="my-2 text-error text-start text-xs">
-                  {formik.errors.email}
+                  {formik.errors.correo}
                 </div>
               )}
             </div>
             <div className="mb-4">
               <label
                 style={{ letterSpacing: "2px" }}
-                htmlFor="password"
+                htmlFor="contrasenia"
                 className="block mb-1 uppercase text-xs text-start w-full"
               >
                 Contraseña
@@ -83,22 +103,28 @@ export const Login = () => {
               <input
                 placeholder="Contraseña"
                 type="password"
-                id="password"
-                name="password"
-                value={formik.values.password}
+                id="contrasenia"
+                name="contrasenia"
+                value={formik.values.contrasenia}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
                 className="px-6 w-full py-4 border bg-transparent focus:outline-none text-xs"
               />
-              {formik.touched.password && formik.errors.password && (
+              {formik.touched.contrasenia && formik.errors.contrasenia && (
                 <div className="my-2 text-error text-start text-xs">
-                  {formik.errors.password}
+                  {formik.errors.contrasenia}
                 </div>
               )}
             </div>
 
-            <div className="flex justify-between w-full">
-              <div className="flex gap-2 items-center bg-transparent">
+            {errors && (
+              <div className="my-2 text-error text-start text-xs">
+                {errors.mensaje}
+              </div>
+            )}
+
+            <div className="flex justify-center w-full">
+              {/*<div className="flex gap-2 items-center bg-transparent">
                 <input
                   id="checkbox"
                   type="checkbox"
@@ -119,6 +145,7 @@ export const Login = () => {
                   <h3>Recordarme</h3>
                 </label>
               </div>
+              */}
               <h3
                 style={{ letterSpacing: "2px" }}
                 className="link text-xs font-semibold my-5"

@@ -6,17 +6,29 @@ import { themes } from "../../../constants/themes.js";
 import { DropdownItem } from "../dropdownItem/dropdownItem.jsx";
 import { TbColorSwatch } from "react-icons/tb";
 import {
+  IoLogOutOutline,
   IoReorderThreeOutline,
   IoSearchOutline,
   IoCloseOutline,
   IoBagOutline,
 } from "react-icons/io5";
 import { AiOutlineUser } from "react-icons/ai";
-
+import { Loading } from "../loading/loading.jsx";
+import img from "../../../assets/img.png"
 export const NavBar = () => {
-  const { changeTheme, cartList, total, cantidad, envioGratis } = useContexto();
-
+  const {
+    changeTheme,
+    cartList,
+    total,
+    cantidad,
+    envioGratis,
+    user,
+    setUser,
+    isAuthenticated,
+    cerrarSesion,
+  } = useContexto();
   const detailsRef = useRef(null);
+  const [primeraLetra, setPrimeraLetra] = useState();
 
   const handleCloseDetails = () => {
     if (detailsRef.current) {
@@ -35,6 +47,14 @@ export const NavBar = () => {
       changeTheme(storedTheme);
     }
   }, [changeTheme]);
+
+   useEffect(() => {
+    if (user && user.nombre) {
+      setPrimeraLetra(user.nombre.charAt(0));
+    } else {
+      setPrimeraLetra('');
+    }
+  }, [setUser,user,isAuthenticated]);
 
   return (
     <div className="fixed top-0 h-auto w-full z-40">
@@ -60,9 +80,7 @@ export const NavBar = () => {
                 <Link
                   to="/"
                   className={`uppercase text-xs p-2 ${
-                    location.pathname === "/"
-                      ? "text-secondary scale-110"
-                      : ""
+                    location.pathname === "/" ? "text-secondary scale-110" : ""
                   }`}
                   style={{ letterSpacing: "6px" }}
                 >
@@ -94,12 +112,12 @@ export const NavBar = () => {
             </div>
           </div>
 
-          <div className="navbar-center">
+          <div className="navbar-center absolute -top-3 left-4 z-50">
             <a
               style={{ letterSpacing: "8px", fontWeight: "bolder" }}
-              className="hidden md:block text-xl uppercase cursor-pointer select-none"
+              className="hidden md:block text-xl uppercase cursor-pointer select-none w-full"
             >
-              EspacioBaco
+              <img src={img} alt="Logo" className="w-36 h-full mb-2"/>
             </a>
           </div>
 
@@ -107,7 +125,7 @@ export const NavBar = () => {
           <div className="navbar-end">
             <div
               tabIndex={0}
-              className="btn btn-ghost btn-circle dropdown dropdown-end max-h-[calc(100vh-300px)]"
+              className="btn-circle dropdown dropdown-end max-h-[calc(100vh-300px)]"
             >
               <div
                 tabIndex={0}
@@ -118,7 +136,7 @@ export const NavBar = () => {
               </div>
               <div
                 tabIndex={0}
-                className=" mt-3 md:mt-12 rounded-badge dropdown-content max-h-[calc(100vh-20rem)] md:max-h-[calc(100vh-10rem)] w-48 md:w-56 overflow-y-auto bg-base-100 flex flex-col gap-2 p-4 z-50"
+                className="rounded-badge dropdown-content max-h-[calc(100vh-20rem)] md:max-h-[calc(100vh-10rem)] w-48 md:w-56 overflow-y-auto bg-base-100 flex flex-col gap-2 p-4 z-50"
               >
                 {themes.map((theme, index) => (
                   <button
@@ -164,15 +182,96 @@ export const NavBar = () => {
               </div>
             </div>
 
-            <Link to="/iniciar-sesion">
-              <button className="btn btn-ghost btn-circle">
+            <div className="btn-circle dropdown dropdown-end z-20">
+              <div
+                tabIndex={0}
+                role="button"
+                className="w-full h-full flex justify-center items-center cursor-pointer select-none"
+              >
                 <AiOutlineUser className="text-2xl" />
-              </button>
-            </Link>
+              </div>
+              <ul
+                tabIndex={0}
+                className="flex flex-col items-center justify-center dropdown-content z-[1] menu shadow bg-base-100 rounded-box"
+              >
+                {isAuthenticated ? (
+                  <div className="w-52 flex flex-col gap-1">
+                    <li>
+                      <div className="relative">
+                        <a className="p-2">Perfil</a>
+                        <div className="avatar placeholder absolute right-4">
+                          <div className="bg-transparent border-2 border-primary rounded-full w-6">
+                            <span style={{fontWeight:"bold"}} className="text-sm text-primary">{primeraLetra}</span>
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+                    <li>
+                      <button
+                        type="button"
+                        className="p-4 flex justify-between"
+                        onClick={cerrarSesion}
+                      >
+                        Cerrar sesion
+                        <IoLogOutOutline className="text-2xl" />
+                      </button>
+                    </li>
+                  </div>
+                ) : (
+                  <div className="w-52">
+                    <li>
+                      <Link
+                        to="/iniciar-sesion"
+                        style={{ letterSpacing: "2px" }}
+                        className="btn text-xs w-full"
+                      >
+                        Iniciar sesión
+                      </Link>
+                    </li>
+                  </div>
+                )}
+              </ul>
+            </div>
+
+            <details
+              ref={detailsRef}
+              className="p-4 dropdown dropdown-end"
+              tabIndex={0}
+            >
+              <summary
+                tabIndex={0}
+                role="button"
+                className="w-full h-full flex justify-center items-center cursor-pointer select-none"
+              >
+                <IoSearchOutline className="text-2xl" />
+              </summary>
+              <ul
+                tabIndex={0}
+                className="mt-3 md:mt-16 dropdown-content z-[1] menu p-4 shadow bg-base-100 w-screen -mr-16"
+              >
+                <div className="w-full h-full flex px-0 md:px-5 lg:px-10 items-center">
+                  <IoSearchOutline className="text-2xl text-gray-400" />
+                  <input
+                    autoFocus
+                    autoComplete="off"
+                    autoCorrect="off"
+                    autoCapitalize="off"
+                    type="text"
+                    placeholder="BUSCAR..."
+                    className="w-full p-2 bg-transparent mx-4 uppercase border-none"
+                    style={{ letterSpacing: "2px" }}
+                  />
+                  <IoCloseOutline
+                    onClick={handleCloseDetails}
+                    className="text-2xl cursor-pointer text-gray-400"
+                  />
+                </div>
+              </ul>
+            </details>
 
             <div
               tabIndex={0}
-              className="p-4 dropdown dropdown-end max-h-[calc(100vh-300px)]"
+              className="btn-circle dropdown dropdown-end max-h-[calc(100vh-300px)]"
             >
               <div
                 tabIndex={0}
@@ -189,7 +288,7 @@ export const NavBar = () => {
 
               <div
                 tabIndex={0}
-                className="relative rounded-badge dropdown-content h-auto max-h-[calc(100vh-90px)] w-72 md:w-96 overflow-hidden overflow-y-auto bg-base-100 flex flex-col gap-2 px-4 mt-6 md:mt-16 z-50"
+                className="relative rounded-badge dropdown-content h-auto max-h-[calc(100vh-90px)] w-72 md:w-96 overflow-hidden overflow-y-auto bg-base-100 flex flex-col gap-2 px-4 z-50"
               >
                 <div className="sticky top-0 p-2 bg-base-100">
                   <h1
@@ -242,9 +341,11 @@ export const NavBar = () => {
 
                 {cartList.length >= 1 && (
                   <div>
-                    {cartList.map((item, index) => (
-                      <DropdownItem key={index} item={item} /> 
-                    ))}
+                    {cartList.map(
+                      (item, index) =>
+                        <DropdownItem key={index} item={item} /> || <Loading />
+                    )}
+
                     <div className="sticky bottom-0 bg-base-100 p-4  w-full h-auto  flex flex-col items-center">
                       <div className="w-full h-auto my-2 flex justify-between text-xs">
                         <h2>Productos({cantidad})</h2>
@@ -273,51 +374,13 @@ export const NavBar = () => {
                 )}
               </div>
             </div>
-
-            <details
-              ref={detailsRef}
-              className="p-4 dropdown dropdown-end"
-              tabIndex={0}
-            >
-              <summary
-                tabIndex={0}
-                role="button"
-                className="w-full h-full flex justify-center items-center cursor-pointer select-none"
-              >
-                <IoSearchOutline className="text-2xl" />
-              </summary>
-              <ul
-                tabIndex={0}
-                className="mt-3 md:mt-16 dropdown-content z-[1] menu p-4 shadow bg-base-100 w-screen -mr-2"
-              >
-                <div className="w-full h-full flex px-0 md:px-5 lg:px-10 items-center">
-                  <IoSearchOutline className="text-2xl text-gray-400" />
-                  <input
-                    autoFocus
-                    autoComplete="off"
-                    autoCorrect="off"
-                    autoCapitalize="off"
-                    type="text"
-                    placeholder="BUSCAR..."
-                    className="w-full p-2 bg-transparent mx-4 uppercase border-none"
-                    style={{ letterSpacing: "2px" }}
-                  />
-                  <IoCloseOutline
-                    onClick={handleCloseDetails}
-                    className="text-2xl cursor-pointer text-gray-400"
-                  />
-                </div>
-              </ul>
-            </details>
           </div>
         </div>
         <nav className="hidden w-full md:flex justify-center items-center gap-6 pb-4 pt-2 -mt-4 bg-primary text-base-100">
           <Link
             to="/"
             className={`uppercase text-xs p-2 ${
-              location.pathname === "/"
-                ? "scale-x-110"
-                : ""
+              location.pathname === "/" ? "text-secondary scale-x-110" : ""
             }`}
             style={{ letterSpacing: "6px" }}
           >
@@ -327,7 +390,7 @@ export const NavBar = () => {
             to="/vinoteca"
             className={`uppercase text-xs p-2 ${
               location.pathname === "/vinoteca"
-                ? "scale-x-110"
+                ? "text-secondary scale-x-110"
                 : ""
             }`}
             style={{ letterSpacing: "6px" }}
@@ -338,7 +401,7 @@ export const NavBar = () => {
             to="/nosotros"
             className={`uppercase text-xs p-2 ${
               location.pathname === "/nosotros"
-                ? "scale-x-110"
+                ? "text-secondary scale-x-110"
                 : ""
             }`}
             style={{ letterSpacing: "6px" }}

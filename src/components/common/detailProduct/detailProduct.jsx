@@ -5,7 +5,7 @@ import { getProductById } from "../../../api/auth.js";
 import { IoRemoveSharp, IoAddSharp } from "react-icons/io5";
 import { FaCaretLeft, FaCaretRight } from "react-icons/fa";
 import { NavBar } from "../navBar/navBar.jsx";
-import {Loading} from "../loading/loading.jsx"
+import { Loading } from "../loading/loading.jsx";
 import "./detailProduct.css";
 
 export const DetailProduct = () => {
@@ -82,14 +82,17 @@ export const DetailProduct = () => {
       <NavBar />
 
       {loading && (
-        <div style={{minHeight: "calc(100vh - 80px)"}} className="w-full flex justify-center items-center">
+        <div
+          style={{ minHeight: "calc(100vh - 80px)" }}
+          className="w-full flex justify-center items-center"
+        >
           <Loading />
         </div>
       )}
 
       {response === false && !loading && (
         <div
-          style={{minHeight: "calc(100vh - 80px)"}}
+          style={{ minHeight: "calc(100vh - 80px)" }}
           className="w-full flex justify-center items-center text-center"
         >
           <p>El producto que estás buscando no se encontró. ¡Lo sentimos!</p>
@@ -104,16 +107,8 @@ export const DetailProduct = () => {
                 <img
                   src={product.imagen}
                   alt="imagen de el vino"
-                  className="z-10 w-full h-full object-contain select-none"
+                  className="z-20 w-full h-full object-contain select-none"
                 />
-                {/*<div className="absolute flex justify-between w-full top-1/2">
-                    <a href="#slide1" className="ml-2 text-2xl text-secondary z-10">
-                      <FaCaretLeft />
-                    </a>
-                    <a href="#slide3" className="mr-2 text-2xl text-secondary z-10">
-                      <FaCaretRight />
-                    </a>
-                  </div>*/}
                 <div className="absolute w-full lg:w-3/5 lg:h-3/5 lg:bg-accent lg:rounded-full flex justify-center overflow-hidden">
                   <img
                     style={{ transform: "rotate(85deg)" }}

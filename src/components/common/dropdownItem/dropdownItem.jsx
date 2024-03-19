@@ -67,8 +67,8 @@ export const DropdownItem = ({ item }) => {
       </div>
       <div className="w-full h-full gap-4 flex flex-col p-2">
         <div className="w-full h-full gap-4 flex flex-col">
-          <h1 className="bold text-sm">{product.nombre || <div className="skeleton h-4 w-20"></div>}</h1>
-          <h2 className="text-sm">${product.precio || <div className="skeleton h-4 w-10"></div>}c/u</h2>
+          <h1 className="bold text-sm">{product.nombre}</h1>
+          <h2 className="text-sm">${product.precio}c/u</h2>
         </div>
         <div className="w-full flex items-center justify-between">
           <div className=" p-2 border flex items-center">
@@ -76,7 +76,7 @@ export const DropdownItem = ({ item }) => {
               onClick={decrementBTN}
               className="cursor-pointer mr-6 ml-2"
             />
-            <span className="select-none">{input ||  <div className="skeleton h-4 w-10"></div> }</span>
+            <span className="select-none">{input}</span>
             <IoAddSharp
               onClick={incrementBTN}
               className="cursor-pointer ml-6 mr-2"
