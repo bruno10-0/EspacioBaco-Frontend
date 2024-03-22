@@ -1,4 +1,3 @@
-import "./navbar.css";
 import { useState, useEffect } from "react";
 import { useRef } from "react";
 import { useContexto } from "../../../context/Context.jsx";
