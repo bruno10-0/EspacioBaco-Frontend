@@ -1,20 +1,22 @@
+import "./navbar.css";
 import { useState, useEffect } from "react";
 import { useRef } from "react";
 import { useContexto } from "../../../context/Context.jsx";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { themes } from "../../../constants/themes.js";
 import { DropdownItem } from "../dropdownItem/dropdownItem.jsx";
 import { TbColorSwatch } from "react-icons/tb";
+import { GrUserAdmin } from "react-icons/gr";
 import {
+  IoLogInOutline,
   IoLogOutOutline,
   IoReorderThreeOutline,
   IoSearchOutline,
-  IoCloseOutline,
   IoBagOutline,
 } from "react-icons/io5";
 import { AiOutlineUser } from "react-icons/ai";
 import { Loading } from "../loading/loading.jsx";
-import img from "../../../assets/img.png"
+import img from "../../../assets/EspacioBaco_tinto+champagne.png";
 export const NavBar = () => {
   const {
     changeTheme,
@@ -26,6 +28,7 @@ export const NavBar = () => {
     setUser,
     isAuthenticated,
     cerrarSesion,
+    loading,
   } = useContexto();
   const detailsRef = useRef(null);
   const [primeraLetra, setPrimeraLetra] = useState();
@@ -48,21 +51,18 @@ export const NavBar = () => {
     }
   }, [changeTheme]);
 
-   useEffect(() => {
+  useEffect(() => {
     if (user && user.nombre) {
       setPrimeraLetra(user.nombre.charAt(0));
     } else {
-      setPrimeraLetra('');
+      setPrimeraLetra("");
     }
-  }, [setUser,user,isAuthenticated]);
+  }, [setUser, user, isAuthenticated]);
 
   return (
     <div className="fixed top-0 h-auto w-full z-40">
       <div className="w-full h-full bg-base-100 ">
-        <div
-          className="navbar "
-          style={{ transition: "background-color 0.3s ease" }}
-        >
+        <div className="navbar ">
           <div className="navbar-start">
             {/*Hamburger*/}
             <div className="dropdown dropdown-bottom md:hidden">
@@ -112,13 +112,24 @@ export const NavBar = () => {
             </div>
           </div>
 
-          <div className="navbar-center absolute -top-3 left-4 z-50">
+          <Link to="/" className="absolute -top-2 left-4 z-50">
             <a
               style={{ letterSpacing: "8px", fontWeight: "bolder" }}
               className="hidden md:block text-xl uppercase cursor-pointer select-none w-full"
             >
-              <img src={img} alt="Logo" className="w-36 h-full mb-2"/>
+              <img src={img} alt="Logo" className="w-32 h-full my-2" />
             </a>
+          </Link>
+
+          <div className="border rounded-badge md:mb-2 w-screen">
+            <div className="flex justify-start items-center w-full px-5">
+              <IoSearchOutline className="text-2xl mx-2 text-gray-500" />
+              <input
+                type="text"
+                placeholder="Buscar..."
+                className="text-sm w-full  p-2 md:p-4 bg-transparent uppercase focus:outline-none"
+              />
+            </div>
           </div>
 
           {/*User, cart search, theme*/}
@@ -194,80 +205,64 @@ export const NavBar = () => {
                 tabIndex={0}
                 className="flex flex-col items-center justify-center dropdown-content z-[1] menu shadow bg-base-100 rounded-box"
               >
-                {isAuthenticated ? (
-                  <div className="w-52 flex flex-col gap-1">
-                    <li>
-                      <div className="relative">
-                        <a className="p-2">Perfil</a>
-                        <div className="avatar placeholder absolute right-4">
-                          <div className="bg-transparent border-2 border-primary rounded-full w-6">
-                            <span style={{fontWeight:"bold"}} className="text-sm text-primary">{primeraLetra}</span>
-                          </div>
-                        </div>
-                      </div>
-                    </li>
-                    <li>
-                      <button
-                        type="button"
-                        className="p-4 flex justify-between"
-                        onClick={cerrarSesion}
-                      >
-                        Cerrar sesion
-                        <IoLogOutOutline className="text-2xl" />
-                      </button>
-                    </li>
+                {loading ? (
+                  <div className="w-auto p-4 flex justify-center items-center gap-2">
+                    <span className="loading loading-spinner text-neutral"></span>
+                    <h1>Cargando...</h1>
                   </div>
                 ) : (
-                  <div className="w-52">
-                    <li>
-                      <Link
-                        to="/iniciar-sesion"
-                        style={{ letterSpacing: "2px" }}
-                        className="btn text-xs w-full"
-                      >
-                        Iniciar sesión
-                      </Link>
-                    </li>
-                  </div>
+                  <>
+                    {isAuthenticated ? (
+                      <div className="w-52 flex flex-col gap-1">
+                        <li>
+                          <Link to="/perfil" className="relative">
+                            <h2 className="p-2">Perfil</h2>
+                            <div className="avatar placeholder absolute right-4">
+                              <div className="bg-transparent border-2 border-primary rounded-full w-6">
+                                <span
+                                  style={{ fontWeight: "bold" }}
+                                  className="text-sm text-primary"
+                                >
+                                  {primeraLetra}
+                                </span>
+                              </div>
+                            </div>
+                          </Link>
+                        </li>
+                        {user && user.tipo == "admin" && (
+                          <li>
+                            <Link to="/admin" className="relative">
+                              <h2 className="p-2">Administración</h2>
+                              <GrUserAdmin className="text-2xl absolute right-4 text-primary" />
+                            </Link>
+                          </li>
+                        )}
+
+                        <li onClick={cerrarSesion}>
+                          <div className="relative">
+                            <h2 className="p-2">Cerrar sesión</h2>
+                            <IoLogOutOutline className="text-2xl absolute right-4 text-primary" />
+                          </div>
+                        </li>
+                      </div>
+                    ) : (
+                      <div className="w-52">
+                        <li>
+                          <Link
+                            to="/iniciar-sesion"
+                            style={{ letterSpacing: "2px" }}
+                            className="relative"
+                          >
+                            <h2 className="p-2">Iniciar sesión</h2>
+                            <IoLogInOutline className="text-2xl absolute right-4 text-primary" />
+                          </Link>
+                        </li>
+                      </div>
+                    )}
+                  </>
                 )}
               </ul>
             </div>
-
-            <details
-              ref={detailsRef}
-              className="p-4 dropdown dropdown-end"
-              tabIndex={0}
-            >
-              <summary
-                tabIndex={0}
-                role="button"
-                className="w-full h-full flex justify-center items-center cursor-pointer select-none"
-              >
-                <IoSearchOutline className="text-2xl" />
-              </summary>
-              <ul
-                tabIndex={0}
-                className="mt-3 md:mt-16 dropdown-content z-[1] menu p-4 shadow bg-base-100 w-screen -mr-16"
-              >
-                <div className="w-full h-full flex px-0 md:px-5 lg:px-10 items-center">
-                  <IoSearchOutline className="text-2xl text-gray-400" />
-                  <input
-                    autoFocus
-                    autoComplete="off"
-                    autoCorrect="off"
-                    autoCapitalize="off"
-                    type="text"
-                    placeholder="BUSCAR..."
-                    className="w-full p-2 bg-transparent mx-4 uppercase border-none"
-                    style={{ letterSpacing: "2px" }}
-                  />
-                  <IoCloseOutline
-                    onClick={handleCloseDetails}
-                    className="text-2xl cursor-pointer text-gray-400"
-                  />
-                </div>
-              </ul>
-            </details>
 
             <div
               tabIndex={0}
@@ -316,71 +311,84 @@ export const NavBar = () => {
                     </h2>
                   )}
 
-                  {cartList.length < 1 && (
+                  {loading ? (
                     <div>
-                      <div
-                        style={{ letterSpacing: "4px" }}
-                        className="text-xs flex justify-center items-center p-4 gap-4 uppercase"
-                      >
-                        Carrito vacio
+                      <div className="w-auto p-4 flex justify-center items-center gap-2">
+                        <span className="loading loading-spinner text-neutral"></span>
+                        <h1>Cargando...</h1>
                       </div>
-                      <Link
-                        to="/vinoteca"
-                        className="my-2 w-full btn bg-accent text-base-100 hover:text-primary"
-                      >
-                        <h2
-                          style={{ letterSpacing: "2px" }}
-                          className="text-xs uppercase"
-                        >
-                          Exporar tienda
-                        </h2>
-                      </Link>
+                    </div>
+                  ) : (
+                    <div>
+                      {cartList.length < 1 && (
+                        <div>
+                          <div
+                            style={{ letterSpacing: "4px" }}
+                            className="text-xs flex justify-center items-center p-4 gap-4 uppercase"
+                          >
+                            Carrito vacio
+                          </div>
+                          <Link
+                            to="/vinoteca"
+                            className="my-2 w-full btn bg-accent text-base-100 hover:text-primary"
+                          >
+                            <h2
+                              style={{ letterSpacing: "2px" }}
+                              className="text-xs uppercase"
+                            >
+                              Explorar tienda
+                            </h2>
+                          </Link>
+                        </div>
+                      )}
+
+                      {cartList.length >= 1 && (
+                        <div>
+                          {cartList.map(
+                            (item, index) =>
+                              <DropdownItem key={index} item={item} /> || (
+                                <Loading />
+                              )
+                          )}
+
+                          <div className="sticky bottom-0 bg-base-100 p-4  w-full h-auto  flex flex-col items-center">
+                            <div className="w-full h-auto my-2 flex justify-between text-xs">
+                              <h2>Productos({cantidad})</h2>
+                              <h3>${total}</h3>
+                            </div>
+                            {envioGratis && (
+                              <div className="w-full flex mb-2 justify-between text-xs">
+                                <h2>Envios</h2>
+                                <h3 className="text-success">Gratis</h3>
+                              </div>
+                            )}
+                            <div className="w-full flex mb-2 justify-between">
+                              <h1
+                                style={{ letterSpacing: "5px" }}
+                                className="bold text uppercase"
+                              >
+                                Total
+                              </h1>
+                              <h1 className="bold">${total}</h1>
+                            </div>
+                            <button className="w-full btn text-base-100 hover:text-primary bg-accent">
+                              Continuar Compra
+                            </button>
+                          </div>
+                        </div>
+                      )}
                     </div>
                   )}
                 </div>
-
-                {cartList.length >= 1 && (
-                  <div>
-                    {cartList.map(
-                      (item, index) =>
-                        <DropdownItem key={index} item={item} /> || <Loading />
-                    )}
-
-                    <div className="sticky bottom-0 bg-base-100 p-4  w-full h-auto  flex flex-col items-center">
-                      <div className="w-full h-auto my-2 flex justify-between text-xs">
-                        <h2>Productos({cantidad})</h2>
-                        <h3>${total}</h3>
-                      </div>
-                      {envioGratis && (
-                        <div className="w-full flex mb-2 justify-between text-xs">
-                          <h2>Envios</h2>
-                          <h3 className="text-success">Gratis</h3>
-                        </div>
-                      )}
-                      <div className="w-full flex mb-2 justify-between">
-                        <h1
-                          style={{ letterSpacing: "5px" }}
-                          className="bold text uppercase"
-                        >
-                          Total
-                        </h1>
-                        <h1 className="bold">${total}</h1>
-                      </div>
-                      <button className="w-full btn text-base-100 hover:text-primary bg-accent">
-                        Continuar Compra
-                      </button>
-                    </div>
-                  </div>
-                )}
               </div>
             </div>
           </div>
         </div>
-        <nav className="hidden w-full md:flex justify-center items-center gap-6 pb-4 pt-2 -mt-4 bg-primary text-base-100">
+        <nav className="hidden w-full md:flex justify-center items-center gap-6 p-3 -mt-2 bg-primary text-base-100">
           <Link
             to="/"
             className={`uppercase text-xs p-2 ${
-              location.pathname === "/" ? "text-secondary scale-x-110" : ""
+              location.pathname === "/" ? "scale-110" : ""
             }`}
             style={{ letterSpacing: "6px" }}
           >
@@ -389,9 +397,7 @@ export const NavBar = () => {
           <Link
             to="/vinoteca"
             className={`uppercase text-xs p-2 ${
-              location.pathname === "/vinoteca"
-                ? "text-secondary scale-x-110"
-                : ""
+              location.pathname === "/vinoteca" ? "scale-110" : ""
             }`}
             style={{ letterSpacing: "6px" }}
           >
@@ -400,9 +406,7 @@ export const NavBar = () => {
           <Link
             to="/nosotros"
             className={`uppercase text-xs p-2 ${
-              location.pathname === "/nosotros"
-                ? "text-secondary scale-x-110"
-                : ""
+              location.pathname === "/nosotros" ? "scale-110" : ""
             }`}
             style={{ letterSpacing: "6px" }}
           >

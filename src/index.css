@@ -6,5 +6,23 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Raleway', sans-serif;
+    font-family: 'MADECARVING', sans-serif;
 }
+@font-face {
+    font-family:"MADECARVING";
+    src: url("./fonts/MADECARVINGPersonalUse-Thin.otf");
+    font-weight: lighter;
+    font-style: normal;
+}
+@font-face {
+    font-family: "MADECARVING-Bold";
+    src: url("./fonts/MADECARVINGPersonalUse-Bold.otf");
+    font-weight: bold;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: "MADECARVING-SemiBold";
+    src: url("./fonts/MADECARVINGPersonalUse-SemiBold.otf");
+    font-weight: 600;
+    font-style: normal;
+  }

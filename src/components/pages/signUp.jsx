@@ -8,6 +8,7 @@ import { crearUsuario } from "../../api/auth.js";
 import { Loading2 } from "../common/loading/loading2.jsx";
 import { useContexto } from "../../context/Context.jsx";
 import { encryptToken } from "../../helpers/token-encrypt.js";
+import img from "../../assets/EspacioBaco_blanco+champagne.png"
 export const SignUp = () => {
   const { setIsAuthenticated, isAuthenticated } = useContexto();
   const navigate = useNavigate();
@@ -409,9 +410,9 @@ export const SignUp = () => {
           className="hidden md:flex w-1/2 h-full justify-center items-center bg-gradient-to-br from-accent to-primary via-secondary"
         >
           <img
-            className="w-1/3 h-1/3 object-fill"
-            src="https://media-public.canva.com/8mBPw/MAFyI18mBPw/1/tl.png"
-            alt=""
+            className="w-1/2 object-fill"
+            src={img}
+            alt="logo"
           />
         </div>
       </div>

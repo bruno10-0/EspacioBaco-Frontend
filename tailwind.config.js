@@ -5,7 +5,13 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        'madecarving': ['MADECARVING', 'sans-serif'],
+        'madecarving-bold': ['MADECARVINGPersonalUse-Bold', 'sans-serif'],
+        'madecarving-semi-bold': ['MADECARVINGPersonalUse-SemiBold', 'sans-serif'],
+      },
+    },
   },
   // eslint-disable-next-line no-undef
   plugins: [require("daisyui")],

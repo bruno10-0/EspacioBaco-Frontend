@@ -7,6 +7,7 @@ import { Admin } from "./components/pages/admin";
 import { Login } from "./components/pages/login";
 import { SignUp } from "./components/pages/signUp";
 import { ProtectedRoute } from "./utils/protectedRoute";
+import { Profile } from "./components/pages/profile";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
 
           <Route element={<ProtectedRoute />}>
             <Route path="/admin" element={<Admin />} />
+            <Route path="/perfil" element={<Profile />} />
           </Route>
 
           <Route path="*" element={<NotFound />} />
