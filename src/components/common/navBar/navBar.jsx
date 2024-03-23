@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { useRef } from "react";
 import { useContexto } from "../../../context/Context.jsx";
 import { Link } from "react-router-dom";
 import { themes } from "../../../constants/themes.js";
@@ -16,8 +15,13 @@ import {
 import { AiOutlineUser } from "react-icons/ai";
 import { Loading } from "../loading/loading.jsx";
 import img from "../../../assets/EspacioBaco_tinto+champagne.png";
+import { getProducts } from "../../../api/auth.js";
 export const NavBar = () => {
+  const [primeraLetra, setPrimeraLetra] = useState();
+  const [search, setSearch] = useState("");
   const {
+    products,
+    setProducts,
     changeTheme,
     cartList,
     total,
@@ -29,14 +33,6 @@ export const NavBar = () => {
     cerrarSesion,
     loading,
   } = useContexto();
-  const detailsRef = useRef(null);
-  const [primeraLetra, setPrimeraLetra] = useState();
-
-  const handleCloseDetails = () => {
-    if (detailsRef.current) {
-      detailsRef.current.removeAttribute("open");
-    }
-  };
 
   const handleThemeChange = (newTheme) => {
     changeTheme(newTheme);
@@ -58,9 +54,36 @@ export const NavBar = () => {
     }
   }, [setUser, user, isAuthenticated]);
 
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const response = await getProducts();
+        setProducts(response.data);
+      } catch (error) {
+        console.error("Error al buscar los productos:", error);
+      }
+    };
+
+    fetchProducts();
+  }, []);
+
+  const searcher = (e) => {
+    setSearch(e.target.value);
+    console.log(search);
+  };
+
+  let results = [];
+
+  if (!search) {
+    results = [];
+  } else {
+    results = products.filter((product) =>
+      product.nombre.toLowerCase().includes(search.toLowerCase())
+    );
+  }
   return (
     <div className="fixed top-0 h-auto w-full z-40">
-      <div className="w-full h-full bg-base-100 ">
+      <div className="w-full h-full bg-base-100">
         <div className="navbar ">
           <div className="navbar-start">
             {/*Hamburger*/}
@@ -120,15 +143,42 @@ export const NavBar = () => {
             </a>
           </Link>
 
-          <div className="border rounded-badge md:mb-2 w-screen">
+          <div className="border rounded-t-badge md:mb-2 w-screen  dropdown dropdown-end">
             <div className="flex justify-start items-center w-full px-5">
               <IoSearchOutline className="text-2xl mx-2 text-gray-500" />
               <input
+                onChange={searcher}
                 type="text"
-                placeholder="Buscar..."
-                className="text-sm w-full  p-2 md:p-4 bg-transparent uppercase focus:outline-none"
+                placeholder="Busca productos y marcas..."
+                className="text-sm w-full  p-2 md:p-4 bg-transparent focus:outline-none"
               />
             </div>
+            {1 == 1 && (
+              <ul className="mt-1 p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-b-badge w-full">
+                {results.length > 0 ? (
+                  results.map((product) => (
+                    <li key={product.id}>
+                      <Link
+                        to={`/vinoteca/detalles-vino/${product.id}`}
+                        style={{ letterSpacing: "1px" }}
+                        className="hover:text-base-100 hover:bg-primary rounded-badge p-2 flex"
+                      >
+                        <p>{product.nombre}</p>
+                      </Link>
+                    </li>
+                  ))
+                ) : (
+                  <li>
+                    {search ? (
+                      <li  className="hover:text-base-100 hover:bg-primary rounded-badge p-2 text-xs text-center">No se encontraron resultados para tu búsqueda.</li>
+                    ) : ( 
+                      <li  className="hover:text-base-100 hover:bg-primary rounded-badge p-2 text-xs text-center"> Ingresa un nombre de vino para buscarlo.</li>
+                    )}
+                  </li>
+                )}
+                
+              </ul>
+            )}
           </div>
 
           {/*User, cart search, theme*/}
@@ -206,7 +256,7 @@ export const NavBar = () => {
               >
                 {loading ? (
                   <div className="w-auto p-4 flex justify-center items-center gap-2">
-                    <span className="loading loading-spinner text-neutral"></span>
+                    <span className="loading loading-bars loading-md"></span>
                     <h1>Cargando...</h1>
                   </div>
                 ) : (
@@ -313,7 +363,7 @@ export const NavBar = () => {
                   {loading ? (
                     <div>
                       <div className="w-auto p-4 flex justify-center items-center gap-2">
-                        <span className="loading loading-spinner text-neutral"></span>
+                        <span className="loading loading-bars loading-md"></span>
                         <h1>Cargando...</h1>
                       </div>
                     </div>

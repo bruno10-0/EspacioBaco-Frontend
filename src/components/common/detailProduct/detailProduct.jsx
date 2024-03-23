@@ -72,11 +72,11 @@ export const DetailProduct = () => {
       setLoading(false);
     };
     fetchProduct();
-  }, []);
+  }, [id]); // Agregar id como dependencia para que se actualice al cambiar el ID en la URL
 
   useEffect(() => {
     handleIdSearch(id);
-  }, [setCartList, cartList]);
+  }, [id, setCartList, cartList]);
   return (
     <>
       <NavBar />

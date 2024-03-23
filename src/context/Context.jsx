@@ -7,6 +7,7 @@ import { decryptToken } from "../helpers/token-decrypt.js";
 const createdContext = createContext();
 
 export const Context = ({ children }) => {
+  const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [user, setUser] = useState();
@@ -113,7 +114,7 @@ export const Context = ({ children }) => {
       }
     }
 
-    const interval = setInterval(checkLogin, 1000); 
+    const interval = setInterval(checkLogin, 1000);
 
     return () => clearInterval(interval);
   }, []);
@@ -132,7 +133,9 @@ export const Context = ({ children }) => {
         cantidad,
         envioGratis,
         loading,
-        cerrarSesion
+        cerrarSesion,
+        products,
+        setProducts,
       }}
     >
       {children}
