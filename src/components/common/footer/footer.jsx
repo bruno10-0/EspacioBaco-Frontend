@@ -1,13 +1,13 @@
 import { Link } from "react-router-dom";
 import { FaInstagram, FaWhatsapp, FaFacebookF } from "react-icons/fa6";
-import img from "../../../assets/EspacioBaco_blanco+champagne.png"
+import img from "../../../assets/EspacioBaco_blanco.png"
 export const Footer = () => {
   return (
     <>
       <footer className="footer p-10 bg-neutral text-neutral-content">
         <aside>
         <img src={img} alt="Logo" className="w-40 h-auto"/>
-            <h2>¡Productos irresistibles te esperan! <Link to="/vinoteca" className="link text-primary">Haz tu pedido ahora.</Link></h2>
+            <h2>¡Productos irresistibles te esperan! <Link to="/vinoteca" className="link">Haz tu pedido ahora.</Link></h2>
         </aside>
         <nav>
           <h6 className="footer-title uppercase" style={{letterSpacing:"4px"}}>Social</h6>

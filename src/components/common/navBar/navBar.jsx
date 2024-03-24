@@ -14,7 +14,7 @@ import {
 } from "react-icons/io5";
 import { AiOutlineUser } from "react-icons/ai";
 import { Loading } from "../loading/loading.jsx";
-import img from "../../../assets/EspacioBaco_tinto+champagne.png";
+import img from "../../../assets/EspacioBaco_negro.png";
 import { getProducts } from "../../../api/auth.js";
 export const NavBar = () => {
   const [primeraLetra, setPrimeraLetra] = useState();
@@ -102,7 +102,9 @@ export const NavBar = () => {
                 <Link
                   to="/"
                   className={`uppercase text-xs p-2 ${
-                    location.pathname === "/" ? "text-secondary scale-110" : ""
+                    location.pathname === "/"
+                      ? "border-b border-base-100   scale-110"
+                      : ""
                   }`}
                   style={{ letterSpacing: "6px" }}
                 >
@@ -112,7 +114,7 @@ export const NavBar = () => {
                   to="/vinoteca"
                   className={`uppercase text-xs p-2 ${
                     location.pathname === "/vinoteca"
-                      ? "text-secondary scale-110"
+                      ? "border-b border-base-100  scale-110"
                       : ""
                   }`}
                   style={{ letterSpacing: "6px" }}
@@ -123,7 +125,7 @@ export const NavBar = () => {
                   to="/nosotros"
                   className={`uppercase text-xs p-2 ${
                     location.pathname === "/nosotros"
-                      ? "text-secondary scale-110"
+                      ? "border-b border-base-100  scale-110"
                       : ""
                   }`}
                   style={{ letterSpacing: "6px" }}
@@ -143,17 +145,16 @@ export const NavBar = () => {
             </a>
           </Link>
 
-          <div className="border rounded-t-badge md:mb-2 w-screen  dropdown dropdown-end">
+          <div className="navbar-center border-2 rounded-t-badge md:mb-2 w-1/2 md:w-2/3  dropdown dropdown-end">
             <div className="flex justify-start items-center w-full px-5">
               <IoSearchOutline className="text-2xl mx-2 text-gray-500" />
               <input
                 onChange={searcher}
                 type="text"
-                placeholder="Busca productos y marcas..."
+                placeholder="Buscar..."
                 className="text-sm w-full  p-2 md:p-4 bg-transparent focus:outline-none"
               />
             </div>
-            {1 == 1 && (
               <ul className="mt-1 p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-b-badge w-full">
                 {results.length > 0 ? (
                   results.map((product) => (
@@ -170,15 +171,17 @@ export const NavBar = () => {
                 ) : (
                   <li>
                     {search ? (
-                      <li  className="hover:text-base-100 hover:bg-primary rounded-badge p-2 text-xs text-center">No se encontraron resultados para tu búsqueda.</li>
-                    ) : ( 
-                      <li  className="hover:text-base-100 hover:bg-primary rounded-badge p-2 text-xs text-center"> Ingresa un nombre de vino para buscarlo.</li>
+                      <li className="hover:text-base-100 hover:bg-primary rounded-badge p-2 text-xs text-center">
+                        No se encontraron resultados para tu búsqueda.
+                      </li>
+                    ) : (
+                      <li className="hover:text-base-100 hover:bg-primary rounded-badge p-2 text-xs text-center">
+                        {loading ? ("Cargando vinos...") : ("Ingresa un nombre de vino para buscarlo.")}
+                      </li>
                     )}
                   </li>
                 )}
-                
               </ul>
-            )}
           </div>
 
           {/*User, cart search, theme*/}
@@ -325,7 +328,7 @@ export const NavBar = () => {
                 <div className="indicator">
                   <IoBagOutline className="text-2xl" />
                   {cartList.length > 0 && (
-                    <span className="badge badge-xs badge-primary indicator-item"></span>
+                    <span className="badge badge-xs badge-accent indicator-item"></span>
                   )}
                 </div>
               </div>
@@ -379,7 +382,7 @@ export const NavBar = () => {
                           </div>
                           <Link
                             to="/vinoteca"
-                            className="my-2 w-full btn bg-accent text-base-100 hover:text-primary"
+                            className="my-2 w-full btn btn-accent text-base-100 rounded-badge p-2 uppercase"
                           >
                             <h2
                               style={{ letterSpacing: "2px" }}
@@ -433,11 +436,13 @@ export const NavBar = () => {
             </div>
           </div>
         </div>
-        <nav className="hidden w-full md:flex justify-center items-center gap-6 p-3 -mt-2 bg-primary text-base-100">
+        <nav className="hidden w-auto md:flex justify-center items-center gap-6 p-3 -mt-2 bg-primary text-base-100 font-semibold">
           <Link
             to="/"
             className={`uppercase text-xs p-2 ${
-              location.pathname === "/" ? "scale-110" : ""
+              location.pathname === "/"
+                ? "border-b border-base-100  scale-110"
+                : ""
             }`}
             style={{ letterSpacing: "6px" }}
           >
@@ -446,7 +451,9 @@ export const NavBar = () => {
           <Link
             to="/vinoteca"
             className={`uppercase text-xs p-2 ${
-              location.pathname === "/vinoteca" ? "scale-110" : ""
+              location.pathname === "/vinoteca"
+                ? "border-b border-base-100  scale-110"
+                : ""
             }`}
             style={{ letterSpacing: "6px" }}
           >
@@ -455,7 +462,9 @@ export const NavBar = () => {
           <Link
             to="/nosotros"
             className={`uppercase text-xs p-2 ${
-              location.pathname === "/nosotros" ? "scale-110" : ""
+              location.pathname === "/nosotros"
+                ? "border-b border-base-100  scale-110"
+                : ""
             }`}
             style={{ letterSpacing: "6px" }}
           >

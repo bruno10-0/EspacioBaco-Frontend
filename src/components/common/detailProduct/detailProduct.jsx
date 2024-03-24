@@ -100,7 +100,7 @@ export const DetailProduct = () => {
       )}
 
       {response === true && !loading && (
-        <div className="mt-20 md:mt-28 relative mb-2 w-full flex flex-col items-center lg:items-start lg:flex-row justify-around">
+        <div className="mt-20 md:mt-32 p-10 relative mb-2 w-full flex flex-col items-center lg:items-start lg:flex-row justify-around">
           <div className="ContainerImg">
             <div className="carousel w-full h-full">
               <div className="carousel-item relative flex justify-center items-center w-full h-full">
@@ -163,7 +163,7 @@ export const DetailProduct = () => {
                 <button
                   disabled={itemFound}
                   onClick={() => buscarVinoEnCartList(id)}
-                  className="rounded-box btn bg-accent text-base-100 uppercase border text-center my-2 p-2 w-full"
+                  className=" w-full btn btn-accent text-base-100 rounded-badge p-2 uppercase my-4"
                   style={{
                     fontSize: "13px",
                     fontWeight: "inherit",

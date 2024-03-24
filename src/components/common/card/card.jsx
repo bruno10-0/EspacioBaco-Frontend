@@ -47,7 +47,7 @@ export const Card = ({ product }) => {
           <Link
             to={`detalles-vino/${product.id}`}
             style={{ fontSize: "10px", letterSpacing: "2px" }}
-            className="h-full btn bg-accent rounded-badge text-base-100 hover:text-primary p-2 uppercase"
+            className="h-full btn btn-accent text-base-100 rounded-badge p-2 uppercase"
           >
             Lo quiero
           </Link>
