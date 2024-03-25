@@ -6,8 +6,11 @@ import { NotFound } from "./components/pages/notFound";
 import { Admin } from "./components/pages/admin";
 import { Login } from "./components/pages/login";
 import { SignUp } from "./components/pages/signUp";
-import { ProtectedRoute } from "./utils/protectedRoute";
+import { ProtectedRouteAdmin } from "./utils/protectedRouteAdmin";
+import { ProtectedRouteNormal } from "./utils/protectedRouteNormal";
 import { Profile } from "./components/pages/profile";
+import { Outlet } from "react-router-dom";
+
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 function App() {
@@ -22,8 +25,10 @@ function App() {
           <Route path="/iniciar-sesion" element={<Login />} />
           <Route path="/crear-cuenta" element={<SignUp />} />
 
-          <Route element={<ProtectedRoute />}>
-            <Route path="/admin" element={<Admin />} />
+          <Route element={<ProtectedRouteNormal />}>
+            <Route element={<ProtectedRouteAdmin />}>
+              <Route path="/admin" element={<Admin />} />
+            </Route>
             <Route path="/perfil" element={<Profile />} />
           </Route>
 

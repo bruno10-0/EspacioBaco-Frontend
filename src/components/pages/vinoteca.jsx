@@ -6,12 +6,21 @@ import { getProducts } from "../../api/auth.js";
 import { useEffect } from "react";
 import { NavBar } from "../common/navBar/navBar.jsx";
 import { Loading } from "../common/loading/loading.jsx";
+import { FaCheck } from "react-icons/fa";
+import { MdOutlineRemove } from "react-icons/md";
+import {
+  ordenarPorFechaCreacion,
+  ordenarPorFechaCreacionDesc,
+  ordenarPorPrecioMayorAMenor,
+  ordenarPorPrecioMenorAMayor,
+} from "../../helpers/orderArray.js";
 export const VinoTeca = () => {
   const [products, setProducts] = useState([]);
   const [pagina, setPagina] = useState(1);
   const [porPagina, setPorPagina] = useState(8);
+  const [order, setOrder] = useState(0);
   const maximo = products.length / porPagina;
-  console.log(products);
+
   useEffect(() => {
     const fetchProducts = async () => {
       try {
@@ -25,6 +34,32 @@ export const VinoTeca = () => {
     fetchProducts();
   }, []);
 
+  useEffect(() => {
+    switch (order) {
+      case 0:
+        return;
+        break;
+      case 1:
+        ordenarPorPrecioMayorAMenor(products);
+        break;
+      case 2:
+        ordenarPorPrecioMenorAMayor(products);
+        break;
+      case 3:
+        ordenarPorFechaCreacionDesc(products);
+        break;
+      case 4:
+        ordenarPorFechaCreacion(products);
+        break;
+      default:
+        alert("Ordenamiento no valido.");
+    }
+  }, [order, products]);
+
+  const handleOrdenamientoChange = (value) => {
+    setOrder(value);
+  };
+
   return (
     <div>
       <NavBar />
@@ -32,42 +67,73 @@ export const VinoTeca = () => {
         style={{ minHeight: "calc(100vh - 120px)" }}
         className="flex flex-col justify-center items-center w-full h-auto mt-16 md:mt-32 p-10 bg-base-200"
       >
-        <div className="flex gap-2 w-full md:w-3/4 mb-4">
-          <label
-            htmlFor="my-drawer"
-            style={{ letterSpacing: "2px" }}
-            className="text-xs btn btn-accent text-base-100 uppercase drawer-button rounded-badge"
-          >
-            Filtrar
-          </label>
-          <div className="dropdown">
+        {products.length !== 0 && (
+          <div className="flex gap-2 w-full md:w-3/4 mb-4">
             <label
-              tabIndex={0}
-              role="button"
+              htmlFor="my-drawer"
               style={{ letterSpacing: "2px" }}
               className="text-xs btn btn-accent text-base-100 uppercase drawer-button rounded-badge"
             >
-              Ordenar
+              Filtrar
             </label>
-            <ul
-              tabIndex={0}
-              className=" mt-2 dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52"
-            >
-              <li>
-                <a>Precio. Alto a Bajo</a>
-              </li>
-              <li>
-                <a>Precio. Bajo a Alto</a>
-              </li>
-              <li>
-                <a>Fecha. Nuevo a Viejo</a>
-              </li>
-              <li>
-                <a>Fecha. Viejo a Nuevo</a>
-              </li>
-            </ul>
+            <div className="dropdown">
+              <label
+                tabIndex={0}
+                role="button"
+                style={{ letterSpacing: "2px" }}
+                className="text-xs btn btn-accent text-base-100 uppercase drawer-button rounded-badge"
+              >
+                Ordenar
+              </label>
+              <ul
+                tabIndex={0}
+                className=" mt-2 dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-60"
+              >
+                <li onClick={() => handleOrdenamientoChange(1)}>
+                  <span className="flex gap-1">
+                    {order === 1 ? (
+                      <FaCheck className="text-xs" />
+                    ) : (
+                      <MdOutlineRemove className="text-xs"/>
+                    )}
+                    Precio. Alto a Bajo
+                  </span>
+                </li>
+                <li onClick={() => handleOrdenamientoChange(2)}>
+                  <span className="flex gap-1">
+                    {order === 2 ? (
+                      <FaCheck className="text-xs" />
+                    ) : (
+                      <MdOutlineRemove className="text-xs"/>
+                    )}
+                    Precio. Bajo a Alto
+                  </span>
+                </li>
+                <li onClick={() => handleOrdenamientoChange(3)}>
+                  <span className="flex gap-1">
+                    {order === 3 ? (
+                      <FaCheck className="text-xs" />
+                    ) : (
+                      <MdOutlineRemove className="text-xs"/>
+                    )}
+                    Fecha. Nuevo a Viejo
+                  </span>
+                </li>
+                <li onClick={() => handleOrdenamientoChange(4)}>
+                  <span className="flex gap-1">
+                    {order === 4 ? (
+                      <FaCheck className="text-xs" />
+                    ) : (
+                      <MdOutlineRemove className="text-xs"/>
+                    )}
+                    Fecha. Viejo a Nuevo
+                  </span>
+                </li>
+              </ul>
+            </div>
           </div>
-        </div>
+        )}
+
         {products.length != 0 && (
           <div className="flex justify-between w-full md:w-3/4 mb-4">
             <div className="drawer">

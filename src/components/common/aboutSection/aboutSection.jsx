@@ -3,10 +3,9 @@ import "./aboutSection.css";
 export const AboutSection = () => {
   return (
     <section className="about mt-16 md:mt-28">
-      <div className="md:flex gap-2">
+      <div className="flex flex-col md:flex-row justify-around items-center gap-2 ">
         <div className="text-box md:w-8/12 lg:w-1/2">
-          <h1 className="animation">Espacio Baco</h1>
-          <h1 className="animation text-primary">La Magia del Vino.</h1>
+          <h1 className="animation text-primary text-sm">La Magia del Vino.</h1>
           <p className="animation flex flex-col gap-2">
             <span>
               Creemos que en el vasto universo de experiencias que nos regala la
@@ -23,6 +22,7 @@ export const AboutSection = () => {
               belleza efímera de la existencia. Como el buen vino, la vida es
               para ser saboreada con pasión y disfrutada en cada sorbo.
             </span>
+            <div className="w-full flex justify-end my-2 text-primary">-EspacioBaco.</div>
           </p>
         </div>
         <div className="col-md-6">

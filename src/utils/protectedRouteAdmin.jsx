@@ -2,9 +2,8 @@ import { useContexto } from "../context/Context";
 import { Navigate, Outlet } from "react-router-dom";
 import { Loading2 } from "../components/common/loading/loading2";
 
-export const ProtectedRoute = () => {
+export const ProtectedRouteAdmin = () => {
   const { user, loading, isAuthenticated } = useContexto();
-  console.log(user)
   if (loading) return <Loading2 />;
   if (!isAuthenticated || (user && user.tipo !== "admin")) {
     if (isAuthenticated && user && user.tipo === "normal") {

@@ -16,13 +16,13 @@ export const User = () => {
   return (
     <div
       style={{ height: "calc(100vh - 110px)" }}
-      className="relative mt-16 md:mt-28 w-full h-screen flex items-center justify-center"
+      className="relative mt-16 md:mt-32 w-full h-screen flex items-center justify-center"
     >
       <div className="absolute top-0 bg-primary text-center text-base-100 w-full p-2 text-xs">
         Sección en desarrollo, próximamente te traeremos novedades que mejoren
         tu experiencia en EspacioBaco.
       </div>
-      <div className="relative w-full md:w-2/3 flex flex-col h-full items-center justify-start">
+      <div className=" relative w-full mt-10 md:mt-0 md:w-2/3 flex flex-col h-full items-center justify-start">
         <div className="avatar placeholder mt-14 md:mt-10 mb-4">
           <div className="bg-neutral text-neutral-content rounded-full w-24 md:w-48">
             <span className="text-5xl">{primeraLetra}</span>

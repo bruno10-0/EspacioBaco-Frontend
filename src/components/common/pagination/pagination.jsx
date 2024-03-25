@@ -44,7 +44,7 @@ export const Pagination = ({ pagina, setPagina, maximo }) => {
                 onKeyDown={e => oneKeyDown(e)}
                 name="page" autoComplete="off"
                 value={input}
-                className="bg-transparent border-secondary border rounded-badge w-12 text-center px-1"
+                className="text-secondary bg-transparent border-secondary border rounded-badge w-12 text-center px-1"
                 type="text" />
             <p className="flex">de <span className="mx-2">{Math.ceil(maximo)}</span></p>
             <button
