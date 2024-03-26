@@ -84,7 +84,7 @@ export const NavBar = () => {
   return (
     <div className="fixed top-0 h-auto w-full z-40">
       <div className="w-full h-full bg-base-100">
-        <div className="navbar ">
+        <div className="navbar">
           <div className="navbar-start">
             {/*Hamburger*/}
             <div className="dropdown dropdown-bottom md:hidden">
@@ -137,12 +137,12 @@ export const NavBar = () => {
           </div>
 
           <Link to="/" className="absolute -top-2 left-4 z-50">
-            <a
+            <div
               style={{ letterSpacing: "8px", fontWeight: "bolder" }}
               className="hidden md:block text-xl uppercase cursor-pointer select-none w-full"
             >
               <img src={img} alt="Logo" className="w-32 h-full my-2" />
-            </a>
+            </div>
           </Link>
 
           <div className="navbar-center border-2 rounded-t-badge md:mb-2 w-1/2 md:w-2/3  dropdown dropdown-end">
@@ -155,33 +155,35 @@ export const NavBar = () => {
                 className="text-sm w-full  p-2 md:p-4 bg-transparent focus:outline-none"
               />
             </div>
-              <ul className="mt-1 p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-b-badge w-full">
-                {results.length > 0 ? (
-                  results.map((product) => (
-                    <li key={product.id}>
-                      <Link
-                        to={`/vinoteca/detalles-vino/${product.id}`}
-                        style={{ letterSpacing: "1px" }}
-                        className="hover:text-base-100 hover:bg-primary rounded-badge p-2 flex"
-                      >
-                        <p>{product.nombre}</p>
-                      </Link>
-                    </li>
-                  ))
-                ) : (
-                  <li>
-                    {search ? (
-                      <li className="hover:text-base-100 hover:bg-primary rounded-badge p-2 text-xs text-center">
-                        No se encontraron resultados para tu búsqueda.
-                      </li>
-                    ) : (
-                      <li className="hover:text-base-100 hover:bg-primary rounded-badge p-2 text-xs text-center">
-                        {loading ? ("Cargando vinos...") : ("Ingresa un nombre de vino para buscarlo.")}
-                      </li>
-                    )}
+            <ul className="mt-1 p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-b-badge w-full">
+              {results.length > 0 ? (
+                results.map((product) => (
+                  <li key={product.id}>
+                    <Link
+                      to={`/vinoteca/detalles-vino/${product.id}`}
+                      style={{ letterSpacing: "1px" }}
+                      className="hover:text-base-100 hover:bg-primary rounded-badge p-2 flex"
+                    >
+                      <p>{product.nombre}</p>
+                    </Link>
                   </li>
-                )}
-              </ul>
+                ))
+              ) : (
+                <>
+                  {search ? (
+                    <li className="hover:text-base-100 hover:bg-primary rounded-badge p-2 text-xs text-center">
+                      No se encontraron resultados para tu búsqueda.
+                    </li>
+                  ) : (
+                    <li className="hover:text-base-100 hover:bg-primary rounded-badge p-2 text-xs text-center">
+                      {loading
+                        ? "Cargando vinos..."
+                        : "Ingresa un nombre de vino para buscarlo."}
+                    </li>
+                  )}
+                </>
+              )}
+            </ul>
           </div>
 
           {/*User, cart search, theme*/}

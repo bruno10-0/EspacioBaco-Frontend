@@ -4,9 +4,9 @@ export const AboutSection = () => {
   return (
     <section className="about mt-16 md:mt-28">
       <div className="flex flex-col md:flex-row justify-around items-center gap-2 ">
-        <div className="text-box md:w-8/12 lg:w-1/2">
-          <h1 className="animation text-primary text-sm">La Magia del Vino.</h1>
-          <p className="animation flex flex-col gap-2">
+        <div className="md:w-8/12 lg:w-1/2">
+        <h1 style={{ letterSpacing: "2px" }} className="animation text-primary uppercase text-lg mb-2 w-full text-center">La Magia del Vino.</h1>
+          <div className="animation flex flex-col gap-2 ">
             <span>
               Creemos que en el vasto universo de experiencias que nos regala la
               vida, hay algo mágico en la forma en que el vino teje sus
@@ -23,7 +23,7 @@ export const AboutSection = () => {
               para ser saboreada con pasión y disfrutada en cada sorbo.
             </span>
             <div className="w-full flex justify-end my-2 text-primary">-EspacioBaco.</div>
-          </p>
+          </div>
         </div>
         <div className="col-md-6">
           <img

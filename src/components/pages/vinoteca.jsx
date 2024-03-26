@@ -17,7 +17,7 @@ import {
 export const VinoTeca = () => {
   const [products, setProducts] = useState([]);
   const [pagina, setPagina] = useState(1);
-  const [porPagina, setPorPagina] = useState(8);
+  const porPagina = 8;
   const [order, setOrder] = useState(0);
   const maximo = products.length / porPagina;
 
@@ -38,23 +38,22 @@ export const VinoTeca = () => {
     switch (order) {
       case 0:
         return;
-        break;
       case 1:
-        ordenarPorPrecioMayorAMenor(products);
+        setProducts([...ordenarPorPrecioMenorAMayor(products)]);
         break;
       case 2:
-        ordenarPorPrecioMenorAMayor(products);
+        setProducts([...ordenarPorPrecioMayorAMenor(products)]);
         break;
       case 3:
-        ordenarPorFechaCreacionDesc(products);
+        setProducts([...ordenarPorFechaCreacion(products)]);
         break;
       case 4:
-        ordenarPorFechaCreacion(products);
+        setProducts([...ordenarPorFechaCreacionDesc(products)]);
         break;
       default:
-        alert("Ordenamiento no valido.");
+        alert("Ordenamiento no válido.");
     }
-  }, [order, products]);
+  }, [order]); // Agregar "order" como dependencia
 
   const handleOrdenamientoChange = (value) => {
     setOrder(value);
@@ -90,44 +89,44 @@ export const VinoTeca = () => {
                 className=" mt-2 dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-60"
               >
                 <li onClick={() => handleOrdenamientoChange(1)}>
-                  <span className="flex gap-1">
+                  <div className="flex gap-1">
                     {order === 1 ? (
                       <FaCheck className="text-xs" />
                     ) : (
-                      <MdOutlineRemove className="text-xs"/>
+                      <MdOutlineRemove className="text-xs" />
                     )}
-                    Precio. Alto a Bajo
-                  </span>
+                    Precio. Bajo a Alto
+                  </div>
                 </li>
                 <li onClick={() => handleOrdenamientoChange(2)}>
-                  <span className="flex gap-1">
+                  <div className="flex gap-1">
                     {order === 2 ? (
                       <FaCheck className="text-xs" />
                     ) : (
-                      <MdOutlineRemove className="text-xs"/>
+                      <MdOutlineRemove className="text-xs" />
                     )}
-                    Precio. Bajo a Alto
-                  </span>
+                    Precio. Alto a Bajo
+                  </div>
                 </li>
                 <li onClick={() => handleOrdenamientoChange(3)}>
-                  <span className="flex gap-1">
+                  <div className="flex gap-1">
                     {order === 3 ? (
                       <FaCheck className="text-xs" />
                     ) : (
-                      <MdOutlineRemove className="text-xs"/>
+                      <MdOutlineRemove className="text-xs" />
                     )}
-                    Fecha. Nuevo a Viejo
-                  </span>
+                    Fecha. Viejo a Nuevo
+                  </div>
                 </li>
                 <li onClick={() => handleOrdenamientoChange(4)}>
-                  <span className="flex gap-1">
+                  <div className="flex gap-1">
                     {order === 4 ? (
                       <FaCheck className="text-xs" />
                     ) : (
-                      <MdOutlineRemove className="text-xs"/>
+                      <MdOutlineRemove className="text-xs" />
                     )}
-                    Fecha. Viejo a Nuevo
-                  </span>
+                    Fecha. Nuevo a Viejo
+                  </div>
                 </li>
               </ul>
             </div>
