@@ -61,7 +61,7 @@ export const Context = ({ children }) => {
 
   const cerrarSesion = () => {
     localStorage.removeItem("nekot");
-    setUser();
+    setUser(null);
     setIsAuthenticated(false);
   };
 
@@ -93,14 +93,12 @@ export const Context = ({ children }) => {
         const decryptedToken = decryptToken(token);
         try {
           const res = await verificarToken(decryptedToken);
-          console.log(res);
           if (res.status == 201) {
             setIsAuthenticated(true);
             setUser(res.data);
             console.log("Token verificado correctamente");
           } else {
-            setIsAuthenticated(false);
-            setUser(null);
+            cerrarSesion();
             console.log("Error al verificar token: Acceso no autorizado");
           }
         } catch (error) {
