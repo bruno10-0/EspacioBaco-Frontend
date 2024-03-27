@@ -2,7 +2,6 @@ import { Footer } from "../common/footer/footer";
 import { Card } from "../common/card/card";
 import { Pagination } from "../common/pagination/pagination";
 import { useState } from "react";
-import { getProducts } from "../../api/auth.js";
 import { useEffect } from "react";
 import { NavBar } from "../common/navBar/navBar.jsx";
 import { Loading } from "../common/loading/loading.jsx";
@@ -14,46 +13,39 @@ import {
   ordenarPorPrecioMayorAMenor,
   ordenarPorPrecioMenorAMayor,
 } from "../../helpers/orderArray.js";
+import { useContexto } from "../../context/Context.jsx";
 export const VinoTeca = () => {
-  const [products, setProducts] = useState([]);
+  const { products } = useContexto();
+  const [productsCopy, setProductsCopy] = useState([]);
   const [pagina, setPagina] = useState(1);
   const porPagina = 8;
   const [order, setOrder] = useState(0);
-  const maximo = products.length / porPagina;
+  const maximo = productsCopy.length / porPagina;
 
   useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const response = await getProducts();
-        setProducts(response.data);
-      } catch (error) {
-        console.error("Error al buscar los productos:", error);
-      }
-    };
-
-    fetchProducts();
-  }, []);
+    setProductsCopy(products) 
+  },[products])
 
   useEffect(() => {
     switch (order) {
       case 0:
         return;
       case 1:
-        setProducts([...ordenarPorPrecioMenorAMayor(products)]);
+        setProductsCopy([...ordenarPorPrecioMenorAMayor(productsCopy)]);
         break;
       case 2:
-        setProducts([...ordenarPorPrecioMayorAMenor(products)]);
+        setProductsCopy([...ordenarPorPrecioMayorAMenor(productsCopy)]);
         break;
       case 3:
-        setProducts([...ordenarPorFechaCreacion(products)]);
+        setProductsCopy([...ordenarPorFechaCreacion(productsCopy)]);
         break;
       case 4:
-        setProducts([...ordenarPorFechaCreacionDesc(products)]);
+        setProductsCopy([...ordenarPorFechaCreacionDesc(productsCopy)]);
         break;
       default:
         alert("Ordenamiento no válido.");
     }
-  }, [order]); // Agregar "order" como dependencia
+  }, [order]);
 
   const handleOrdenamientoChange = (value) => {
     setOrder(value);
@@ -66,7 +58,7 @@ export const VinoTeca = () => {
         style={{ minHeight: "calc(100vh - 120px)" }}
         className="flex flex-col justify-center items-center w-full h-auto mt-16 md:mt-32 p-10 bg-base-200"
       >
-        {products.length !== 0 && (
+        {productsCopy.length !== 0 && (
           <div className="flex gap-2 w-full md:w-3/4 mb-4">
             <label
               htmlFor="my-drawer"
@@ -133,7 +125,7 @@ export const VinoTeca = () => {
           </div>
         )}
 
-        {products.length != 0 && (
+        {productsCopy.length != 0 && (
           <div className="flex justify-between w-full md:w-3/4 mb-4">
             <div className="drawer">
               <input id="my-drawer" type="checkbox" className="drawer-toggle" />
@@ -277,11 +269,11 @@ export const VinoTeca = () => {
             </div>
           </div>
         )}
-        {products.length === 0 && <Loading />}
-        {products.length != 0 && (
+        {productsCopy.length === 0 && <Loading />}
+        {productsCopy.length != 0 && (
           <div className="w-full md:w-3/4 grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-10 lg:gap-5">
             <>
-              {products
+              {productsCopy
                 .slice(
                   (pagina - 1) * porPagina,
                   (pagina - 1) * porPagina + porPagina

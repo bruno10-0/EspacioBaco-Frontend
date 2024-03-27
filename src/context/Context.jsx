@@ -2,7 +2,7 @@
 import { createContext, useContext, useState, useEffect } from "react";
 import { dataDecrypt } from "../helpers/data-decrypt.js";
 import { dataEncrypt } from "../helpers/data-encrypt.js";
-import { verificarToken } from "../api/auth.js";
+import { verificarToken, getProducts, getUsuarios } from "../api/auth.js";
 import { decryptToken } from "../helpers/token-decrypt.js";
 const createdContext = createContext();
 
@@ -11,6 +11,7 @@ export const Context = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [user, setUser] = useState();
+  const [users, setUsers] = useState([]);
   const [total, setTotal] = useState(0);
   const [envioGratis, setEnvioGratis] = useState(false);
   const [cantidad, setCantidad] = useState(0);
@@ -29,7 +30,7 @@ export const Context = ({ children }) => {
   const [theme, setTheme] = useState(
     document.documentElement.setAttribute(
       "data-theme",
-      localStorage.getItem("espacioBacoTheme") || "autumn"
+      localStorage.getItem("espacioBacoTheme") || "lofi"
     )
   );
 
@@ -116,6 +117,37 @@ export const Context = ({ children }) => {
 
     return () => clearInterval(interval);
   }, []);
+  //Carga de los productos
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const res = await getProducts();
+        setProducts(res.data);
+      } catch (error) {
+        console.error("Error al buscar los productos:", error);
+      }
+    };
+
+    fetchProducts();
+  }, []);
+  //Carga de los usuarios
+  useEffect(() => {
+    const fetchUsuarios = async () => {
+      const token = localStorage.getItem("nekot");
+      if (!token) {
+        console.log("No hay token, no se puede realizar la operación");
+      } else {
+        try {
+          const decryptedToken = decryptToken(token);
+          const res = await getUsuarios(decryptedToken);
+          setUsers(res.data)
+        } catch (error) {
+          throw new Error(error.response.data.mensaje);
+        }
+      }
+    };
+    fetchUsuarios();
+  }, []);
   return (
     <createdContext.Provider
       value={{
@@ -133,7 +165,7 @@ export const Context = ({ children }) => {
         loading,
         cerrarSesion,
         products,
-        setProducts,
+        users
       }}
     >
       {children}

@@ -6,7 +6,7 @@ import { BiCarousel } from "react-icons/bi";
 import { useContexto } from "../../../context/Context";
 import { Link } from "react-router-dom";
 export const OptionsAdmin = () => {
-  const { user } = useContexto();
+  const { user,users,products } = useContexto();
   return (
     <div className="flex flex-col justify-center items-center mt-16 md:mt-32">
       <div className="w-full md:w-11/12 p-4">
@@ -26,7 +26,7 @@ export const OptionsAdmin = () => {
             <CardSmall
               color="bg-accent"
               icono={<FaUsers />}
-              titulo="Usuarios"
+              titulo={users.length}
               subTitulo="Usuarios registrados"
             />
           </div>
@@ -34,7 +34,7 @@ export const OptionsAdmin = () => {
             <CardSmall
               color="bg-accent"
               icono={<FaWineBottle />}
-              titulo="Vinos"
+              titulo={products.length}
               subTitulo="Vinos almacenados"
             />
           </div>

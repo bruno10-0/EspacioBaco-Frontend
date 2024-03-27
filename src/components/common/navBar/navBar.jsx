@@ -15,13 +15,11 @@ import {
 import { AiOutlineUser } from "react-icons/ai";
 import { Loading } from "../loading/loading.jsx";
 import img from "../../../assets/EspacioBaco_negro.png";
-import { getProducts } from "../../../api/auth.js";
 export const NavBar = () => {
   const [primeraLetra, setPrimeraLetra] = useState();
   const [search, setSearch] = useState("");
   const {
     products,
-    setProducts,
     changeTheme,
     cartList,
     total,
@@ -54,18 +52,6 @@ export const NavBar = () => {
     }
   }, [setUser, user, isAuthenticated]);
 
-  useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const response = await getProducts();
-        setProducts(response.data);
-      } catch (error) {
-        console.error("Error al buscar los productos:", error);
-      }
-    };
-
-    fetchProducts();
-  }, []);
 
   const searcher = (e) => {
     setSearch(e.target.value);
