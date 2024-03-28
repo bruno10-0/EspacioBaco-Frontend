@@ -15,7 +15,7 @@ import {
 } from "../../helpers/orderArray.js";
 import { useContexto } from "../../context/Context.jsx";
 export const VinoTeca = () => {
-  const { products } = useContexto();
+  const { products,handleOrdenamientoChange } = useContexto();
   const [productsCopy, setProductsCopy] = useState([]);
   const [pagina, setPagina] = useState(1);
   const porPagina = 8;
@@ -47,10 +47,6 @@ export const VinoTeca = () => {
     }
   }, [order]);
 
-  const handleOrdenamientoChange = (value) => {
-    setOrder(value);
-  };
-
   return (
     <div>
       <NavBar />
@@ -80,7 +76,7 @@ export const VinoTeca = () => {
                 tabIndex={0}
                 className=" mt-2 dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-60"
               >
-                <li onClick={() => handleOrdenamientoChange(1)}>
+                <li onClick={() => handleOrdenamientoChange(1,setOrder)}>
                   <div className="flex gap-1">
                     {order === 1 ? (
                       <FaCheck className="text-xs" />
@@ -90,7 +86,7 @@ export const VinoTeca = () => {
                     Precio. Bajo a Alto
                   </div>
                 </li>
-                <li onClick={() => handleOrdenamientoChange(2)}>
+                <li onClick={() => handleOrdenamientoChange(2,setOrder)}>
                   <div className="flex gap-1">
                     {order === 2 ? (
                       <FaCheck className="text-xs" />
@@ -100,7 +96,7 @@ export const VinoTeca = () => {
                     Precio. Alto a Bajo
                   </div>
                 </li>
-                <li onClick={() => handleOrdenamientoChange(3)}>
+                <li onClick={() => handleOrdenamientoChange(3,setOrder)}>
                   <div className="flex gap-1">
                     {order === 3 ? (
                       <FaCheck className="text-xs" />
@@ -110,7 +106,7 @@ export const VinoTeca = () => {
                     Fecha. Viejo a Nuevo
                   </div>
                 </li>
-                <li onClick={() => handleOrdenamientoChange(4)}>
+                <li onClick={() => handleOrdenamientoChange(4,setOrder)}>
                   <div className="flex gap-1">
                     {order === 4 ? (
                       <FaCheck className="text-xs" />

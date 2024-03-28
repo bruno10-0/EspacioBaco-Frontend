@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-export const CardAdministration = ({ titulo, link, icono, descripcion }) => {
+export const CardAdministration = ({ titulo, icono, descripcion }) => {
   return (
     <div className="shadow-lg relative px-6 py-2 w-full h-full bg-base-100 rounded-badge scale-95 hover:scale-100 transition-transform ease-in-out">
       <div className="absolute top-0 left-0 w-full p-2 bg-primary ">
@@ -13,9 +13,6 @@ export const CardAdministration = ({ titulo, link, icono, descripcion }) => {
       >
         <span className="text-primary text-7xl">{icono}</span>
         <p className="text-xs">{descripcion}</p>
-        <Link to={link} className="btn btn-link rounded-badge text-xs">
-          Comenzar
-        </Link>
       </div>
     </div>
   );

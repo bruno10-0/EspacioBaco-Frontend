@@ -5,8 +5,10 @@ import { GiWineBottle } from "react-icons/gi";
 import { BiCarousel } from "react-icons/bi";
 import { useContexto } from "../../../context/Context";
 import { Link } from "react-router-dom";
+import { useEffect } from "react";
 export const OptionsAdmin = () => {
-  const { user,users,products } = useContexto();
+  const { user, users, products } = useContexto();
+  
   return (
     <div className="flex flex-col justify-center items-center mt-16 md:mt-32">
       <div className="w-full md:w-11/12 p-4">
@@ -46,27 +48,27 @@ export const OptionsAdmin = () => {
           Operaciones con
         </div>
         <div className="grid md:grid-cols-3">
-          <div className="col-span-1">
+          <Link to="/admin/users" className="col-span-1">
             <CardAdministration
               descripcion="Crea, Elimina, Edita, Visualiza"
               titulo="Usuarios"
               icono={<FaUsers />}
             />
-          </div>
-          <div className="col-span-1">
+          </Link>
+          <Link className="col-span-1">
             <CardAdministration
               descripcion="Crea, Elimina, Edita, Visualiza"
               titulo="Vinos"
               icono={<GiWineBottle />}
             />
-          </div>
-          <div className="col-span-1">
+          </Link>
+          <Link className="col-span-1">
             <CardAdministration
               descripcion="Cambiar las propuestas"
               titulo="Carrusel de inicio"
               icono={<BiCarousel />}
             />
-          </div>
+          </Link>
         </div>
       </div>
       <div className="p-2 w-full bg-primary text-base-100 text-center text-sm">

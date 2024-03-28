@@ -138,7 +138,7 @@ export const NavBar = () => {
                 onChange={searcher}
                 type="text"
                 placeholder="Buscar..."
-                className="text-sm w-full  p-2 md:p-4 bg-transparent focus:outline-none"
+                className="text-sm w-full p-2 md:p-4 bg-transparent focus:outline-none"
               />
             </div>
             <ul className="mt-1 p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-b-badge w-full">

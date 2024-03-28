@@ -20,13 +20,42 @@ export const verificarToken = async (token) => {
 
 export const getUsuarios = async (token) => {
   try {
-    const response = await axios.get('/usuarios', {
+    const response = await axios.get("/usuarios", {
       headers: {
-        'Authorization': `Bearer ${token}`, // Enviar el token en el encabezado de autorización
+        Authorization: `Bearer ${token}`, // Enviar el token en el encabezado de autorización
       },
     });
     return response; // Devolver los datos de respuesta del backend
   } catch (error) {
     throw new Error(error.response.data.mensaje); // Manejar errores de manera adecuada
+  }
+};
+
+export const deleteUsuario = async (token, id) => {
+  try {
+    const response = await axios.delete(`/usuarios/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`, // Enviar el token en el encabezado de autorización
+      },
+    });
+    return response;
+  } catch (error) {
+    console.log("Error al eliminar el usuario:", error);
+    throw error; // Re-lanzar el error para que el código que llama a esta función pueda manejarlo adecuadamente
+  }
+};
+
+export const deleteUsuarios = async (ids, token) => {
+  try {
+    const response = await axios.delete(`/usuarios/`, {
+      headers: {
+        Authorization: `Bearer ${token}`, // Enviar el token en el encabezado de autorización
+      },
+      data: { ids }, // Pasar los IDs de usuarios en el cuerpo de la solicitud
+    });
+    return response;
+  } catch (error) {
+    console.log("Error al eliminar usuarios:", error);
+    throw error;
   }
 };

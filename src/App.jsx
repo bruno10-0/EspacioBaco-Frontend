@@ -9,7 +9,7 @@ import { SignUp } from "./components/pages/signUp";
 import { ProtectedRouteAdmin } from "./utils/protectedRouteAdmin";
 import { ProtectedRouteNormal } from "./utils/protectedRouteNormal";
 import { Profile } from "./components/pages/profile";
-import { Outlet } from "react-router-dom";
+import {UsersAdministration} from "./components/pages/usersAdministration"
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
@@ -28,6 +28,7 @@ function App() {
           <Route element={<ProtectedRouteNormal />}>
             <Route element={<ProtectedRouteAdmin />}>
               <Route path="/admin" element={<Admin />} />
+              <Route path="/admin/users" element={<UsersAdministration />} />
             </Route>
             <Route path="/perfil" element={<Profile />} />
           </Route>

@@ -8,14 +8,13 @@ import { crearUsuario } from "../../api/auth.js";
 import { Loading2 } from "../common/loading/loading2.jsx";
 import { useContexto } from "../../context/Context.jsx";
 import { encryptToken } from "../../helpers/token-encrypt.js";
-import img from "../../assets/EspacioBaco_blanco+champagne.png"
+import img from "../../assets/EspacioBaco_blanco+champagne.png";
 export const SignUp = () => {
   const { setIsAuthenticated, isAuthenticated } = useContexto();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState({});
   const [currentSetp, setCurrentStep] = useState(0);
-
   const [formData, setFormData] = useState({
     nombre: "",
     apellido: "",
@@ -23,7 +22,36 @@ export const SignUp = () => {
     contrasenia: "",
     telefono: "",
     direccion: "",
+    tipo:"normal"
   });
+
+  const handleFormSubmit = async () => {
+    setLoading(true);
+    setErrors({});
+
+    try {
+      console.log(formData);
+      const res = await crearUsuario(formData); // Assuming crearUsuario is defined elsewhere
+      console.log(res);
+      if (res.status === 201) {
+        const tokenEncrypted = encryptToken(res.data.token); // Assuming encryptToken is defined elsewhere
+        localStorage.setItem("nekot", tokenEncrypted);
+        setIsAuthenticated(true); // Assuming setIsAuthenticated is defined elsewhere
+      }
+    } catch (error) {
+      if (error.response && error.response.status === 400) {
+        setErrors({ correo: error.response.data.mensaje });
+        setCurrentStep(2);
+      } else {
+        console.error("Error al crear usuario:", error);
+        setErrors({
+          general: "Error al crear usuario. Inténtalo de nuevo más tarde.",
+        });
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const form_0 = useFormik({
     initialValues: {
@@ -102,31 +130,15 @@ export const SignUp = () => {
         correo: values.correo,
         contrasenia: values.contrasenia,
       }));
-      setLoading(true);
-      setErrors({});
-      try {
-        console.log(formData);
-        const res = await crearUsuario(formData); // Assuming crearUsuario is defined elsewhere
-        console.log(res);
-        if (res.status === 201) {
-          const tokenEncrypted = encryptToken(res.data.token); // Assuming encryptToken is defined elsewhere
-          localStorage.setItem("nekot", tokenEncrypted);
-          setIsAuthenticated(true); // Assuming setIsAuthenticated is defined elsewhere
-        }
-      } catch (error) {
-        if (error.response && error.response.status === 400) {
-          setErrors({ correo: error.response.data.mensaje });
-        } else {
-          console.error("Error al crear usuario:", error);
-          setErrors({
-            general: "Error al crear usuario. Inténtalo de nuevo más tarde.",
-          });
-        }
-      } finally {
-        setLoading(false);
-      }
+      setCurrentStep(3);
     },
   });
+
+  useEffect(() => {
+    if (currentSetp === 3) {
+      handleFormSubmit();
+    }
+  }, [currentSetp]);
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -303,7 +315,7 @@ export const SignUp = () => {
                 </form>
               )}
 
-              {currentSetp === 2 && (
+              {currentSetp >= 2 && (
                 <form onSubmit={form_2.handleSubmit}>
                   <label
                     style={{ letterSpacing: "2px" }}
@@ -377,10 +389,10 @@ export const SignUp = () => {
                   <button
                     style={{ letterSpacing: "4px" }}
                     type="submit"
-                    className="mt-1 w-full btn bg-success text-base-100 hover:text-primary py-2 rounded-badge uppercase"
+                    className="mt-2 w-full btn bg-success text-base-100 hover:text-primary py-2 rounded-badge uppercase"
                     disabled={form_2.isSubmitting}
                   >
-                    Registrarme
+                    Listo
                   </button>
 
                   {errors.correo && (
@@ -409,11 +421,7 @@ export const SignUp = () => {
           style={{ minHeight: "calc(100vh - 80px)" }}
           className="hidden md:flex w-1/2 h-full justify-center items-center bg-gradient-to-br from-accent to-primary via-secondary"
         >
-          <img
-            className="w-1/2 object-fill"
-            src={img}
-            alt="logo"
-          />
+          <img className="w-1/2 object-fill" src={img} alt="logo" />
         </div>
       </div>
       <Footer />

@@ -2,7 +2,13 @@
 import { createContext, useContext, useState, useEffect } from "react";
 import { dataDecrypt } from "../helpers/data-decrypt.js";
 import { dataEncrypt } from "../helpers/data-encrypt.js";
-import { verificarToken, getProducts, getUsuarios } from "../api/auth.js";
+import {
+  verificarToken,
+  getProducts,
+  getUsuarios,
+  deleteUsuario,
+  deleteUsuarios,
+} from "../api/auth.js";
 import { decryptToken } from "../helpers/token-decrypt.js";
 const createdContext = createContext();
 
@@ -47,6 +53,7 @@ export const Context = ({ children }) => {
     total = Math.round(total * 100) / 100;
     setTotal(total);
   };
+
   const calcularCantidad = () => {
     let cantidadTotal = 0;
     cartList.forEach((item) => {
@@ -64,6 +71,62 @@ export const Context = ({ children }) => {
     localStorage.removeItem("nekot");
     setUser(null);
     setIsAuthenticated(false);
+  };
+
+  const actualizarListaUsuarios = async () => {
+    try {
+      const token = localStorage.getItem("nekot");
+      if (!token) {
+        console.log("No hay token, no se puede realizar la operación");
+        return;
+      }
+
+      const decryptedToken = decryptToken(token);
+      const res = await getUsuarios(decryptedToken);
+      setUsers(res.data);
+    } catch (error) {
+      console.error("Error al actualizar la lista de usuarios:", error);
+    }
+  };
+
+  const handleOrdenamientoChange = (value, setOrder) => {
+    setOrder(value);
+  };
+
+  const deleteUsuarioById = async (id) => {
+    setLoading(true);
+    const token = localStorage.getItem("nekot");
+    if (!token) {
+      console.log("No hay token, no se puede realizar la operación.");
+    } else {
+      try {
+        const decryptedToken = decryptToken(token);
+        await deleteUsuario(decryptedToken, id);
+      } catch (error) {
+        console.log(error);
+      } finally {
+        await actualizarListaUsuarios(); // Actualizar la lista de usuarios después de eliminar
+        setLoading(false);
+      }
+    }
+  };
+
+  const deleteMultipleUsuarios = async (ids) => {
+    setLoading(true);
+    const token = localStorage.getItem("nekot");
+    if (!token) {
+      console.log("No hay token, no se puede realizar la operación.");
+    } else {
+      try {
+        const decryptedToken = decryptToken(token);
+        await deleteUsuarios(ids, decryptedToken);
+      } catch (error) {
+        console.log(error);
+      } finally {
+        await actualizarListaUsuarios();
+        setLoading(false);
+      }
+    }
   };
 
   useEffect(() => {
@@ -132,6 +195,7 @@ export const Context = ({ children }) => {
   }, []);
   //Carga de los usuarios
   useEffect(() => {
+    setLoading(true);
     const fetchUsuarios = async () => {
       const token = localStorage.getItem("nekot");
       if (!token) {
@@ -140,17 +204,22 @@ export const Context = ({ children }) => {
         try {
           const decryptedToken = decryptToken(token);
           const res = await getUsuarios(decryptedToken);
-          setUsers(res.data)
+          setUsers(res.data);
         } catch (error) {
           throw new Error(error.response.data.mensaje);
         }
       }
     };
     fetchUsuarios();
+    actualizarListaUsuarios();
+    setLoading(false);
   }, []);
+
   return (
     <createdContext.Provider
       value={{
+        actualizarListaUsuarios,
+        handleOrdenamientoChange,
         isAuthenticated,
         setIsAuthenticated,
         user,
@@ -165,7 +234,9 @@ export const Context = ({ children }) => {
         loading,
         cerrarSesion,
         products,
-        users
+        users,
+        deleteUsuarioById,
+        deleteMultipleUsuarios,
       }}
     >
       {children}
