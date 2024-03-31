@@ -48,7 +48,7 @@ export const OptionsAdmin = () => {
           Operaciones con
         </div>
         <div className="grid md:grid-cols-3">
-          <Link to="/admin/users" className="col-span-1">
+          <Link to="/super-administrador/usuarios" className="col-span-1">
             <CardAdministration
               descripcion="Crea, Elimina, Edita, Visualiza"
               titulo="Usuarios"

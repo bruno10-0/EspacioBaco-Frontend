@@ -1,6 +1,6 @@
 export const CardSmall = ({ icono, color, titulo, subTitulo }) => {
   return (
-    <div className={`${color} shadow-lg py-4 px-6 flex gap-4 w-auto rounded-badge select-none hover:scale-105 transition-transform ease-in-out`}>
+    <div className={`${color} shadow-lg py-4 px-6 flex gap-4 w-auto rounded-badge select-none`}>
       <div className="text-3xl flex justify-center items-center text-base-100">
         {icono}
       </div>

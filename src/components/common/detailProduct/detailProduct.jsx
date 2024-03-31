@@ -3,7 +3,6 @@ import { useParams } from "react-router-dom";
 import { useContexto } from "../../../context/Context.jsx";
 import { getProductById } from "../../../api/auth.js";
 import { IoRemoveSharp, IoAddSharp } from "react-icons/io5";
-import { FaCaretLeft, FaCaretRight } from "react-icons/fa";
 import { NavBar } from "../navBar/navBar.jsx";
 import { Loading } from "../loading/loading.jsx";
 import "./detailProduct.css";
@@ -72,7 +71,7 @@ export const DetailProduct = () => {
       setLoading(false);
     };
     fetchProduct();
-  }, [id]); // Agregar id como dependencia para que se actualice al cambiar el ID en la URL
+  }, [id]);
 
   useEffect(() => {
     handleIdSearch(id);

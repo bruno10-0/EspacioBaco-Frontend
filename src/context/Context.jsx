@@ -8,11 +8,13 @@ import {
   getUsuarios,
   deleteUsuario,
   deleteUsuarios,
+  crearUsuarioPorAdmin,
 } from "../api/auth.js";
 import { decryptToken } from "../helpers/token-decrypt.js";
 const createdContext = createContext();
 
 export const Context = ({ children }) => {
+  const [error, setError] = useState(null);
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -80,7 +82,6 @@ export const Context = ({ children }) => {
         console.log("No hay token, no se puede realizar la operación");
         return;
       }
-
       const decryptedToken = decryptToken(token);
       const res = await getUsuarios(decryptedToken);
       setUsers(res.data);
@@ -97,15 +98,15 @@ export const Context = ({ children }) => {
     setLoading(true);
     const token = localStorage.getItem("nekot");
     if (!token) {
-      console.log("No hay token, no se puede realizar la operación.");
+      return console.error("No hay token, no se puede realizar la operación.");
     } else {
       try {
         const decryptedToken = decryptToken(token);
         await deleteUsuario(decryptedToken, id);
       } catch (error) {
-        console.log(error);
+        console.error(error);
       } finally {
-        await actualizarListaUsuarios(); // Actualizar la lista de usuarios después de eliminar
+        actualizarListaUsuarios(); // Actualizar la lista de usuarios después de eliminar
         setLoading(false);
       }
     }
@@ -115,19 +116,48 @@ export const Context = ({ children }) => {
     setLoading(true);
     const token = localStorage.getItem("nekot");
     if (!token) {
-      console.log("No hay token, no se puede realizar la operación.");
+      return console.error("No hay token, no se puede realizar la operación.");
     } else {
       try {
         const decryptedToken = decryptToken(token);
         await deleteUsuarios(ids, decryptedToken);
       } catch (error) {
-        console.log(error);
+        console.error(error);
       } finally {
-        await actualizarListaUsuarios();
+        actualizarListaUsuarios();
         setLoading(false);
       }
     }
   };
+
+  const createUserForAdmin = async (data) => {
+    const token = localStorage.getItem("nekot");
+    if (!token) {
+      return console.error(
+        "No hoy token, no se puede realizar esta operación"
+      )
+    }else {
+      try {
+        const decryptedToken = decryptToken(token);
+        const res = await crearUsuarioPorAdmin(data,decryptedToken);
+        console.log(res)
+        return res;
+      } catch (error) {
+        setError(error)
+        return console.error("Error al itentar crear un usuario: ", error);
+      }
+    }
+  };
+
+  useEffect(() => {
+    if (error !== null) {
+      const timeoutId = setTimeout(() => {
+        setError(null); // Limpiar el error después de 5 segundos
+      }, 5000);
+
+      return () => clearTimeout(timeoutId); // Limpiar el timeout al desmontar el componente o al cambiar el estado nuevamente
+    }
+  }, [error]);
 
   useEffect(() => {
     const storedTheme = localStorage.getItem("espacioBacoTheme");
@@ -211,13 +241,14 @@ export const Context = ({ children }) => {
       }
     };
     fetchUsuarios();
-    actualizarListaUsuarios();
     setLoading(false);
   }, []);
 
   return (
     <createdContext.Provider
       value={{
+        error,
+        createUserForAdmin,
         actualizarListaUsuarios,
         handleOrdenamientoChange,
         isAuthenticated,

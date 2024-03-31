@@ -258,10 +258,10 @@ export const NavBar = () => {
                           <Link to="/perfil" className="relative">
                             <h2 className="p-2">Perfil</h2>
                             <div className="avatar placeholder absolute right-4">
-                              <div className="bg-transparent border-2 border-primary rounded-full w-6">
+                              <div className="bg-primary  rounded-full w-7">
                                 <span
                                   style={{ fontWeight: "bold" }}
-                                  className="text-sm text-primary"
+                                  className="text-sm text-base-100"
                                 >
                                   {primeraLetra}
                                 </span>
@@ -271,7 +271,7 @@ export const NavBar = () => {
                         </li>
                         {user && user.tipo == "admin" && (
                           <li>
-                            <Link to="/admin" className="relative">
+                            <Link to="/super-administrador" className="relative">
                               <h2 className="p-2">Administración</h2>
                               <GrUserAdmin className="text-2xl absolute right-4 text-primary" />
                             </Link>

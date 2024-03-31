@@ -1,24 +1,20 @@
-import { NavBar } from "../common/navBar/navBar";
-import { Footer } from "../common/footer/footer";
+import { NavBar } from "../common/navBar/navBar.jsx";
+import { Footer } from "../common/footer/footer.jsx";
 import { useEffect, useState } from "react";
-import { useContexto } from "../../context/Context";
-import { IoSearchOutline, IoFilter } from "react-icons/io5";
-import { FaCheck } from "react-icons/fa";
-import { MdOutlineRemove } from "react-icons/md";
-import {
-  filtrarUsuariosPorTipo,
-  ordenarPorFechaCreacion,
-  ordenarPorFechaCreacionDesc,
-} from "../../helpers/orderArray.js";
+import { useContexto } from "../../context/Context.jsx";
+import { IoSearchOutline } from "react-icons/io5";
 import { IoMdAdd } from "react-icons/io";
 import { RiDeleteBin7Line } from "react-icons/ri";
+import { Link } from "react-router-dom";
 
-export const UsersAdministration = () => {
-  const { users, deleteUsuarioById, deleteMultipleUsuarios, handleOrdenamientoChange } =
-    useContexto();
+export const UsersSeeAndDelete = () => {
+  const {
+    users,
+    deleteUsuarioById,
+    deleteMultipleUsuarios,
+  } = useContexto();
   const [usersCopy, setUsersCopy] = useState([]);
   const [SelectedUsersId, setSelectedUsersId] = useState([]);
-  const [order, setOrder] = useState(0);
   const [searchText, setSearchText] = useState("");
 
   const handleDeleteUser = async () => {
@@ -27,7 +23,7 @@ export const UsersAdministration = () => {
       console.log(res);
     } else {
       const res = await deleteMultipleUsuarios(SelectedUsersId);
-      console.log(res)
+      console.log(res);
     }
   };
 
@@ -63,39 +59,19 @@ export const UsersAdministration = () => {
     // Agregar el campo "checked" a cada usuario en usersCopy
     const updatedUsersCopy = users.map((user) => ({ ...user, checked: false }));
     setUsersCopy(updatedUsersCopy);
-  }, [users, order]);
+  }, [users]);
 
   useEffect(() => {
-    // Filtrar la lista de usuarios basándose en el texto de búsqueda
+    setSelectedUsersId([]);
     const filteredUsers = users.filter(
       (user) =>
         user.nombre.toLowerCase().includes(searchText.toLowerCase()) ||
         user.apellido.toLowerCase().includes(searchText.toLowerCase()) ||
-        user.id.toString().toLowerCase().includes(searchText.toLowerCase())
+        user.id.toString().toLowerCase().includes(searchText.toLowerCase()) ||
+        user.direccion.toLowerCase().includes(searchText.toLowerCase())
     );
     setUsersCopy(filteredUsers);
   }, [searchText, users]);
-
-  useEffect(() => {
-    switch (order) {
-      case 0:
-        return;
-      case 1:
-        setUsersCopy([...ordenarPorFechaCreacionDesc(usersCopy)]);
-        break;
-      case 2:
-        setUsersCopy([...ordenarPorFechaCreacion(usersCopy)]);
-        break;
-      case 3:
-        setUsersCopy([...filtrarUsuariosPorTipo(users, "admin")]);
-        break;
-      case 4:
-        setUsersCopy([...filtrarUsuariosPorTipo(users, "normal")]);
-        break;
-      default:
-        alert("Ordenamiento no válido.");
-    }
-  }, [order]);
 
   useEffect(() => {
     console.log(SelectedUsersId);
@@ -104,11 +80,15 @@ export const UsersAdministration = () => {
   return (
     <div className="w-full overflow-x-hidden">
       <NavBar />
-      <div
-        className="mt-16 md:mt-32 bg-base-100 w-full"
-      >
+      <div className="mt-16 md:mt-32 bg-base-100 w-full">
         <div className="w-full pt-4 px-4 font-bold">
           <h1 style={{ letterSpacing: "2px" }}>Administración de usuarios.</h1>
+          <h2
+            style={{ letterSpacing: "2px" }}
+            className="mt-4 text-xs font-light"
+          >
+            Busca por Nombre, Apellido, N° Identificador o Dirección.
+          </h2>
         </div>
         <div className="bg-base-100 z-20 navbar w-auto">
           <div className="w-screen flex gap-2">
@@ -123,62 +103,13 @@ export const UsersAdministration = () => {
                 onChange={(e) => setSearchText(e.target.value)}
               />
             </div>
-            <button type="button" className="dropdown dropdown-end">
-              <div
-                tabIndex={0}
-                role="button"
-                className="btn bg-primary text-base-100"
-              >
-                <IoFilter className="text-lg" />
-              </div>
-              <ul className="p-2 mt-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-60">
-                <li onClick={() => handleOrdenamientoChange(1, setOrder)}>
-                  <div className="flex gap-1">
-                    {order === 1 ? (
-                      <FaCheck className="text-xs" />
-                    ) : (
-                      <MdOutlineRemove className="text-xs" />
-                    )}
-                    Creacion. Nuevo a Viejo
-                  </div>
-                </li>
-
-                <li onClick={() => handleOrdenamientoChange(2, setOrder)}>
-                  <div className="flex gap-1">
-                    {order === 2 ? (
-                      <FaCheck className="text-xs" />
-                    ) : (
-                      <MdOutlineRemove className="text-xs" />
-                    )}
-                    Creacion. Viejo a Nuevo
-                  </div>
-                </li>
-                <li onClick={() => handleOrdenamientoChange(3, setOrder)}>
-                  <div className="flex gap-1">
-                    {order === 3 ? (
-                      <FaCheck className="text-xs" />
-                    ) : (
-                      <MdOutlineRemove className="text-xs" />
-                    )}
-                    Tipo. Administradores
-                  </div>
-                </li>
-                <li onClick={() => handleOrdenamientoChange(4, setOrder)}>
-                  <div className="flex gap-1">
-                    {order === 4 ? (
-                      <FaCheck className="text-xs" />
-                    ) : (
-                      <MdOutlineRemove className="text-xs" />
-                    )}
-                    Tipo. Normales
-                  </div>
-                </li>
-              </ul>
-            </button>
             <div className="carousel flex gap-2">
-              <button className="carousel-item btn bg-primary text-base-100">
+              <Link
+                to="/super-administrador/usuarios/crear"
+                className="carousel-item btn bg-primary text-base-100"
+              >
                 <IoMdAdd className="text-lg" />
-              </button>
+              </Link>
               {SelectedUsersId.length > 0 && (
                 <div className="carousel-item">
                   <button
@@ -222,7 +153,10 @@ export const UsersAdministration = () => {
             </div>
           </div>
         </div>
-        <div className="overflow-x-auto">
+        <div
+          style={{ minHeight: "calc(100vh - 200px)" }}
+          className="overflow-x-auto"
+        >
           <table className="table transition-all ease-in-out">
             {/* head */}
             <thead>
@@ -238,10 +172,10 @@ export const UsersAdministration = () => {
                     />
                   </label>
                 </th>
-                <th>Tipo</th>
-                <th>N° identificador</th>
                 <th>Nombre</th>
                 <th>Apellido</th>
+                <th>Tipo</th>
+                <th>N° identificador</th>
                 <th>Telefono</th>
                 <th>Direccion</th>
                 <th>Más</th>
@@ -261,10 +195,6 @@ export const UsersAdministration = () => {
                     </label>
                   </td>
                   <td>
-                    <h1>{user.tipo}</h1>
-                  </td>
-                  <td>{user.id}</td>
-                  <td>
                     <div className="flex items-center gap-3">
                       <div className="avatar placeholder">
                         <div className="bg-neutral text-neutral-content rounded-full w-10">
@@ -280,13 +210,18 @@ export const UsersAdministration = () => {
                     <h1>{user.apellido}</h1>
                   </td>
                   <td>
+                    <h1>{user.tipo}</h1>
+                  </td>
+                  <td>{user.id}</td>
+
+                  <td>
                     <h1>{user.telefono}</h1>
                   </td>
                   <td>
                     <h1>{user.direccion}</h1>
                   </td>
                   <td>
-                    <h1 className="link">Detalles</h1>
+                    <Link to={`/super-administrador/usuarios/detalles/${user.id}`} className="link">Detalles</Link>
                   </td>
                 </tr>
               ))}
@@ -295,10 +230,10 @@ export const UsersAdministration = () => {
             <tfoot>
               <tr>
                 <th></th>
-                <th>Tipo</th>
-                <th>N° identificador</th>
                 <th>Nombre</th>
                 <th>Apellido</th>
+                <th>Tipo</th>
+                <th>N° identificador</th>
                 <th>Telefono</th>
                 <th>Direccion</th>
                 <th>Más</th>

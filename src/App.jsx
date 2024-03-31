@@ -9,8 +9,9 @@ import { SignUp } from "./components/pages/signUp";
 import { ProtectedRouteAdmin } from "./utils/protectedRouteAdmin";
 import { ProtectedRouteNormal } from "./utils/protectedRouteNormal";
 import { Profile } from "./components/pages/profile";
-import {UsersAdministration} from "./components/pages/usersAdministration"
-
+import {UsersSeeAndDelete} from "./components/pages/usersSeeAndDelete"
+import { UsersCreate } from "./components/pages/usersCreate";
+import {DetailsUser} from ".//components/pages/detailsUser"
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 function App() {
@@ -27,8 +28,10 @@ function App() {
 
           <Route element={<ProtectedRouteNormal />}>
             <Route element={<ProtectedRouteAdmin />}>
-              <Route path="/admin" element={<Admin />} />
-              <Route path="/admin/users" element={<UsersAdministration />} />
+              <Route path="/super-administrador" element={<Admin />} />
+              <Route path="/super-administrador/usuarios" element={<UsersSeeAndDelete />} />
+              <Route path="/super-administrador/usuarios/crear" element={<UsersCreate/>} />
+              <Route path="/super-administrador/usuarios/detalles/:id" element={<DetailsUser/>} />
             </Route>
             <Route path="/perfil" element={<Profile />} />
           </Route>
