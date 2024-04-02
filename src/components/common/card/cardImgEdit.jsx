@@ -74,16 +74,21 @@ export const CardImgEdit = ({ values, vacia }) => {
             className="object-fill w-full "
           />
           <div className="text-xs top-0 absolute w-full h-full grid bg-black bg-opacity-65 opacity-0 hover:opacity-100 transition-opacity duration-300">
-            <button
-              onClick={() => {
-                handleDeletePublicacion(values.id);
-              }}
+            <div
               style={{ letterSpacing: "4px" }}
-              className="font-bold cursor-pointer w-full h-full flex flex-col gap-4 justify-center items-center hover:bg-error hover:bg-opacity-50 hover:text-base-100 text-error"
+              className="w-full h-full flex flex-col gap-2 justify-center items-center hover:bg-error hover:bg-opacity-50 hover:text-base-100 text-error uppercase"
             >
-              <RiDeleteBin7Line className="text-4xl" />
-              Eliminar
-            </button>
+              <button
+                onClick={() => {
+                  handleDeletePublicacion(values.id);
+                }}
+                className="btn"
+              >
+                {" "}
+                <RiDeleteBin7Line className="text-2xl" />
+                Eliminar{" "}
+              </button>
+            </div>
           </div>
         </div>
       )}
@@ -93,10 +98,12 @@ export const CardImgEdit = ({ values, vacia }) => {
           style={{ minHeight: "calc(100vh - 145px)" }}
           className="btn h-full w-full flex flex-col gap-2 justify-center items-center"
         >
-          <FaPlus className="text-4xl " />
-          <h3 style={{ letterSpacing: "4px" }} className="text-xs">
-            Agrega una publicacion más
-          </h3>
+          <div className="flex justify-center items-center gap-2">
+            <FaPlus className="text-2xl " />
+            <h3 style={{ letterSpacing: "2px" }} className="text-xs">
+              Agrega una publicacion más
+            </h3>
+          </div>
 
           <dialog id="my_modal_1" className="z-10 modal shadow-2xl">
             <from className="modal-box">
