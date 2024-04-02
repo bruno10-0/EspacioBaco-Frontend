@@ -21,7 +21,7 @@ export const CarouselHome = () => {
               vacia={false}
             />
           ))}
-          {publicaciones.length < 3 && <CardImgEdit vacia={true} />}
+          <CardImgEdit vacia={true} />
         </div>
       </div>
       <Footer />

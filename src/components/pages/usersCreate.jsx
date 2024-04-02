@@ -67,7 +67,7 @@ export const UsersCreate = () => {
         if (res.status === 201) {
           setLoading(false)
           await actualizarListaUsuarios();
-          navigate("/admin/users");
+          navigate("/super-administrador/usuarios");
         }
       } catch (error) {
         console.error(error);

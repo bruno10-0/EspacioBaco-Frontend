@@ -14,7 +14,7 @@ import {
 } from "react-icons/io5";
 import { AiOutlineUser } from "react-icons/ai";
 import { Loading } from "../loading/loading.jsx";
-import img from "../../../assets/EspacioBaco_negro.png";
+import img from "../../../assets/EspacioBaco_tinto.png";
 export const NavBar = () => {
   const [primeraLetra, setPrimeraLetra] = useState();
   const [search, setSearch] = useState("");
@@ -52,10 +52,8 @@ export const NavBar = () => {
     }
   }, [setUser, user, isAuthenticated]);
 
-
   const searcher = (e) => {
     setSearch(e.target.value);
-    console.log(search);
   };
 
   let results = [];
@@ -63,8 +61,14 @@ export const NavBar = () => {
   if (!search) {
     results = [];
   } else {
-    results = products.filter((product) =>
-      product.nombre.toLowerCase().includes(search.toLowerCase())
+    results = products.filter(
+      (product) =>
+        product.nombre.toLowerCase().includes(search.toLowerCase()) ||
+        product.descripcion_corta
+          .toLowerCase()
+          .includes(search.toLowerCase()) ||
+        product.nombreBodega.toLowerCase().includes(search.toLowerCase()) ||
+        product.tipo.toLowerCase().includes(search.toLowerCase())
     );
   }
   return (
@@ -150,7 +154,19 @@ export const NavBar = () => {
                       style={{ letterSpacing: "1px" }}
                       className="hover:text-base-100 hover:bg-primary rounded-badge p-2 flex"
                     >
-                      <p>{product.nombre}</p>
+                      <div className="avatar">
+                        <div className="w-10 rounded-full">
+                          <img src={product.imagen} className="object-fill" />
+                        </div>
+                      </div>
+                      <div className="flex gap-2 flex-col">
+                        <div className="flex gap-2">
+                          <p>{product.nombre}</p>
+                          <p>${product.precio}</p>
+                        </div>
+
+                        <p className="text-xs">{product.descripcion_corta}</p>
+                      </div>
                     </Link>
                   </li>
                 ))
@@ -164,7 +180,7 @@ export const NavBar = () => {
                     <li className="hover:text-base-100 hover:bg-primary rounded-badge p-2 text-xs text-center">
                       {loading
                         ? "Cargando vinos..."
-                        : "Ingresa un nombre de vino para buscarlo."}
+                        : "Ingresa un nombre, tipo, bodega de vino para buscarlo."}
                     </li>
                   )}
                 </>
@@ -271,7 +287,10 @@ export const NavBar = () => {
                         </li>
                         {user && user.tipo == "admin" && (
                           <li>
-                            <Link to="/super-administrador" className="relative">
+                            <Link
+                              to="/super-administrador"
+                              className="relative"
+                            >
                               <h2 className="p-2">Administración</h2>
                               <GrUserAdmin className="text-2xl absolute right-4 text-primary" />
                             </Link>

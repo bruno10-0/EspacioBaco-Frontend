@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { FaInstagram } from "react-icons/fa6";
-import img from "../../../assets/EspacioBaco_blanco.png"
+import img from "../../../assets/EspacioBaco_blanco+tinto.png"
 export const Footer = () => {
   return (
     <>
