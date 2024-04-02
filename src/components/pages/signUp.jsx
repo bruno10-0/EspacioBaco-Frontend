@@ -30,7 +30,6 @@ export const SignUp = () => {
     setErrors({});
 
     try {
-      console.log(formData);
       const res = await crearUsuario(formData); // Assuming crearUsuario is defined elsewhere
       console.log(res);
       if (res.status === 201) {

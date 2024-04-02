@@ -3,12 +3,11 @@ import { createContext, useContext, useState, useEffect } from "react";
 import { dataDecrypt } from "../helpers/data-decrypt.js";
 import { dataEncrypt } from "../helpers/data-encrypt.js";
 import {
-  verificarToken,
-  getProducts,
   getUsuarios,
   deleteUsuario,
   deleteUsuarios,
   crearUsuarioPorAdmin,
+  getPublicaciones,
 } from "../api/auth.js";
 import { decryptToken } from "../helpers/token-decrypt.js";
 const createdContext = createContext();
@@ -18,11 +17,13 @@ export const Context = ({ children }) => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [user, setUser] = useState();
+  const [user, setUser] = useState(null);
   const [users, setUsers] = useState([]);
   const [total, setTotal] = useState(0);
   const [envioGratis, setEnvioGratis] = useState(false);
   const [cantidad, setCantidad] = useState(0);
+  const [publicaciones, setPublicaciones] = useState([]);
+  const [flagPublicaciones, setFlagPublicaciones] = useState(false);
   const [cartList, setCartList] = useState(() => {
     try {
       const storedValue = localStorage.getItem("carritoCompras");
@@ -133,21 +134,32 @@ export const Context = ({ children }) => {
   const createUserForAdmin = async (data) => {
     const token = localStorage.getItem("nekot");
     if (!token) {
-      return console.error(
-        "No hoy token, no se puede realizar esta operación"
-      )
-    }else {
+      return console.error("No hoy token, no se puede realizar esta operación");
+    } else {
       try {
         const decryptedToken = decryptToken(token);
-        const res = await crearUsuarioPorAdmin(data,decryptedToken);
-        console.log(res)
+        const res = await crearUsuarioPorAdmin(data, decryptedToken);
+        console.log(res);
         return res;
       } catch (error) {
-        setError(error)
+        setError(error);
         return console.error("Error al itentar crear un usuario: ", error);
       }
     }
   };
+
+  const actualizarListaPublicaciones = async () => {
+    try {
+      const res = await getPublicaciones();
+      setPublicaciones(res.data.publicaciones);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    actualizarListaPublicaciones();
+  }, [flagPublicaciones]);
 
   useEffect(() => {
     if (error !== null) {
@@ -175,78 +187,37 @@ export const Context = ({ children }) => {
     calcularCantidad();
   }, [cartList, setCartList]);
 
+  // Efecto para cargar usuarios y gestionar el estado de carga
   useEffect(() => {
-    async function checkLogin() {
-      const token = localStorage.getItem("nekot");
-      if (!token) {
-        setIsAuthenticated(false);
-        setUser(null);
-        setLoading(false);
-        return;
-      } else {
-        const decryptedToken = decryptToken(token);
-        try {
-          const res = await verificarToken(decryptedToken);
-          if (res.status == 201) {
-            setIsAuthenticated(true);
-            setUser(res.data);
-            console.log("Token verificado correctamente");
-          } else {
-            cerrarSesion();
-            console.log("Error al verificar token: Acceso no autorizado");
-          }
-        } catch (error) {
-          console.error("Error al verificar token:", error);
-          setIsAuthenticated(false);
-          setUser(null);
-          console.log("Error al verificar token:", error.message);
-        } finally {
-          setLoading(false);
-        }
-      }
-    }
-
-    const interval = setInterval(checkLogin, 1000);
-
-    return () => clearInterval(interval);
-  }, []);
-  //Carga de los productos
-  useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const res = await getProducts();
-        setProducts(res.data);
-      } catch (error) {
-        console.error("Error al buscar los productos:", error);
-      }
-    };
-
-    fetchProducts();
-  }, []);
-  //Carga de los usuarios
-  useEffect(() => {
-    setLoading(true);
+    setLoading(true); // Activa el estado de carga
     const fetchUsuarios = async () => {
       const token = localStorage.getItem("nekot");
+
       if (!token) {
         console.log("No hay token, no se puede realizar la operación");
       } else {
         try {
           const decryptedToken = decryptToken(token);
           const res = await getUsuarios(decryptedToken);
-          setUsers(res.data);
+          setUsers(res.data); // Establece la lista de usuarios en el estado
         } catch (error) {
-          throw new Error(error.response.data.mensaje);
+          console.log(error);
         }
       }
+
+      setLoading(false); // Desactiva el estado de carga al finalizar
     };
     fetchUsuarios();
-    setLoading(false);
   }, []);
 
   return (
     <createdContext.Provider
       value={{
+        actualizarListaPublicaciones,
+        setFlagPublicaciones,
+        flagPublicaciones,
+        publicaciones,
+        setPublicaciones,
         error,
         createUserForAdmin,
         actualizarListaUsuarios,
@@ -263,9 +234,12 @@ export const Context = ({ children }) => {
         cantidad,
         envioGratis,
         loading,
+        setLoading,
         cerrarSesion,
         products,
+        setProducts,
         users,
+        setUsers,
         deleteUsuarioById,
         deleteMultipleUsuarios,
       }}

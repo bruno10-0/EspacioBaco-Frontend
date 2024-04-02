@@ -18,7 +18,10 @@ export const Loading2 = () => {
       break;
   }
   return (
-    <div className="fixed inset-0 flex flex-col justify-center items-center z-50">
+    <div
+      style={{ zIndex: 100 }}
+      className="fixed inset-0 flex flex-col justify-center items-center"
+    >
       <div className="absolute inset-0 bg-base-300 opacity-50"></div>
       <span className="loading loading-dots bg-primary loading-lg"></span>
       <h3

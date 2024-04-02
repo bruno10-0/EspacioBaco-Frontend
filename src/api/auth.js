@@ -47,7 +47,8 @@ export const crearUsuarioPorAdmin = async (data, token) => {
   }
 };
 
-export const editarUsuario = async (data,id) => axios.put(`/usuarios/${id}`, data);
+export const editarUsuario = async (data, id) =>
+  axios.put(`/usuarios/${id}`, data);
 
 export const getUsuarios = async (token) => {
   try {
@@ -90,3 +91,17 @@ export const deleteUsuarios = async (ids, token) => {
     throw error;
   }
 };
+
+//rutas publicaciones
+
+export const getPublicaciones = async () => {
+  return await axios.get("/publicacion");
+};
+
+export const postPublicacion = async (values) => {
+  return await axios.post("/publicacion", values);
+};
+
+export const deletePublicacion = async (id) =>{
+  return await axios.delete(`/publicacion/${id}`)
+}
