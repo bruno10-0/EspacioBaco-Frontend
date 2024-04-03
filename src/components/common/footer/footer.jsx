@@ -1,19 +1,24 @@
 import { Link } from "react-router-dom";
-import { FaInstagram } from "react-icons/fa6";
-import img from "../../../assets/EspacioBaco_blanco+tinto.png"
+import { PiInstagramLogoFill } from "react-icons/pi";
+import img from "../../../assets/EspacioBaco_blanco.png";
 export const Footer = () => {
   return (
     <>
-      <footer className="footer p-10 bg-neutral text-neutral-content">
+      <footer className="footer footer-center p-2 bg-primary text-primary-content">
         <aside>
-        <img src={img} alt="Logo" className="w-40 h-auto"/>
-            <h2>¡Productos irresistibles te esperan! <Link to="/vinoteca" className="link">Haz tu pedido ahora.</Link></h2>
+          <Link to="/">
+            <img src={img} alt="Logo" className="w-64 h-auto" />
+          </Link>
+          <p className="font-bold">
+            EspacioBaco. <br />
+            Descubre el sabor del mundo en cada copa.
+          </p>
+          <p>Copyright © 2024 - Todos los derechos resevados</p>
         </aside>
         <nav>
-          <h6 className="footer-title uppercase" style={{letterSpacing:"4px"}}>Social</h6>
           <div className="grid grid-flow-col gap-4">
             <a className="cursor-pointer">
-             <FaInstagram className="text-2xl"/>
+              <PiInstagramLogoFill className="text-3xl" />
             </a>
           </div>
         </nav>
