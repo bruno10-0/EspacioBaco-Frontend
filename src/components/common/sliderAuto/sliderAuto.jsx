@@ -3,7 +3,7 @@ import "./sliderAuto.css";
 import { useState, useEffect } from "react";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa6";
 import { useContexto } from "../../../context/Context";
-
+import { Loading2 } from "../loading/loading2";
 export const SliderAuto = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const { publicaciones } = useContexto();

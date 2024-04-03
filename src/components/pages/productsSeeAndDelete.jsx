@@ -1,47 +1,49 @@
-import { NavBar } from "../common/navBar/navBar.jsx";
-import { Footer } from "../common/footer/footer.jsx";
+import { NavBar } from "../common/navBar/navBar";
+import { Footer } from "../common/footer/footer";
 import { useEffect, useState } from "react";
-import { useContexto } from "../../context/Context.jsx";
+import { useContexto } from "../../context/Context";
 import { IoSearchOutline } from "react-icons/io5";
 import { IoMdAdd } from "react-icons/io";
 import { RiDeleteBin7Line } from "react-icons/ri";
 import { Link } from "react-router-dom";
 
-export const UsersSeeAndDelete = () => {
-  const { users, deleteUsuarioById, deleteMultipleUsuarios } = useContexto();
-  const [usersCopy, setUsersCopy] = useState([]);
-  const [SelectedUsersId, setSelectedUsersId] = useState([]);
+export const ProductsSeeAndDelete = () => {
+  const { products,setProducts, deleteProductById, deleteMultipleProducts } = useContexto();
+  const [productCopy, setProductCopy] = useState([]);
+  const [selectedProductId, setSelectedProductId] = useState([]);
   const [searchText, setSearchText] = useState("");
 
-  const handleDeleteUser = async () => {
-    if (SelectedUsersId.length === 1) {
-      const res = await deleteUsuarioById(SelectedUsersId[0]);
+  {/*const handleDeleteProduct = async () => {
+    if (selectedProductId.length === 1) {
+      const res = await deleteProductById(selectedProductId[0]);
       console.log(res);
     } else {
-      const res = await deleteMultipleUsuarios(SelectedUsersId);
+      const res = await deleteMultipleProducts(selectedProductId);
       console.log(res);
     }
   };
-
+*/}
   const handleCheckboxChange = (index) => {
     if (index === -1) {
       // Checkbox del encabezado seleccionado, marcar todos los checkboxes de las filas
-      const allChecked = usersCopy.every((user) => user.checked);
-      const updatedUsersCopy = usersCopy.map((user) => ({
-        ...user,
+      const allChecked = productCopy.every((product) => product.checked);
+      const updatedProductCopy = productCopy.map((product) => ({
+        ...product,
         checked: !allChecked,
       }));
-      setUsersCopy(updatedUsersCopy);
-      setSelectedUsersId(allChecked ? [] : usersCopy.map((user) => user.id));
+      setProductCopy(updatedProductCopy);
+      setSelectedProductId(
+        allChecked ? [] : productCopy.map((product) => product.id)
+      );
     } else {
-      setUsersCopy((prevUsersCopy) =>
-        prevUsersCopy.map((user, i) =>
-          i === index ? { ...user, checked: !user.checked } : user
+      setProductCopy((prevProductCopy) =>
+        prevProductCopy.map((product, i) =>
+          i === index ? { ...product, checked: !product.checked } : product
         )
       );
 
-      setSelectedUsersId((prevIds) => {
-        const productId = usersCopy[index].id;
+      setSelectedProductId((prevIds) => {
+        const productId = productCopy[index].id;
         if (prevIds.includes(productId)) {
           return prevIds.filter((id) => id !== productId);
         } else {
@@ -52,34 +54,67 @@ export const UsersSeeAndDelete = () => {
   };
 
   useEffect(() => {
-    // Agregar el campo "checked" a cada usuario en usersCopy
-    const updatedUsersCopy = users.map((user) => ({ ...user, checked: false }));
-    setUsersCopy(updatedUsersCopy);
-  }, [users]);
+    // Agregar el campo "checked" a cada producto en productCopy
+    const updatedProductCopy = products.map((product) => ({
+      ...product,
+      checked: false,
+    }));
+    setProductCopy(updatedProductCopy);
+  }, [products]);
 
   useEffect(() => {
-    setSelectedUsersId([]);
-    const filteredUsers = users.filter(
-      (user) =>
-        user.nombre.toLowerCase().includes(searchText.toLowerCase()) ||
-        user.apellido.toLowerCase().includes(searchText.toLowerCase()) ||
-        user.id.toString().toLowerCase().includes(searchText.toLowerCase()) ||
-        user.direccion.toLowerCase().includes(searchText.toLowerCase())
+    setSelectedProductId([]);
+    const filteredProducts = products.filter(
+      (product) =>
+        product.nombre.toLowerCase().includes(searchText.toLowerCase()) ||
+        product.nombreBodega.toLowerCase().includes(searchText.toLowerCase()) ||
+        product.descripcion_corta
+          .toLowerCase()
+          .includes(searchText.toLowerCase()) ||
+        product.descripcion_detallada
+          .toLowerCase()
+          .includes(searchText.toLowerCase()) ||
+        product.tipo.toLowerCase().includes(searchText.toLowerCase())
     );
-    setUsersCopy(filteredUsers);
-  }, [searchText, users]);
+    setProductCopy(filteredProducts);
+  }, [searchText, products]);
 
+  // Efecto para cargar productos al montar el componente
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const res = await getProducts();
+        setProducts(res.data); // Establece la lista de productos en el estado
+      } catch (error) {
+        console.error("Error al buscar los productos:", error);
+      }
+    };
+    fetchProducts();
+  }, []);
+
+    // Efecto para cargar productos al montar el componente
+    useEffect(() => {
+        const fetchProducts = async () => {
+          try {
+            const res = await getProducts();
+            setProducts(res.data); // Establece la lista de productos en el estado
+          } catch (error) {
+            console.error("Error al buscar los productos:", error);
+          }
+        };
+        fetchProducts();
+      }, []);
   return (
     <div className="w-full overflow-x-hidden">
       <NavBar />
       <div className="mt-16 md:mt-32 bg-base-100 w-full">
         <div className="w-full pt-4 px-4 font-bold">
-          <h1 style={{ letterSpacing: "2px" }}>Administración de usuarios.</h1>
+          <h1 style={{ letterSpacing: "2px" }}>Administración de Productos.</h1>
           <h2
             style={{ letterSpacing: "2px" }}
             className="mt-4 text-xs font-light"
           >
-            Busca por Nombre, Apellido, N° Identificador o Dirección.
+            Busca por Nombre, Bodega, Tipo o Descripción.
           </h2>
         </div>
         <div className="bg-base-100 z-20 navbar w-auto">
@@ -97,12 +132,12 @@ export const UsersSeeAndDelete = () => {
             </div>
             <div className="carousel flex gap-2">
               <Link
-                to="/super-administrador/usuarios/crear"
+                to=""
                 className="carousel-item btn bg-primary text-base-100"
               >
                 <IoMdAdd className="text-lg" />
               </Link>
-              {SelectedUsersId.length > 0 && (
+              {selectedProductId.length > 0 && (
                 <div className="carousel-item">
                   <button
                     onClick={() =>
@@ -115,18 +150,20 @@ export const UsersSeeAndDelete = () => {
                   <dialog id="my_modal_1" className="modal ">
                     <div className="modal-box">
                       <h3 className="font-bold text-lg">
-                        ¿Estás seguro de descorchar este usuario?
+                        ¿Estás seguro de eliminar este vino?
                       </h3>
                       <p className="py-4 text-sm">
-                        Borrar este usuario es como abrir una botella de vino
-                        añejo: una vez que se descorcha, no hay vuelta atrás.
+                        Borrar este vino es como sacar el corcho de una botella
+                        de vino reserva: una vez que se elimina, no se puede
+                        volver atrás.
                       </p>
+
                       <div className="modal-action">
                         <form method="dialog">
                           <div className="flex gap-2">
                             <button
                               onClick={() => {
-                                handleDeleteUser();
+                                handleDeleteProduct();
                               }}
                               className="btn bg-warning text-base-100"
                             >
@@ -159,62 +196,53 @@ export const UsersSeeAndDelete = () => {
                       value={false}
                       type="checkbox"
                       className="checkbox"
-                      checked={usersCopy.every((user) => user.checked)}
-                      onChange={() => handleCheckboxChange(-1)} // Índice -1 indica checkbox del encabezado
+                      checked={productCopy.every((product) => product.checked)}
+                      onChange={() => handleCheckboxChange(-1)}
                     />
                   </label>
                 </th>
+                <th>Precio</th>
                 <th>Nombre</th>
-                <th>Apellido</th>
                 <th>Tipo</th>
+                <th>Bodega</th>
                 <th>N° identificador</th>
-                <th>Telefono</th>
-                <th>Direccion</th>
+                <th>Descripción pequeña</th>
                 <th>Editar</th>
               </tr>
             </thead>
             <tbody>
-              {usersCopy.map((user, index) => (
+              {productCopy.map((product, index) => (
                 <tr key={index}>
                   <td>
                     <label>
                       <input
                         type="checkbox"
                         className="checkbox"
-                        checked={user.checked}
+                        checked={product.checked}
                         onChange={() => handleCheckboxChange(index)}
                       />
                     </label>
                   </td>
                   <td>
+                    <h1>${product.precio}</h1>
+                  </td>
+                  <td>
                     <div className="flex items-center gap-3">
-                      <div className="avatar placeholder">
-                        <div className="bg-neutral text-neutral-content rounded-full w-10">
-                          <span className="text-sm">
-                            {user.nombre.charAt(0)}
-                          </span>
+                      <div className="avatar">
+                        <div className="w-14 rounded-full">
+                          <img src={product.imagen}  className="object-fill  w-full h-full bg-primary"/>
                         </div>
                       </div>
-                      <h1>{user.nombre}</h1>
+                      <h2>{product.nombre}</h2>
                     </div>
                   </td>
-                  <td>
-                    <h1>{user.apellido}</h1>
-                  </td>
-                  <td>
-                    <h1>{user.tipo}</h1>
-                  </td>
-                  <td>{user.id}</td>
-
-                  <td>
-                    <h1>{user.telefono}</h1>
-                  </td>
-                  <td>
-                    <h1>{user.direccion}</h1>
-                  </td>
+                  <td>{product.tipo}</td>
+                  <td>{product.nombreBodega}</td>
+                  <td>{product.id}</td>
+                  <td>{product.descripcion_corta}</td>
                   <td>
                     <Link
-                      to={`/super-administrador/usuarios/detalles/${user.id}`}
+                      to={`/super-administrador/productos/detalles/${product.id}`}
                       className="btn btn-outline btn-accent"
                     >
                       Editar
@@ -223,16 +251,15 @@ export const UsersSeeAndDelete = () => {
                 </tr>
               ))}
             </tbody>
-            {/* foot */}
             <tfoot>
               <tr>
                 <th></th>
+                <th>Precio</th>
                 <th>Nombre</th>
-                <th>Apellido</th>
                 <th>Tipo</th>
+                <th>Bodega</th>
                 <th>N° identificador</th>
-                <th>Telefono</th>
-                <th>Direccion</th>
+                <th>Descripción pequeña</th>
                 <th>Editar</th>
               </tr>
             </tfoot>

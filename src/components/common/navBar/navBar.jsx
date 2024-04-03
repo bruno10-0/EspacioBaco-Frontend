@@ -14,7 +14,10 @@ import {
 } from "react-icons/io5";
 import { AiOutlineUser } from "react-icons/ai";
 import { Loading } from "../loading/loading.jsx";
-import img from "../../../assets/EspacioBaco_tinto.png";
+import img from "../../../assets/EspacioBaco_negro.png";
+import { GrHomeRounded } from "react-icons/gr";
+import { PiWineLight } from "react-icons/pi";
+import { BsInfoSquare } from "react-icons/bs";
 export const NavBar = () => {
   const [primeraLetra, setPrimeraLetra] = useState();
   const [search, setSearch] = useState("");
@@ -87,13 +90,13 @@ export const NavBar = () => {
               </div>
               <ul
                 tabIndex={0}
-                className=" text-base-100 menu menu-sm flex justify-center items-center p-4  gap-10 -ml-2 dropdown-content mt-2 z-[1] shadow bg-primary w-screen"
+                className=" text-base-100 menu menu-sm flex justify-center items-center py-10  gap-10 -ml-2 dropdown-content mt-2 z-[1] shadow bg-primary w-screen"
               >
                 <Link
                   to="/"
-                  className={`uppercase text-xs p-2 ${
+                  className={`uppercase ${
                     location.pathname === "/"
-                      ? "border-b border-base-100   scale-110"
+                      ? ""
                       : ""
                   }`}
                   style={{ letterSpacing: "6px" }}
@@ -102,9 +105,9 @@ export const NavBar = () => {
                 </Link>
                 <Link
                   to="/vinoteca"
-                  className={`uppercase text-xs p-2 ${
+                  className={`uppercase ${
                     location.pathname === "/vinoteca"
-                      ? "border-b border-base-100  scale-110"
+                      ? ""
                       : ""
                   }`}
                   style={{ letterSpacing: "6px" }}
@@ -113,9 +116,9 @@ export const NavBar = () => {
                 </Link>
                 <Link
                   to="/nosotros"
-                  className={`uppercase text-xs p-2 ${
+                  className={`uppercase ${
                     location.pathname === "/nosotros"
-                      ? "border-b border-base-100  scale-110"
+                      ? ""
                       : ""
                   }`}
                   style={{ letterSpacing: "6px" }}
@@ -131,13 +134,13 @@ export const NavBar = () => {
               style={{ letterSpacing: "8px", fontWeight: "bolder" }}
               className="hidden md:block text-xl uppercase cursor-pointer select-none w-full"
             >
-              <img src={img} alt="Logo" className="w-32 h-full my-2" />
+              <img src={img} alt="Logo" className="w-36 h-full my-2" />
             </div>
           </Link>
 
           <div className="navbar-center border-2 rounded-t-badge md:mb-2 w-1/2 md:w-2/3  dropdown dropdown-end">
             <div className="flex justify-start items-center w-full px-5">
-              <IoSearchOutline className="text-2xl mx-2 text-gray-500" />
+              <IoSearchOutline className="text-xl md:text-2xl mx-2 text-gray-500" />
               <input
                 onChange={searcher}
                 type="text"
@@ -154,9 +157,12 @@ export const NavBar = () => {
                       style={{ letterSpacing: "1px" }}
                       className="hover:text-base-100 hover:bg-primary rounded-badge p-2 flex"
                     >
-                      <div className="avatar">
-                        <div className="w-10 rounded-full">
-                          <img src={product.imagen} className="object-fill" />
+                      <div className="hidden md:block avatar">
+                        <div className=" w-16 rounded-sm">
+                          <img
+                            src={product.imagen}
+                            className="object-fill bg-base-100"
+                          />
                         </div>
                       </div>
                       <div className="flex gap-2 flex-col">
@@ -165,7 +171,9 @@ export const NavBar = () => {
                           <p>${product.precio}</p>
                         </div>
 
-                        <p className="text-xs">{product.descripcion_corta}</p>
+                        <p className="hidden md:block text-xs">
+                          {product.descripcion_corta}
+                        </p>
                       </div>
                     </Link>
                   </li>
@@ -199,7 +207,7 @@ export const NavBar = () => {
                 role="button"
                 className="w-full h-full flex justify-center items-center cursor-pointer select-none"
               >
-                <TbColorSwatch className="text-2xl" />
+                <TbColorSwatch className="text-xl md:text-2xl" />
               </div>
               <div
                 tabIndex={0}
@@ -249,13 +257,13 @@ export const NavBar = () => {
               </div>
             </div>
 
-            <div className="btn-circle dropdown dropdown-end z-20">
+            <div className="-mx-2 md:mx-0 btn-circle dropdown dropdown-end z-20">
               <div
                 tabIndex={0}
                 role="button"
                 className="w-full h-full flex justify-center items-center cursor-pointer select-none"
               >
-                <AiOutlineUser className="text-2xl" />
+                <AiOutlineUser className="text-xl md:text-2xl" />
               </div>
               <ul
                 tabIndex={0}
@@ -333,7 +341,7 @@ export const NavBar = () => {
                 className="w-full h-full flex justify-center items-center cursor-pointer select-none"
               >
                 <div className="indicator">
-                  <IoBagOutline className="text-2xl" />
+                  <IoBagOutline className="text-xl md:text-2xl" />
                   {cartList.length > 0 && (
                     <span className="badge badge-xs badge-accent indicator-item"></span>
                   )}
@@ -443,13 +451,12 @@ export const NavBar = () => {
             </div>
           </div>
         </div>
-        <nav className="hidden w-auto md:flex justify-center items-center gap-6 p-3 -mt-2 bg-primary text-base-100 font-semibold">
+        <nav className="overflow-hidden relative transition-all hidden w-auto md:flex justify-center items-center gap-10 -mt-3 bg-primary text-base-100 ">
+          <img src="https://media-public.canva.com/xPMkk/MAFqInxPMkk/1/wm_s3.png" alt="" className="absolute opacity-40"/>
           <Link
             to="/"
-            className={`uppercase text-xs p-2 ${
-              location.pathname === "/"
-                ? "border-b border-base-100  scale-110"
-                : ""
+            className={`uppercase font-bold shadow-inner scale-105 p-4 hover:scale-110 transition-transform ${
+              location.pathname === "/" ? "" : ""
             }`}
             style={{ letterSpacing: "6px" }}
           >
@@ -457,10 +464,8 @@ export const NavBar = () => {
           </Link>
           <Link
             to="/vinoteca"
-            className={`uppercase text-xs p-2 ${
-              location.pathname === "/vinoteca"
-                ? "border-b border-base-100  scale-110"
-                : ""
+            className={`uppercase font-bold shadow-inner scale-105 p-4 hover:scale-110 transition-transform ${
+              location.pathname === "/vinoteca" ? "" : ""
             }`}
             style={{ letterSpacing: "6px" }}
           >
@@ -468,10 +473,8 @@ export const NavBar = () => {
           </Link>
           <Link
             to="/nosotros"
-            className={`uppercase text-xs p-2 ${
-              location.pathname === "/nosotros"
-                ? "border-b border-base-100  scale-110"
-                : ""
+            className={`uppercase font-bold shadow-inner scale-105 p-4 hover:scale-110 transition-transform ${
+              location.pathname === "/nosotros" ? "" : ""
             }`}
             style={{ letterSpacing: "6px" }}
           >

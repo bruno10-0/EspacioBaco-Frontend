@@ -106,7 +106,7 @@ export const OptionsAdmin = () => {
               icono={<FaUsers />}
             />
           </Link>
-          <Link className="col-span-1">
+          <Link to="/super-administrador/productos" className="col-span-1">
             <CardAdministration
               descripcion="Crea, Elimina, Edita, Visualiza"
               titulo="Vinos"

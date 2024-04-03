@@ -14,6 +14,7 @@ import { UsersCreate } from "./components/pages/usersCreate";
 import {DetailsUser} from "./components/pages/detailsUser"
 import {CarouselHome} from "./components/pages/carouselHome"
 import {UseVerifyAuthentication} from "./utils/useVerifyAuthentication"
+import {ProductsSeeAndDelete} from "./components/pages/productsSeeAndDelete"
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 function App() {
@@ -36,6 +37,7 @@ function App() {
               <Route path="/super-administrador/usuarios/crear" element={<UsersCreate/>} />
               <Route path="/super-administrador/usuarios/detalles/:id" element={<DetailsUser/>} />
               <Route path="/super-administrador/slider" element={<CarouselHome/>} />
+              <Route path="/super-administrador/productos" element={<ProductsSeeAndDelete/>} />
             </Route>
             <Route path="/perfil" element={<Profile />} />
           </Route>
