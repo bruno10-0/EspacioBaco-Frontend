@@ -152,7 +152,7 @@ export const ProductsSeeAndDelete = () => {
                       </h3>
                       <p className="py-4 text-sm">
                         Borrar este vino es como sacar el corcho de una botella
-                        de vino reserva: una vez que se elimina, no se puede
+                        de vino reserva: una vez que se descorcha, no se puede
                         volver atrás.
                       </p>
 

@@ -99,7 +99,7 @@ export const DetailProduct = () => {
       )}
 
       {response === true && !loading && (
-        <div className="mt-20 md:mt-32 p-10 relative mb-2 w-full flex flex-col items-center lg:items-start lg:flex-row justify-around">
+        <div className="overflow-hidden mt-20 md:mt-32 p-10 relative mb-2 w-full flex flex-col items-center lg:items-start lg:flex-row justify-around">
           <div className="ContainerImg">
             <div className="carousel w-full h-full">
               <div className="carousel-item relative flex justify-center items-center w-full h-full">

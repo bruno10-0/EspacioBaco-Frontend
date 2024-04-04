@@ -15,9 +15,6 @@ import {
 import { AiOutlineUser } from "react-icons/ai";
 import { Loading } from "../loading/loading.jsx";
 import img from "../../../assets/Logo/EspacioBaco_tinto.png";
-import { GrHomeRounded } from "react-icons/gr";
-import { PiWineLight } from "react-icons/pi";
-import { BsInfoSquare } from "react-icons/bs";
 export const NavBar = () => {
   const [primeraLetra, setPrimeraLetra] = useState();
   const [search, setSearch] = useState("");
@@ -138,14 +135,14 @@ export const NavBar = () => {
             </div>
           </Link>
 
-          <div className="navbar-center border-2 rounded-t-badge md:mb-2 w-1/2 md:w-2/3  dropdown dropdown-end">
+          <div className="border-2 navbar-center md:mb-2 w-4/6 md:w-2/3 dropdown dropdown-end">
             <div className="flex justify-start items-center w-full px-5">
               <IoSearchOutline className="text-xl md:text-2xl mx-2 text-gray-500" />
               <input
                 onChange={searcher}
                 type="text"
                 placeholder="Buscar..."
-                className="text-sm w-full p-2 md:p-4 bg-transparent focus:outline-none"
+                className="text-sm w-full  p-2 md:p-4 bg-transparent focus:outline-none"
               />
             </div>
             <ul className="mt-1 p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-b-badge w-full">
@@ -197,10 +194,10 @@ export const NavBar = () => {
           </div>
 
           {/*User, cart search, theme*/}
-          <div className="navbar-end">
+          <div className="navbar-end mr-2">
             <div
               tabIndex={0}
-              className="btn-circle dropdown dropdown-end max-h-[calc(100vh-300px)]"
+              className="hidden btn-circle dropdown dropdown-end max-h-[calc(100vh-300px)]"
             >
               <div
                 tabIndex={0}

@@ -13,15 +13,4 @@
     font-weight: lighter;
     font-style: normal;
 }
-@font-face {
-    font-family: "MADECARVING-Bold";
-    src: url("./fonts/MADECARVINGPersonalUse-Bold.otf");
-    font-weight: bold;
-    font-style: normal;
-  }
-  @font-face {
-    font-family: "MADECARVING-SemiBold";
-    src: url("./fonts/MADECARVINGPersonalUse-SemiBold.otf");
-    font-weight: 600;
-    font-style: normal;
-  }
+  
