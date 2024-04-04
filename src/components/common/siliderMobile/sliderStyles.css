@@ -1,25 +1,86 @@
-.card1{
-    filter: blur(20px);
-    opacity: 0;
-    animation: showContent 1s ease-out forwards;
+.card1 {
+  filter: blur(20px);
+  opacity: 0;
+  animation: showContent 1s ease-out forwards;
 }
-.card2{
-    filter: blur(22px);
+.compraB, .compraA {
+    opacity: 1;
+    transition: opacity 0.3s ease;
+  }
+  
+  .compraA {
+    opacity: 0; /* Inicialmente oculta compraB */
+  }
+  
+  .card1:hover .compraB {
     opacity: 0;
-    animation: showContent 1.2s ease-out forwards;
+  }
+  
+  .card1:hover .compraA {
+    opacity: 1;
+  }
+
+.card2 {
+  filter: blur(22px);
+  opacity: 0;
+  animation: showContent 1.2s ease-out forwards;
 }
-.card3{
-    filter: blur(24px);
+.encontraB, .encontraA {
+    opacity: 1;
+    transition: opacity 0.3s ease;
+  }
+  
+  .encontraA {
+    opacity: 0; /* Inicialmente oculta compraB */
+  }
+  
+  .card2:hover .encontraB {
     opacity: 0;
-    animation: showContent 1.4s ease-out forwards;
+  }
+  
+  .card2:hover .encontraA {
+    opacity: 1;
+  }
+.card3 {
+  filter: blur(24px);
+  opacity: 0;
+  animation: showContent 1.4s ease-out forwards;
 }
-.card4{
+.PagaB, .PagaA {
+    opacity: 1;
+    transition: opacity 0.3s ease;
+  }
+  
+  .PagaA {
+    opacity: 0; /* Inicialmente oculta compraB */
+  }
+  
+  .card3:hover .PagaB {
+    opacity: 0;
+  }
+  
+  .card3:hover .PagaA {
+    opacity: 1;
+  }
+
+.card4 {
     filter: blur(26px);
     opacity: 0;
     animation: showContent 1.6s ease-out forwards;
-}
-.card5{
-    filter: blur(28px);
+  }
+  .vinoB, .vinoA {
+    opacity: 1;
+    transition: opacity 0.3s ease;
+  }
+  
+  .vinoA {
+    opacity: 0; /* Inicialmente oculta compraB */
+  }
+  
+  .card4:hover .vinoB {
     opacity: 0;
-    animation: showContent 1.8s ease-out forwards;
-}
+  }
+  
+  .card4:hover .vinoA {
+    opacity: 1;
+  }

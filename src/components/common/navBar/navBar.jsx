@@ -14,7 +14,7 @@ import {
 } from "react-icons/io5";
 import { AiOutlineUser } from "react-icons/ai";
 import { Loading } from "../loading/loading.jsx";
-import img from "../../../assets/EspacioBaco_negro.png";
+import img from "../../../assets/Logo/EspacioBaco_tinto.png";
 import { GrHomeRounded } from "react-icons/gr";
 import { PiWineLight } from "react-icons/pi";
 import { BsInfoSquare } from "react-icons/bs";

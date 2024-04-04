@@ -3,6 +3,14 @@ import { BsBox2Fill } from "react-icons/bs";
 import { IoShieldSharp } from "react-icons/io5";
 import { MdCategory } from "react-icons/md";
 import { AiFillCreditCard } from "react-icons/ai";
+import pagaA from "../../../assets/Icons/EspacioBaco_IconoPAGA.png";
+import pagaB from "../../../assets/Icons/EspacioBaco_IconoPAGA B.png";
+import compraA from "../../../assets/Icons/EspacioBaco_IconoCOMPRA.png";
+import compraB from "../../../assets/Icons/EspacioBaco_IconoCOMPRA B.png";
+import encontraA from "../../../assets/Icons/EspacioBaco_IconoENCONTRA.png";
+import encontraB from "../../../assets/Icons/EspacioBaco_IconoENCONTRA B.png";
+import vinoA from "../../../assets/Icons/EspacioBaco_IconoDESCUBRI.png"
+import vinoB from "../../../assets/Icons/EspacioBaco_IconoDESCUBRI B.png"
 import "./sliderStyles.css";
 export const SiliderMobile = () => {
   return (
@@ -11,66 +19,50 @@ export const SiliderMobile = () => {
       style={{ top: "50%" }}
     >
       <div className="carousel w-full md:w-auto h-full p-2 gap-2">
+        
         <div className="card1 z-10 p-4 carousel-item flex flex-col bg-base-100 rounded-badge h-auto w-44 select-none">
           <h1 className="my-1" style={{ letterSpacing: "2px" }}>
-            Menos de $10.000
+            Medios de pago
           </h1>
           <div className="relative p-6 w-full h-1/2 flex items-center justify-center">
-            <div className="absolute bg-base-200 w-28 h-28 rounded-full"></div>
-            <FaWallet className="w-full h-full text-primary z-10"></FaWallet>
+            <img
+              style={{ width: "110px" }}
+              src={compraA}
+              alt="logo Compra"
+              className="compraA z-10 absolute"
+            />
+            <img
+              src={compraB}
+              alt="logo Compra"
+              className="compraB z-10 w-20 absolute"
+            />
           </div>
-          <h2 className="text-center my-2 text-sm">
-            Descubrí Productos con bajos precios
-          </h2>
-          {/*<button className="btn hover:text-primary text-base-100 border-none p-1 glass w-full text-sm bg-accent rounded-badge">
-                        Mostrar productos
-  </button>*/}
-        </div>
-
-        {/*
-        <div className="card2 z-10 p-4 carousel-item flex flex-col bg-base-100  rounded-badge h-auto w-44 select-none">
-          <h1 className="my-1" style={{ letterSpacing: "2px" }}>
-            Compra protegida
-          </h1>
-          <div className="relative p-6 w-full h-1/2 flex items-center justify-center">
-            <div className="absolute bg-base-200 w-28 h-28 rounded-full"></div>
-            <BsBox2Fill className="w-full h-full text-primary z-10"></BsBox2Fill>
-          </div>
-          <h2 className="text-center my-2 text-sm">
-            Podés devolver tu compra gratis
-          </h2>
-          <button className="btn hover:text-primary text-base-100 border-none p-1 glass w-full text-sm bg-accent rounded-badge">
-            Cómo funciona
-          </button>
-        </div>
-*/}
-        <div className="card3 z-10 p-4 carousel-item flex flex-col bg-base-100 rounded-badge h-auto w-44 select-none">
-          <h1 className="my-1" style={{ letterSpacing: "2px" }}>
-            Seguridad
-          </h1>
-          <div className="relative p-6 w-full h-1/2 flex items-center justify-center">
-            <div className="absolute bg-base-200 w-28 h-28 rounded-full"></div>
-            <IoShieldSharp className="w-full h-full text-primary z-10"></IoShieldSharp>
-          </div>
-          <h2 className="text-center my-2 text-sm">
-            Compra con seguridad y tranquilidad
-          </h2>
+          <h2 className="text-center my-2 text-sm">Desarrollando medios de pago para tu confort</h2>
           {/*
           <button className="btn hover:text-primary text-base-100 border-none p-1 glass w-full text-sm bg-accent rounded-badge">
             Testimonios
 </button>*/}
         </div>
 
-        <div className="card4 z-10 p-4 carousel-item flex flex-col bg-base-100 rounded-badge h-auto w-44 select-none">
+        <div className="card2 z-10 p-4 carousel-item flex flex-col bg-base-100 rounded-badge h-auto w-44 select-none">
           <h1 className="my-1" style={{ letterSpacing: "2px" }}>
-            Gran variedad
+            Buscar rapido
           </h1>
           <div className="relative p-6 w-full h-1/2 flex items-center justify-center">
-            <div className="absolute bg-base-200 w-28 h-28 rounded-full"></div>
-            <MdCategory className="w-full h-full text-primary z-10"></MdCategory>
+            <img
+              style={{ width: "110px" }}
+              src={encontraA}
+              alt="logo Encontra"
+              className="encontraA z-10 absolute"
+            />
+            <img
+              src={encontraB}
+              alt="logo Encontra"
+              className="encontraB z-10 w-20 absolute"
+            />
           </div>
           <h2 className="card5 text-center my-2 text-sm">
-            Encontrá variedad y tu vino ideal.
+            Buscalo con palabras claves. Ejemplo: "Equilibrado"
           </h2>
           {/*
           <button className="btn hover:text-primary text-base-100 border-none p-1 glass w-full text-sm bg-accent rounded-badge">
@@ -79,22 +71,57 @@ export const SiliderMobile = () => {
           */}
         </div>
 
-        <div className="card5 z-10 p-4 carousel-item flex flex-col bg-base-100 rounded-badge h-auto w-44 select-none">
+        <div className="card3 z-10 p-4 carousel-item flex flex-col bg-base-100 rounded-badge h-auto w-44 cursor-pointer">
           <h1 className="my-1" style={{ letterSpacing: "2px" }}>
-            Medios de pago
+            Oportunidades
           </h1>
           <div className="relative p-6 w-full h-1/2 flex items-center justify-center">
-            <div className="absolute bg-base-200 w-28 h-28 rounded-full"></div>
-            <AiFillCreditCard className="w-full h-full text-primary z-10"></AiFillCreditCard>
+            <img
+              style={{ width: "110px" }}
+              src={pagaA}
+              alt="logo Encontra"
+              className="PagaA z-10 absolute"
+            />
+            <img
+              src={pagaB}
+              alt="logo Encontra"
+              className="PagaB z-10 w-20 absolute"
+            />
           </div>
           <h2 className="text-center my-2 text-sm">
-            Usá el medio de pago que más te convenga
+            Podes encontrar buenos vinos y de gran prestigio
           </h2>
           {/*
           <button className="btn hover:text-primary text-base-100 border-none p-1 glass w-full text-sm bg-accent rounded-badge">
             Ver
           </button>
         */}
+        </div>
+
+        <div className="card4 z-10 p-4 carousel-item flex flex-col bg-base-100 rounded-badge h-auto w-44 select-none">
+          <h1 className="my-1" style={{ letterSpacing: "2px" }}>
+            Variedad
+          </h1>
+          <div className="relative p-6 w-full h-1/2 flex items-center justify-center">
+            <img
+              style={{ width: "110px" }}
+              src={vinoA}
+              alt="logo vinoA"
+              className="vinoA z-10 absolute"
+            />
+            <img
+              src={vinoB}
+              alt="logo vinoA"
+              className="vinoB z-10 w-20 absolute"
+            />
+          </div>
+          <h2 className="text-center my-2 text-sm">
+            Variedades de sabores, explora y descubrí
+          </h2>
+          {/*
+          <button className="btn hover:text-primary text-base-100 border-none p-1 glass w-full text-sm bg-accent rounded-badge">
+            Testimonios
+</button>*/}
         </div>
       </div>
     </div>

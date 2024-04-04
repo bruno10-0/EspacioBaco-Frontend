@@ -8,7 +8,7 @@ import { iniciarSesion } from "../../api/auth.js";
 import { Loading2 } from "../common/loading/loading2.jsx";
 import { useContexto } from "../../context/Context.jsx";
 import { encryptToken } from "../../helpers/token-encrypt.js";
-import img from "../../assets/EspacioBaco_blanco+champagne.png"
+import img from "../../assets/Logo/EspacioBaco_blanco.png"
 export const Login = () => {
   const { setIsAuthenticated, isAuthenticated } = useContexto();
   const navigate = useNavigate();
