@@ -124,13 +124,13 @@ export const DetailProduct = () => {
             <div className="w-full flex flex-col my-2 gap-5 justify-center items-center">
               <h1
                 className="uppercase"
-                style={{ fontSize: "13px", letterSpacing: ".2em" }}
+                style={{ fontSize: "11px", letterSpacing: ".2em" }}
               >
                 {product.nombreBodega}
               </h1>
               <h2
                 className="text-xl uppercase"
-                style={{ letterSpacing: "1px" }}
+                style={{ letterSpacing: "2px" }}
               >
                 {product.nombre}
               </h2>
@@ -151,9 +151,9 @@ export const DetailProduct = () => {
                   <IoAddSharp />
                 </button>
               </div>
-              <h4 style={{ fontStyle: "italic" }} className="mt-4">
+              <h4 style={{ fontStyle: "italic" }} className="mt-4 text-xs md:text-sm">
                 Aprovecha, tenemos{" "}
-                <span className="text-primary text-2xl mx-1">
+                <span className="text-2xl mx-1">
                   {product.stock}
                 </span>{" "}
                 botellas en stock!{" "}
@@ -174,7 +174,7 @@ export const DetailProduct = () => {
                 </button>
               </div>
               <div>
-                <p className="text-xs flex flex-col gap-4">
+                <p className="flex flex-col">
                   {product.descripcion_detallada}
                 </p>
               </div>

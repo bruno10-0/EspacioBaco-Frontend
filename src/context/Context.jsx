@@ -8,6 +8,9 @@ import {
   deleteUsuarios,
   crearUsuarioPorAdmin,
   getPublicaciones,
+  postProduct,
+  deleteProductById,
+  getProducts,
 } from "../api/auth.js";
 import { decryptToken } from "../helpers/token-decrypt.js";
 const createdContext = createContext();
@@ -139,7 +142,6 @@ export const Context = ({ children }) => {
       try {
         const decryptedToken = decryptToken(token);
         const res = await crearUsuarioPorAdmin(data, decryptedToken);
-        console.log(res);
         return res;
       } catch (error) {
         setError(error);
@@ -154,6 +156,48 @@ export const Context = ({ children }) => {
       setPublicaciones(res.data.publicaciones);
     } catch (error) {
       console.error(error);
+    }
+  };
+
+  const createProduct = async (data) => {
+    const token = localStorage.getItem("nekot");
+    if (!token) {
+      throw new Error("No hay token, no se puede realizar esta operación");
+    }
+    try {
+      const decryptedToken = decryptToken(token);
+      const res = await postProduct(decryptedToken, data);
+      return res;
+    } catch (error) {
+      setError(error.message);
+      throw new Error(`Error al intentar crear un producto: ${error.message}`);
+    }
+  };
+
+  const actualizarListaProductos = async () => {
+    try {
+      const res = await getProducts();
+      setProducts(res.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const DeleteProductoById = async (id) => {
+    setLoading(true);
+    const token = localStorage.getItem("nekot");
+    if (!token) {
+      return console.error("No hoy token, no se puede realizar esta operación");
+    } else {
+      try {
+        const decryptedToken = decryptToken(token);
+        await deleteProductById(decryptedToken, id);
+      } catch (error) {
+        console.log(error);
+      } finally {
+        actualizarListaProductos();
+        setLoading(false);
+      }
     }
   };
 
@@ -213,35 +257,41 @@ export const Context = ({ children }) => {
   return (
     <createdContext.Provider
       value={{
-        actualizarListaPublicaciones,
-        setFlagPublicaciones,
-        flagPublicaciones,
-        publicaciones,
-        setPublicaciones,
-        error,
+        DeleteProductoById,
+        deleteUsuarioById,
+        deleteMultipleUsuarios,
+
+        createProduct,
         createUserForAdmin,
+
+        actualizarListaPublicaciones,
+        changeTheme,
+        cerrarSesion,
         actualizarListaUsuarios,
         handleOrdenamientoChange,
-        isAuthenticated,
+
+        setFlagPublicaciones,
+        setPublicaciones,
         setIsAuthenticated,
-        user,
         setUser,
-        theme,
-        changeTheme,
-        cartList,
+        setProducts,
+        setUsers,
+        setLoading,
         setCartList,
+
+        cartList,
+        flagPublicaciones,
+        publicaciones,
+        error,
+        isAuthenticated,
+        user,
+        theme,
         total,
         cantidad,
         envioGratis,
         loading,
-        setLoading,
-        cerrarSesion,
-        products,
-        setProducts,
         users,
-        setUsers,
-        deleteUsuarioById,
-        deleteMultipleUsuarios,
+        products,
       }}
     >
       {children}

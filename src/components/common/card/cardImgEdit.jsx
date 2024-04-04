@@ -106,7 +106,7 @@ export const CardImgEdit = ({ values, vacia }) => {
           </div>
 
           <dialog id="my_modal_1" className="z-10 modal shadow-2xl">
-            <from className="modal-box">
+            <form  className="modal-box">
               <form
                 onSubmit={handleSubmit}
                 className="w-full h-full justify-center items-centerflex flex-col gap-2"
@@ -154,7 +154,7 @@ export const CardImgEdit = ({ values, vacia }) => {
                   </form>
                 </div>
               </form>
-            </from>
+            </form >
           </dialog>
         </div>
       )}

@@ -65,7 +65,7 @@ export const UsersCreate = () => {
       try {
         const res = await createUserForAdmin(values);
         if (res.status === 201) {
-          setLoading(false)
+          setLoading(false);
           await actualizarListaUsuarios();
           navigate("/super-administrador/usuarios");
         }
@@ -82,9 +82,14 @@ export const UsersCreate = () => {
       {loading && <Loading2 />}
       <div
         style={{ minHeight: "calc(100vh - 200px)" }}
-        className="mt-16 md:mt-32 bg-base-200 w-full flex justify-center"
+        className="relative mt-16 md:mt-32 bg-base-200 w-full flex justify-center h-auto"
       >
-        <div className="w-full md:w-3/4 bg-base-100 p-5">
+        <img
+          src="https://media-public.canva.com/TTXAU/MAFkYOTTXAU/1/s-1.svg"
+          alt="fondo"
+          className="w-full h-full object-cover absolute"
+        />
+        <div className="w-full md:w-3/4 bg-base-100 p-5 z-10">
           <div className="w-full flex flex-col justify-center items-center">
             <h1
               style={{ letterSpacing: "2px" }}

@@ -455,7 +455,7 @@ export const NavBar = () => {
           <img src="https://media-public.canva.com/xPMkk/MAFqInxPMkk/1/wm_s3.png" alt="" className="absolute opacity-40"/>
           <Link
             to="/"
-            className={`uppercase font-bold shadow-inner scale-105 p-4 hover:scale-110 transition-transform ${
+            className={`uppercase font-bold shadow-inner scale-105 p-5 hover:scale-110 transition-transform ${
               location.pathname === "/" ? "" : ""
             }`}
             style={{ letterSpacing: "6px" }}
@@ -464,7 +464,7 @@ export const NavBar = () => {
           </Link>
           <Link
             to="/vinoteca"
-            className={`uppercase font-bold shadow-inner scale-105 p-4 hover:scale-110 transition-transform ${
+            className={`uppercase font-bold shadow-inner scale-105 p-5 hover:scale-110 transition-transform ${
               location.pathname === "/vinoteca" ? "" : ""
             }`}
             style={{ letterSpacing: "6px" }}
@@ -473,7 +473,7 @@ export const NavBar = () => {
           </Link>
           <Link
             to="/nosotros"
-            className={`uppercase font-bold shadow-inner scale-105 p-4 hover:scale-110 transition-transform ${
+            className={`uppercase font-bold shadow-inner scale-105 p-5 hover:scale-110 transition-transform ${
               location.pathname === "/nosotros" ? "" : ""
             }`}
             style={{ letterSpacing: "6px" }}

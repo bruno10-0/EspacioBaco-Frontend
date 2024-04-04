@@ -17,6 +17,33 @@ export const getProducts = async () => await axios.get(`/products`);
 
 export const getProductById = async (id) => await axios.post(`/product/${id}`);
 
+export const postProduct = async (token, data) => {
+  try {
+    const res = await axios.post("/product", data, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return res;
+  } catch (error) {
+    console.log(error)
+    throw new Error(response.data.mensaje);
+  }
+};
+
+export const deleteProductById = async (token,id) => {
+  try {
+    const res = await axios.delete(`/product/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return res.data;
+  } catch (error) {
+    console.error("Error al eliminar un usuario por ID:", error);
+    throw error;
+  }
+}
 //rutas usuarios
 export const getUsuarioById = async (id, token) => {
   try {
@@ -102,6 +129,6 @@ export const postPublicacion = async (values) => {
   return await axios.post("/publicacion", values);
 };
 
-export const deletePublicacion = async (id) =>{
-  return await axios.delete(`/publicacion/${id}`)
-}
+export const deletePublicacion = async (id) => {
+  return await axios.delete(`/publicacion/${id}`);
+};

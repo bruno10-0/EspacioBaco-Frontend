@@ -1,15 +1,15 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: [
-    "./index.html",
-    "./src/**/*.{js,ts,jsx,tsx}",
-  ],
+  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
       fontFamily: {
-        'madecarving': ['MADECARVING', 'sans-serif'],
-        'madecarving-bold': ['MADECARVINGPersonalUse-Bold', 'sans-serif'],
-        'madecarving-semi-bold': ['MADECARVINGPersonalUse-SemiBold', 'sans-serif'],
+        madecarving: ["MADECARVING", "sans-serif"],
+        "madecarving-bold": ["MADECARVINGPersonalUse-Bold", "sans-serif"],
+        "madecarving-semi-bold": [
+          "MADECARVINGPersonalUse-SemiBold",
+          "sans-serif",
+        ],
       },
     },
   },
@@ -48,8 +48,7 @@ export default {
       "winter",
       "dim",
       "nord",
-      "sunset",
+      "sunset"
     ],
-  }
-}
-
+  },
+};

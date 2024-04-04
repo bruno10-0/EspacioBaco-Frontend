@@ -24,15 +24,14 @@ export const Card = ({ product }) => {
           <h1
             className="text-center text-primary"
             style={{
-              fontWeight: "bold",
-              fontStyle: "italic",
+              fontWeight: "bolder",
               letterSpacing: "2px",
-              fontSize: "13px",
+              fontSize: "14px",
             }}
           >
             {product.nombre}
           </h1>
-          <h2 style={{ letterSpacing: "2px", fontSize: "12px" }}>
+          <h2 style={{ letterSpacing: "2px", fontSize: "10px" }}>
             {product.descripcion_corta}
           </h2>
         </div>

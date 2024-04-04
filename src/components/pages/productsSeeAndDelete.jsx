@@ -6,23 +6,21 @@ import { IoSearchOutline } from "react-icons/io5";
 import { IoMdAdd } from "react-icons/io";
 import { RiDeleteBin7Line } from "react-icons/ri";
 import { Link } from "react-router-dom";
+import { getProducts } from "../../api/auth.js";
 
 export const ProductsSeeAndDelete = () => {
-  const { products,setProducts, deleteProductById, deleteMultipleProducts } = useContexto();
+  const { products, setProducts, DeleteProductoById } = useContexto();
   const [productCopy, setProductCopy] = useState([]);
   const [selectedProductId, setSelectedProductId] = useState([]);
   const [searchText, setSearchText] = useState("");
 
-  {/*const handleDeleteProduct = async () => {
+  const handleDeleteProduct = async () => {
     if (selectedProductId.length === 1) {
-      const res = await deleteProductById(selectedProductId[0]);
-      console.log(res);
+      await DeleteProductoById(selectedProductId[0]);
     } else {
-      const res = await deleteMultipleProducts(selectedProductId);
-      console.log(res);
+      console.log();
     }
   };
-*/}
   const handleCheckboxChange = (index) => {
     if (index === -1) {
       // Checkbox del encabezado seleccionado, marcar todos los checkboxes de las filas
@@ -92,18 +90,18 @@ export const ProductsSeeAndDelete = () => {
     fetchProducts();
   }, []);
 
-    // Efecto para cargar productos al montar el componente
-    useEffect(() => {
-        const fetchProducts = async () => {
-          try {
-            const res = await getProducts();
-            setProducts(res.data); // Establece la lista de productos en el estado
-          } catch (error) {
-            console.error("Error al buscar los productos:", error);
-          }
-        };
-        fetchProducts();
-      }, []);
+  // Efecto para cargar productos al montar el componente
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const res = await getProducts();
+        setProducts(res.data); // Establece la lista de productos en el estado
+      } catch (error) {
+        console.error("Error al buscar los productos:", error);
+      }
+    };
+    fetchProducts();
+  }, []);
   return (
     <div className="w-full overflow-x-hidden">
       <NavBar />
@@ -132,7 +130,7 @@ export const ProductsSeeAndDelete = () => {
             </div>
             <div className="carousel flex gap-2">
               <Link
-                to=""
+                to="/super-administrador/productos/crear"
                 className="carousel-item btn bg-primary text-base-100"
               >
                 <IoMdAdd className="text-lg" />
@@ -230,7 +228,10 @@ export const ProductsSeeAndDelete = () => {
                     <div className="flex items-center gap-3">
                       <div className="avatar">
                         <div className="w-14 rounded-full">
-                          <img src={product.imagen}  className="object-fill  w-full h-full bg-primary"/>
+                          <img
+                            src={product.imagen}
+                            className="object-fill  w-full h-full bg-primary"
+                          />
                         </div>
                       </div>
                       <h2>{product.nombre}</h2>
