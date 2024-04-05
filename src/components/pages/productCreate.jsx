@@ -57,11 +57,12 @@ export const ProductCreate = () => {
       maridaje: Yup.string().required(
         "Agrega una descripción de posibles buenos maridajes para este vino."
       ),
-      año: Yup.number().required(
+      anio: Yup.number().required(
         "Debe ingresar el año en que se creo este vino."
       ),
     }),
     onSubmit: async (values) => {
+      console.log("entro aca")
       setLoading(true);
       let flag = false;
       if (!imagen) {
@@ -85,7 +86,7 @@ export const ProductCreate = () => {
         if (imagen) {
           formData.append("imagen", imagen);
         }
-
+        
         try {
           await createProduct(formData);
           navigate("/super-administrador/productos");
@@ -115,7 +116,6 @@ export const ProductCreate = () => {
         className="relative mt-16 md:mt-32 bg-base-100 w-full flex justify-center overflow-hidden"
       >
         <img
-          loading="lazy"
           src="https://media-public.canva.com/N05hM/MAFx5gN05hM/1/s3.png"
           alt="fondo"
           className="hidden md:block absolute object-cover w-full h-full"
@@ -387,7 +387,7 @@ export const ProductCreate = () => {
                 htmlFor="imagen"
                 className="block my-2 uppercase text-xs text-start w-full"
               >
-                Imagen para móviles
+                Imagen
               </label>
               <input
                 accept="image/*"
