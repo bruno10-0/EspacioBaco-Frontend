@@ -53,8 +53,40 @@ export const Card = ({ product }) => {
         </div>
         <div className="w-full flex absolute -top-2 gap-1">
           {isNew(product.updatedAt) && (
-            <span className="indicator-item badge badge-secondary select-none">Nuevo</span>
+            <span className="indicator-item badge badge-secondary select-none">
+              Nuevo
+            </span>
           )}
+          <span
+            className="indicator-item badge badge-info select-none cursor-pointer"
+            onClick={() => document.getElementById("my_modal_1").showModal()}
+          >
+            Info
+          </span>
+          <dialog id="my_modal_1" className="modal">
+            <div className="modal-box">
+              <h1 style={{letterSpacing:"2px"}} className="font-semibold">
+                {product.nombre}
+              </h1>
+              <p className="text-sm mt-2">
+                Producido en{" "}
+                <span className="text-primary">{product.pais}</span>, en la
+                región de <span className="text-primary">{product.region}</span>
+                , en el año {product.año}. Este vino es de tipo{" "}
+                <span className="text-primary">{product.tipo}</span>.
+              </p>
+              <p className="text-sm mt-2">
+                Ideal para maridar con <span className="text-primary">{product.maridaje}</span> o disfrutarlo como
+                acompañamiento.
+              </p>
+
+              <div className="modal-action">
+                <form method="dialog">
+                  <button style={{letterSpacing:"2px"}} className="btn text-xs btn-accent text-base-100 uppercase">Gracias!</button>
+                </form>
+              </div>
+            </div>
+          </dialog>
           {/*<Link className="indicator-item badge badge-accent">Info</Link>*/}
         </div>
       </div>

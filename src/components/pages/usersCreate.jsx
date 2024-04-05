@@ -82,12 +82,13 @@ export const UsersCreate = () => {
       {loading && <Loading2 />}
       <div
         style={{ minHeight: "calc(100vh - 200px)" }}
-        className="relative mt-16 md:mt-32 bg-base-200 w-full flex justify-center h-auto"
+        className="relative mt-16 md:mt-32 bg-base-100 w-full flex justify-center h-auto"
       >
-        <img
-          src="https://media-public.canva.com/TTXAU/MAFkYOTTXAU/1/s-1.svg"
+         <img
+          loading="lazy"
+          src="https://media-public.canva.com/N05hM/MAFx5gN05hM/1/s3.png"
           alt="fondo"
-          className="w-full h-full object-cover absolute"
+          className="hidden md:block absolute object-cover w-full h-full"
         />
         <div className="w-full md:w-3/4 bg-base-100 p-5 z-10">
           <div className="w-full flex flex-col justify-center items-center">

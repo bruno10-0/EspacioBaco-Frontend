@@ -449,7 +449,6 @@ export const NavBar = () => {
           </div>
         </div>
         <nav className="overflow-hidden relative transition-all hidden w-auto md:flex justify-center items-center gap-10 -mt-3 bg-primary text-base-100 ">
-          <img src="https://media-public.canva.com/xPMkk/MAFqInxPMkk/1/wm_s3.png" alt="" className="absolute opacity-40"/>
           <Link
             to="/"
             className={`uppercase font-bold shadow-inner scale-105 p-5 hover:scale-110 transition-transform ${

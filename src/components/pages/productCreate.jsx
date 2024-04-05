@@ -6,6 +6,7 @@ import { useState, useEffect } from "react";
 import { useContexto } from "../../context/Context";
 import { Loading2 } from "../common/loading/loading2";
 import { useNavigate } from "react-router-dom";
+
 export const ProductCreate = () => {
   const { createProduct } = useContexto();
   const navigate = useNavigate();
@@ -21,6 +22,10 @@ export const ProductCreate = () => {
       precio: 0,
       stock: 0,
       tipo: "",
+      anio: 0,
+      region: "",
+      pais: "",
+      maridaje: "",
     },
     validationSchema: Yup.object({
       nombre: Yup.string().required("El nombre es obligatorio."),
@@ -43,6 +48,18 @@ export const ProductCreate = () => {
         .required("El stock es obligatorio.")
         .min(0, "El stock no puede ser menor que cero."),
       tipo: Yup.string().required("El tipo es obligatorio."),
+      region: Yup.string().required(
+        "Debe ingresar la región de donde proviene el vino."
+      ),
+      pais: Yup.string().required(
+        "Debe ingresar el pais de donde proviene el vino."
+      ),
+      maridaje: Yup.string().required(
+        "Agrega una descripción de posibles buenos maridajes para este vino."
+      ),
+      año: Yup.number().required(
+        "Debe ingresar el año en que se creo este vino."
+      ),
     }),
     onSubmit: async (values) => {
       setLoading(true);
@@ -60,14 +77,18 @@ export const ProductCreate = () => {
         formData.append("precio", values.precio);
         formData.append("stock", values.stock);
         formData.append("tipo", values.tipo);
+        formData.append("pais", values.pais);
+        formData.append("region", values.region);
+        formData.append("maridaje", values.maridaje);
+        formData.append("anio", values.anio);
         // Agregar imágenes al formData si están presentes
         if (imagen) {
           formData.append("imagen", imagen);
         }
 
         try {
-          const res = await createProduct(formData);
-          navigate("/super-administrador/productos")
+          await createProduct(formData);
+          navigate("/super-administrador/productos");
         } catch (error) {
           console.log(error);
         }
@@ -91,12 +112,13 @@ export const ProductCreate = () => {
       {loading && <Loading2 />}
       <div
         style={{ minHeight: "calc(100vh - 200px)" }}
-        className="relative mt-16 md:mt-32 bg-base-200 w-full flex justify-center"
+        className="relative mt-16 md:mt-32 bg-base-100 w-full flex justify-center overflow-hidden"
       >
         <img
-          src="https://media-public.canva.com/TTXAU/MAFkYOTTXAU/1/s-1.svg"
+          loading="lazy"
+          src="https://media-public.canva.com/N05hM/MAFx5gN05hM/1/s3.png"
           alt="fondo"
-          className="w-full h-full object-cover absolute"
+          className="hidden md:block absolute object-cover w-full h-full"
         />
         <div className="w-full md:w-3/4 bg-base-100 p-5 z-10">
           <div className="w-full flex flex-col justify-center items-center">
@@ -269,6 +291,95 @@ export const ProductCreate = () => {
               {formik.touched.tipo && formik.errors.tipo && (
                 <div className="my-2 text-error text-start text-xs">
                   {formik.errors.tipo}
+                </div>
+              )}
+
+               <label
+                style={{ letterSpacing: "2px" }}
+                htmlFor="año"
+                className="block my-2 uppercase text-xs text-start w-full"
+              >
+                año
+              </label>
+              <input
+                type="number"
+                id="anio"
+                name="anio"
+               
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                placeholder="Año en el que se creo el vino, para dar info al usuario"
+                className="px-6 w-full py-4 border bg-transparent focus:outline-none text-xs"
+              />
+              {formik.touched.anio && formik.errors.anio && (
+                <div className="my-2 text-error text-start text-xs">
+                  {formik.errors.anio}
+                </div>
+              )}
+              <label
+                style={{ letterSpacing: "2px" }}
+                htmlFor="region"
+                className="block my-2 uppercase text-xs text-start w-full"
+              >
+                Región
+              </label>
+              <input
+                type="text"
+                id="region"
+                name="region"
+               
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                placeholder="Region en el que se creo el vino."
+                className="px-6 w-full py-4 border bg-transparent focus:outline-none text-xs"
+              />
+              {formik.touched.region && formik.errors.region && (
+                <div className="my-2 text-error text-start text-xs">
+                  {formik.errors.region}
+                </div>
+              )}
+              <label
+                style={{ letterSpacing: "2px" }}
+                htmlFor="pais"
+                className="block my-2 uppercase text-xs text-start w-full"
+              >
+                pais
+              </label>
+              <input
+                type="text"
+                id="pais"
+                name="pais"
+               
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                placeholder="Pais en el que se creo el vino."
+                className="px-6 w-full py-4 border bg-transparent focus:outline-none text-xs"
+              />
+              {formik.touched.pais && formik.errors.pais && (
+                <div className="my-2 text-error text-start text-xs">
+                  {formik.errors.pais}
+                </div>
+              )}
+               <label
+                style={{ letterSpacing: "2px" }}
+                htmlFor="maridaje"
+                className="block my-2 uppercase text-xs text-start w-full"
+              >
+                Maridaje
+              </label>
+              <input
+                type="text"
+                id="maridaje"
+                name="maridaje"
+               
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                placeholder="Maridajes recomendados para el vino."
+                className="px-6 w-full py-4 border bg-transparent focus:outline-none text-xs"
+              />
+              {formik.touched.maridaje && formik.errors.maridaje && (
+                <div className="my-2 text-error text-start text-xs">
+                  {formik.errors.maridaje}
                 </div>
               )}
               <label

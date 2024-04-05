@@ -16,9 +16,10 @@ export const Footer = () => {
           <p>Copyright © 2024 - Todos los derechos resevados</p>
         </aside>
         <nav>
+          <p className="font-semibold">Nuestro Instagram</p>
           <div className="grid grid-flow-col gap-4">
             <a className="cursor-pointer">
-              <PiInstagramLogoFill className="text-3xl" />
+              <PiInstagramLogoFill className="text-white text-3xl" />
             </a>
           </div>
         </nav>

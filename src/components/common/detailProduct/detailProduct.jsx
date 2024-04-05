@@ -142,21 +142,22 @@ export const DetailProduct = () => {
               </h3>
             </div>
             <div className="w-full">
-              <div className="w-2/5 flex justify-between gap-2 items-center border p-2">
+              <div className="w-2/5 flex justify-between gap-2 items-center border border-accent p-2">
                 <button onClick={decrementQuantity}>
-                  <IoRemoveSharp />
+                  <IoRemoveSharp className="text-accent"/>
                 </button>
-                <span>{productQuantity}</span>
+                <span className="text-accent">{productQuantity}</span>
                 <button onClick={incrementQuantity}>
-                  <IoAddSharp />
+                  <IoAddSharp className="text-accent"/>
                 </button>
               </div>
-              <h4 style={{ fontStyle: "italic" }} className="mt-4 text-xs md:text-sm">
+              <h4
+                style={{letterSpacing:"1px"}}
+                className="mt-4 text-xs md:text-sm"
+              >
                 Aprovecha, tenemos{" "}
-                <span className="text-2xl mx-1">
-                  {product.stock}
-                </span>{" "}
-                botellas en stock!{" "}
+                <span className="text-xl font-semibold mx-1">{product.stock}</span> botellas
+                en stock!{" "}
               </h4>
               <div>
                 <button
@@ -174,8 +175,11 @@ export const DetailProduct = () => {
                 </button>
               </div>
               <div>
-                <p className="flex flex-col">
+                <p style={{fontSize:"13px",letterSpacing:"1px"}} className="flex flex-col">
                   {product.descripcion_detallada}
+                  <br />
+                  <br />
+                  <span> Recomendamo maridarlo con {product.maridaje}</span>
                 </p>
               </div>
             </div>
