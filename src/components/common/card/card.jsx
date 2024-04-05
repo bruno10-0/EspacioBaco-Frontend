@@ -59,11 +59,11 @@ export const Card = ({ product }) => {
           )}
           <span
             className="indicator-item badge badge-info select-none cursor-pointer"
-            onClick={() => document.getElementById("my_modal_1").showModal()}
+            onClick={() => document.getElementById(`my_modal_${product.id}`).showModal()}
           >
             Info
           </span>
-          <dialog id="my_modal_1" className="modal">
+          <dialog id={`my_modal_${product.id}`} className="modal">
             <div className="modal-box">
               <h1 style={{letterSpacing:"2px"}} className="font-semibold">
                 {product.nombre}
