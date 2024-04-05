@@ -44,6 +44,21 @@ export const deleteProductById = async (token,id) => {
     throw error;
   }
 }
+
+export const deleteProducts = async (token,ids) =>{
+  try {
+    const response = await axios.delete(`/products/`, {
+      headers: {
+        Authorization: `Bearer ${token}`, // Enviar el token en el encabezado de autorización
+      },
+      data: { ids }, // Pasar los IDs de usuarios en el cuerpo de la solicitud
+    });
+    return response;
+  } catch (error) {
+    console.log("Error al eliminar usuarios:", error);
+    throw error;
+  }
+}
 //rutas usuarios
 export const getUsuarioById = async (id, token) => {
   try {

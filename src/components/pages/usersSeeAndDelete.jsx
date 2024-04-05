@@ -15,11 +15,9 @@ export const UsersSeeAndDelete = () => {
 
   const handleDeleteUser = async () => {
     if (SelectedUsersId.length === 1) {
-      const res = await deleteUsuarioById(SelectedUsersId[0]);
-      console.log(res);
+      await deleteUsuarioById(SelectedUsersId[0]);
     } else {
-      const res = await deleteMultipleUsuarios(SelectedUsersId);
-      console.log(res);
+      await deleteMultipleUsuarios(SelectedUsersId);
     }
   };
 

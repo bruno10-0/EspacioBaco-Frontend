@@ -9,7 +9,8 @@ import { Link } from "react-router-dom";
 import { getProducts } from "../../api/auth.js";
 
 export const ProductsSeeAndDelete = () => {
-  const { products, setProducts, DeleteProductoById } = useContexto();
+  const { products, setProducts, DeleteProductoById, deleteMultipleProductos } =
+    useContexto();
   const [productCopy, setProductCopy] = useState([]);
   const [selectedProductId, setSelectedProductId] = useState([]);
   const [searchText, setSearchText] = useState("");
@@ -18,9 +19,10 @@ export const ProductsSeeAndDelete = () => {
     if (selectedProductId.length === 1) {
       await DeleteProductoById(selectedProductId[0]);
     } else {
-      console.log();
+      await deleteMultipleProductos(selectedProductId);
     }
   };
+
   const handleCheckboxChange = (index) => {
     if (index === -1) {
       // Checkbox del encabezado seleccionado, marcar todos los checkboxes de las filas

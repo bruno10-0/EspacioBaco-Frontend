@@ -82,7 +82,7 @@ export const Card = ({ product }) => {
 
               <div className="modal-action">
                 <form method="dialog">
-                  <button style={{letterSpacing:"2px"}} className="btn text-xs btn-accent text-base-100 uppercase">Gracias!</button>
+                  <button style={{letterSpacing:"2px"}} className="btn text-xs btn-accent text-base-100 uppercase">Ok!</button>
                 </form>
               </div>
             </div>

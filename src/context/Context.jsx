@@ -11,6 +11,7 @@ import {
   postProduct,
   deleteProductById,
   getProducts,
+  deleteProducts,
 } from "../api/auth.js";
 import { decryptToken } from "../helpers/token-decrypt.js";
 const createdContext = createContext();
@@ -183,6 +184,24 @@ export const Context = ({ children }) => {
     }
   };
 
+  const deleteMultipleProductos = async (ids) => {
+    setLoading(true);
+    const token = localStorage.getItem("nekot");
+    if (!token) {
+      return console.error("No hay token, no se puede realizar la operación.");
+    } else {
+      try {
+        const decryptedToken = decryptToken(token);
+        await deleteProducts(decryptedToken, ids);
+      } catch (error) {
+        console.error(error);
+      } finally {
+        actualizarListaUsuarios();
+        setLoading(false);
+      }
+    }
+  };
+
   const DeleteProductoById = async (id) => {
     setLoading(true);
     const token = localStorage.getItem("nekot");
@@ -257,6 +276,7 @@ export const Context = ({ children }) => {
   return (
     <createdContext.Provider
       value={{
+        deleteMultipleProductos,
         DeleteProductoById,
         deleteUsuarioById,
         deleteMultipleUsuarios,
