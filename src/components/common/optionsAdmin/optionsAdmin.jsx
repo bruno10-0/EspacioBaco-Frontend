@@ -126,7 +126,10 @@ export const OptionsAdmin = () => {
       {/* Sección de contacto con el desarrollador */}
       <div className="p-2 w-full bg-primary text-base-100 text-center text-sm">
         ¿{user.nombre} necesitas ayuda? Contacta con tu{" "}
-        <Link className="link">desarrollador</Link>.
+        <a href="https://wa.me/5493765159179" target="_blank" className="link">
+          desarrollador
+        </a>
+        .
       </div>
     </div>
   );
