@@ -42,7 +42,7 @@ export const DropdownItem = ({ item }) => {
     const fetchProduct = async () => {
       try {
         const response = await getProductById(item.id);
-        setProduct(response.data);
+        setProduct(response);
       } catch (error) {
         console.error("Error al buscar los productos:", error);
       }

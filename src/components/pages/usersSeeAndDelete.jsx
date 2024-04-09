@@ -213,7 +213,7 @@ export const UsersSeeAndDelete = () => {
                   <td>
                     <Link
                       to={`/super-administrador/usuarios/detalles/${user.id}`}
-                      className="btn btn-outline btn-accent"
+                      className="btn btn-accent text-base-100"
                     >
                       Editar
                     </Link>

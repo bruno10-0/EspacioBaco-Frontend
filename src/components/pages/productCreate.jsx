@@ -6,6 +6,7 @@ import { useState, useEffect } from "react";
 import { useContexto } from "../../context/Context";
 import { Loading2 } from "../common/loading/loading2";
 import { useNavigate } from "react-router-dom";
+import lineas from "../../assets/Patron/lineas.png";
 
 export const ProductCreate = () => {
   const { createProduct } = useContexto();
@@ -62,7 +63,7 @@ export const ProductCreate = () => {
       ),
     }),
     onSubmit: async (values) => {
-      console.log("entro aca")
+      console.log("entro aca");
       setLoading(true);
       let flag = false;
       if (!imagen) {
@@ -86,7 +87,7 @@ export const ProductCreate = () => {
         if (imagen) {
           formData.append("imagen", imagen);
         }
-        
+
         try {
           await createProduct(formData);
           navigate("/super-administrador/productos");
@@ -116,11 +117,12 @@ export const ProductCreate = () => {
         className="relative mt-16 md:mt-32 bg-base-100 w-full flex justify-center overflow-hidden"
       >
         <img
-          src="https://media-public.canva.com/N05hM/MAFx5gN05hM/1/s3.png"
+          loading="lazy"
+          src={lineas}
           alt="fondo"
           className="hidden md:block absolute object-cover w-full h-full"
         />
-        <div className="w-full md:w-3/4 bg-base-100 p-5 z-10">
+        <div className="w-full md:w-10/12 bg-base-100 p-5 z-10">
           <div className="w-full flex flex-col justify-center items-center">
             <h1
               style={{ letterSpacing: "2px" }}
@@ -135,8 +137,11 @@ export const ProductCreate = () => {
               Complete el formulario para registrar un nuevo producto.
             </h2>
           </div>
-          <form className="mt-2 md:px-32 py-2" onSubmit={formik.handleSubmit}>
-            <div className="w-full flex flex-col">
+          <form
+            className="w-full flex flex-col md:flex-row bg- mt-2 md:p-10"
+            onSubmit={formik.handleSubmit}
+          >
+            <div className="w-full px-4  md:w-1/2 md:p-2">
               <label
                 style={{ letterSpacing: "2px" }}
                 htmlFor="nombre"
@@ -271,6 +276,8 @@ export const ProductCreate = () => {
                   {formik.errors.stock}
                 </div>
               )}
+            </div>
+            <div className="w-full px-4  md:w-1/2 md:p-2">
               <label
                 style={{ letterSpacing: "2px" }}
                 htmlFor="tipo"
@@ -294,7 +301,7 @@ export const ProductCreate = () => {
                 </div>
               )}
 
-               <label
+              <label
                 style={{ letterSpacing: "2px" }}
                 htmlFor="año"
                 className="block my-2 uppercase text-xs text-start w-full"
@@ -305,7 +312,6 @@ export const ProductCreate = () => {
                 type="number"
                 id="anio"
                 name="anio"
-               
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
                 placeholder="Año en el que se creo el vino, para dar info al usuario"
@@ -327,7 +333,6 @@ export const ProductCreate = () => {
                 type="text"
                 id="region"
                 name="region"
-               
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
                 placeholder="Region en el que se creo el vino."
@@ -349,7 +354,6 @@ export const ProductCreate = () => {
                 type="text"
                 id="pais"
                 name="pais"
-               
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
                 placeholder="Pais en el que se creo el vino."
@@ -360,7 +364,7 @@ export const ProductCreate = () => {
                   {formik.errors.pais}
                 </div>
               )}
-               <label
+              <label
                 style={{ letterSpacing: "2px" }}
                 htmlFor="maridaje"
                 className="block my-2 uppercase text-xs text-start w-full"
@@ -371,7 +375,6 @@ export const ProductCreate = () => {
                 type="text"
                 id="maridaje"
                 name="maridaje"
-               
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
                 placeholder="Maridajes recomendados para el vino."
@@ -396,19 +399,21 @@ export const ProductCreate = () => {
                 name="imagen"
                 value={formik.values.imagen}
                 onBlur={formik.handleBlur}
-                className="file-input file-input-bordered file-input-primary w-full md:max-w-md"
+                className="file-input file-input-bordered file-input-primary w-full"
                 onChange={(e) => setImagen(e.target.files[0])}
               />
+              <button
+                type="submit"
+                className="mt-6 btn bg-primary text-base-100 w-full"
+              >
+                Crear Producto
+              </button>
+              {error && (
+                <div className="my-2 text-error text-start text-xs">
+                  {error}
+                </div>
+              )}
             </div>
-            {error && (
-              <div className="my-2 text-error text-start text-xs">{error}</div>
-            )}
-            <button
-              type="submit"
-              className="mt-2 btn bg-primary text-base-100 w-full md:max-w-md"
-            >
-              Crear Producto
-            </button>
           </form>
         </div>
       </div>

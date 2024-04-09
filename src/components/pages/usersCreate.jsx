@@ -6,6 +6,7 @@ import { useState } from "react";
 import { useContexto } from "../../context/Context";
 import { Loading2 } from "../common/loading/loading2";
 import { useNavigate } from "react-router-dom";
+import lineas from "../../assets/Patron/lineas.png";
 export const UsersCreate = () => {
   const navigate = useNavigate();
   const { createUserForAdmin, error, actualizarListaUsuarios } = useContexto();
@@ -84,13 +85,13 @@ export const UsersCreate = () => {
         style={{ minHeight: "calc(100vh - 200px)" }}
         className="relative mt-16 md:mt-32 bg-base-100 w-full flex justify-center h-auto"
       >
-         <img
+        <img
           loading="lazy"
-          src="https://media-public.canva.com/N05hM/MAFx5gN05hM/1/s3.png"
+          src={lineas}
           alt="fondo"
           className="hidden md:block absolute object-cover w-full h-full"
         />
-        <div className="w-full md:w-3/4 bg-base-100 p-5 z-10">
+        <div className="w-full md:w-10/12 bg-base-100 p-5 z-10">
           <div className="w-full flex flex-col justify-center items-center">
             <h1
               style={{ letterSpacing: "2px" }}
@@ -105,8 +106,11 @@ export const UsersCreate = () => {
               Complete el formulario para registrar un nuevo usuario
             </h2>
           </div>
-          <form className="mt-2 md:px-32 py-2" onSubmit={formik.handleSubmit}>
-            <div className="w-full flex flex-col">
+          <form
+            className="w-full flex flex-col md:flex-row bg- mt-2 md:p-10"
+            onSubmit={formik.handleSubmit}
+          >
+            <div className="w-full px-4  md:w-1/2 md:p-2">
               <label
                 style={{ letterSpacing: "2px" }}
                 htmlFor="nombre"
@@ -198,7 +202,8 @@ export const UsersCreate = () => {
                   {formik.errors.direccion}
                 </div>
               )}
-
+            </div>
+            <div className="w-full px-4  md:w-1/2 md:p-2">
               <label
                 style={{ letterSpacing: "2px" }}
                 htmlFor="correo"
@@ -291,12 +296,10 @@ export const UsersCreate = () => {
                   {formik.errors.tipo}
                 </div>
               )}
-
-              <div className="w-full flex flex-col justify-center items-center">
+              <div className="w-full mt-4">
                 <button
-                  style={{ letterSpacing: "4px" }}
                   type="submit"
-                  className="uppercase text-xs btn bg-primary text-base-100 my-3 w-1/2"
+                  className="mt-6 btn btn-primary block my2 uppercase text-xs text-start w-full"
                 >
                   Crear
                 </button>

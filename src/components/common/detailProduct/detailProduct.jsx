@@ -60,7 +60,7 @@ export const DetailProduct = () => {
       setLoading(true);
       try {
         const res = await getProductById(id);
-        setProduct(res.data);
+        setProduct(res);
       } catch (error) {
         if (error.response.status === 404) {
           setResponse(false);

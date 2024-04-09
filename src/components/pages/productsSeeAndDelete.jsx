@@ -246,7 +246,7 @@ export const ProductsSeeAndDelete = () => {
                   <td>
                     <Link
                       to={`/super-administrador/productos/detalles/${product.id}`}
-                      className="btn btn-outline btn-accent"
+                      className="btn btn-accent text-base-100"
                     >
                       Editar
                     </Link>

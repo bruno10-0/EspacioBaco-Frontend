@@ -15,7 +15,19 @@ export const iniciarSesion = async (data) =>
 //rutras productos
 export const getProducts = async () => await axios.get(`/products`);
 
-export const getProductById = async (id) => await axios.post(`/product/${id}`);
+export const getProductById = async (id, token) => {
+  try {
+    const res = await axios.get(`/product/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return res.data;
+  } catch (error) {
+    console.error("Error buscar un producto por ID:", error);
+    throw error;
+  }
+};
 
 export const postProduct = async (token, data) => {
   try {
@@ -26,12 +38,12 @@ export const postProduct = async (token, data) => {
     });
     return res;
   } catch (error) {
-    console.log(error)
+    console.log(error);
     throw new Error(response.data.mensaje);
   }
 };
 
-export const deleteProductById = async (token,id) => {
+export const deleteProductById = async (token, id) => {
   try {
     const res = await axios.delete(`/product/${id}`, {
       headers: {
@@ -43,9 +55,9 @@ export const deleteProductById = async (token,id) => {
     console.error("Error al eliminar un usuario por ID:", error);
     throw error;
   }
-}
+};
 
-export const deleteProducts = async (token,ids) =>{
+export const deleteProducts = async (token, ids) => {
   try {
     const response = await axios.delete(`/products/`, {
       headers: {
@@ -58,7 +70,21 @@ export const deleteProducts = async (token,ids) =>{
     console.log("Error al eliminar usuarios:", error);
     throw error;
   }
-}
+};
+
+export const putProduct = async (token, data, id) => {
+  try {
+    const res = await axios.put(`/product/${id}`, data, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return res.data;
+  } catch (error) {
+    console.error("Error al eliminar un usuario por ID:", error);
+    throw error;
+  }
+};
 //rutas usuarios
 export const getUsuarioById = async (id, token) => {
   try {
