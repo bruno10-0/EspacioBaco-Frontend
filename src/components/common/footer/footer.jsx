@@ -24,7 +24,7 @@ export const Footer = () => {
             <a href="https://brunodev-zn28.onrender.com" target="_blank" className="link">
               BrunoDev
             </a>
-            y <a href="https://wa.me/5493765159179" target="_blank" className="link">Seju1p00</a>
+            y <a href="https://wa.me/5493764770071" target="_blank" className="link">Seju1000</a>
           </div>
         </p>
       </footer>
