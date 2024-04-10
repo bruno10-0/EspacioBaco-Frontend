@@ -44,7 +44,8 @@ export const Card = ({ product }) => {
             ${product.precio}
           </h3>
           <Link
-            to={`detalles-vino/${product.id}`}
+            aria-label="comprar el produco"
+            to={`/vinoteca/detalles-vino/${product.id}`}
             style={{ fontSize: "10px", letterSpacing: "2px" }}
             className="h-full btn btn-accent text-base-100 rounded-badge p-2 uppercase"
           >
@@ -59,13 +60,15 @@ export const Card = ({ product }) => {
           )}
           <span
             className="indicator-item badge badge-info select-none cursor-pointer"
-            onClick={() => document.getElementById(`my_modal_${product.id}`).showModal()}
+            onClick={() =>
+              document.getElementById(`my_modal_${product.id}`).showModal()
+            }
           >
             Info
           </span>
           <dialog id={`my_modal_${product.id}`} className="modal">
             <div className="modal-box">
-              <h1 style={{letterSpacing:"2px"}} className="font-semibold">
+              <h1 style={{ letterSpacing: "2px" }} className="font-semibold">
                 {product.nombre}
               </h1>
               <p className="text-sm mt-2">
@@ -76,13 +79,19 @@ export const Card = ({ product }) => {
                 <span className="text-primary">{product.tipo}</span>.
               </p>
               <p className="text-sm mt-2">
-                Ideal para maridar con <span className="text-primary">{product.maridaje}</span> o disfrutarlo como
-                acompañamiento.
+                Ideal para maridar con{" "}
+                <span className="text-primary">{product.maridaje}</span> o
+                disfrutarlo como acompañamiento.
               </p>
 
               <div className="modal-action">
                 <form method="dialog">
-                  <button style={{letterSpacing:"2px"}} className="btn text-xs btn-accent text-base-100 uppercase">Ok!</button>
+                  <button
+                    style={{ letterSpacing: "2px" }}
+                    className="btn text-xs btn-accent text-base-100 uppercase"
+                  >
+                    Ok!
+                  </button>
                 </form>
               </div>
             </div>

@@ -1,17 +1,13 @@
-import { FaWallet } from "react-icons/fa";
-import { BsBox2Fill } from "react-icons/bs";
-import { IoShieldSharp } from "react-icons/io5";
-import { MdCategory } from "react-icons/md";
-import { AiFillCreditCard } from "react-icons/ai";
 import pagaA from "../../../assets/Icons/EspacioBaco_IconoPAGA.png";
 import pagaB from "../../../assets/Icons/EspacioBaco_IconoPAGA B.png";
 import compraA from "../../../assets/Icons/EspacioBaco_IconoCOMPRA.png";
 import compraB from "../../../assets/Icons/EspacioBaco_IconoCOMPRA B.png";
 import encontraA from "../../../assets/Icons/EspacioBaco_IconoENCONTRA.png";
 import encontraB from "../../../assets/Icons/EspacioBaco_IconoENCONTRA B.png";
-import vinoA from "../../../assets/Icons/EspacioBaco_IconoDESCUBRI.png"
-import vinoB from "../../../assets/Icons/EspacioBaco_IconoDESCUBRI B.png"
+import vinoA from "../../../assets/Icons/EspacioBaco_IconoDESCUBRI.png";
+import vinoB from "../../../assets/Icons/EspacioBaco_IconoDESCUBRI B.png";
 import "./sliderStyles.css";
+
 export const SiliderMobile = () => {
   return (
     <div
@@ -19,7 +15,6 @@ export const SiliderMobile = () => {
       style={{ top: "50%" }}
     >
       <div className="carousel w-full md:w-auto h-full p-2 gap-2">
-        
         <div className="card1 z-10 p-4 carousel-item flex flex-col bg-base-100 rounded-badge h-auto w-44 select-none">
           <h1 className="my-1" style={{ letterSpacing: "2px" }}>
             Medios de pago
@@ -37,7 +32,9 @@ export const SiliderMobile = () => {
               className="compraB z-10 w-20 absolute"
             />
           </div>
-          <h2 className="text-center my-2 text-sm">Desarrollando medios de pago para tu confort</h2>
+          <h2 className="text-center my-2 text-sm">
+            Desarrollando medios de pago para tu confort
+          </h2>
           {/*
           <button className="btn hover:text-primary text-base-100 border-none p-1 glass w-full text-sm bg-accent rounded-badge">
             Testimonios

@@ -16,4 +16,13 @@ export function isNew(fechaCreacion) {
     return ids;
   };
   
+ export function obtenerObjetosMasRecientes(array) {
+    // Ordenar el array de objetos por la fecha más reciente
+    array.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+    
+    // Obtener los primeros 5 objetos del array (los más recientes)
+    const objetosMasRecientes = array.slice(0, 5);
+    
+    return objetosMasRecientes;
+  }
   
