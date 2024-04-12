@@ -91,11 +91,7 @@ export const NavBar = () => {
               >
                 <Link
                   to="/"
-                  className={`uppercase ${
-                    location.pathname === "/"
-                      ? ""
-                      : ""
-                  }`}
+                  className={`uppercase ${location.pathname === "/" ? "" : ""}`}
                   style={{ letterSpacing: "6px" }}
                 >
                   Inicio
@@ -103,9 +99,7 @@ export const NavBar = () => {
                 <Link
                   to="/vinoteca"
                   className={`uppercase ${
-                    location.pathname === "/vinoteca"
-                      ? ""
-                      : ""
+                    location.pathname === "/vinoteca" ? "" : ""
                   }`}
                   style={{ letterSpacing: "6px" }}
                 >
@@ -114,9 +108,7 @@ export const NavBar = () => {
                 <Link
                   to="/nosotros"
                   className={`uppercase ${
-                    location.pathname === "/nosotros"
-                      ? ""
-                      : ""
+                    location.pathname === "/nosotros" ? "" : ""
                   }`}
                   style={{ letterSpacing: "6px" }}
                 >
@@ -134,7 +126,6 @@ export const NavBar = () => {
               <img src={img} alt="Logo" className="w-36 h-full my-2" />
             </div>
           </Link>
-
           <div className="border-2 navbar-center md:mb-2 w-4/6 md:w-2/3 dropdown dropdown-end">
             <div className="flex justify-start items-center w-full px-5">
               <IoSearchOutline className="text-xl md:text-2xl mx-2 text-gray-500" />
@@ -145,6 +136,7 @@ export const NavBar = () => {
                 className="text-sm w-full  p-2 md:p-4 bg-transparent focus:outline-none"
               />
             </div>
+
             <ul className="mt-1 p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-b-badge w-full">
               {results.length > 0 ? (
                 results.map((product) => (
@@ -193,7 +185,6 @@ export const NavBar = () => {
             </ul>
           </div>
 
-          {/*User, cart search, theme*/}
           <div className="navbar-end mr-2">
             <div
               tabIndex={0}
@@ -435,9 +426,12 @@ export const NavBar = () => {
                               </h1>
                               <h1 className="bold">${total}</h1>
                             </div>
-                            <button className="w-full btn text-base-100 hover:text-primary bg-accent">
+                            <Link
+                              to="/detalles-compra"
+                              className="w-full btn text-base-100 hover:text-primary bg-accent"
+                            >
                               Continuar Compra
-                            </button>
+                            </Link>
                           </div>
                         </div>
                       )}
@@ -448,6 +442,7 @@ export const NavBar = () => {
             </div>
           </div>
         </div>
+
         <nav className="overflow-hidden relative transition-all hidden w-auto md:flex justify-center items-center gap-10 -mt-3 bg-primary text-base-100 ">
           <Link
             to="/"
