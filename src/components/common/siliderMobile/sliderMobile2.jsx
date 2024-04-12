@@ -11,35 +11,37 @@ export const SliderMobile2 = () => {
   const [cargando, setCargando] = useState(true);
 
   useEffect(() => {
+    setCargando(true);
     setProducts(products);
     setProductos(obtenerObjetosMasRecientes(products));
+    setCargando(false);
   }, [products]);
 
   useEffect(() => {
-    setCargando(true);
     const fetchProducts = async () => {
+      setCargando(true);
       try {
         const res = await getProducts();
         setProducts(res.data);
       } catch (error) {
         console.error("Error al buscar los productos:", error);
       }
+      setCargando(false);
     };
     fetchProducts();
-    setCargando(false);
   }, []);
 
   return (
     <div className="my-6 w-full overflow-x-auto">
-      {!cargando ? (
+      {!cargando && productos ? (
         <>
           <h1 style={{ letterSpacing: "2px" }} className="mb-4 px-6">
             Selección fresca de vinos mas recientes.
           </h1>
           <div className="carousel p-6 gap-2 w-full">
             {productos?.map((producto) => (
-              <div className="carousel-item mx-auto">
-                <Card key={producto.id} product={producto} />
+              <div key={producto.id} className="carousel-item mx-auto">
+                <Card product={producto} />
               </div>
             ))}
           </div>

@@ -18,7 +18,7 @@ import {ProductsSeeAndDelete} from "./components/pages/productsSeeAndDelete"
 import {ProductCreate} from "./components/pages/productCreate"
 import {DetailsProduct} from "./components/pages/detailsProduct"
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-
+import { PurchaseDetails} from "./components/pages/purchaseDetails"
 function App() {
   return (
     <div className="bg-base-200">
@@ -31,7 +31,7 @@ function App() {
           <Route path="/vinoteca/detalles-vino/:id" element={<Details />} />
           <Route path="/iniciar-sesion" element={<Login />} />
           <Route path="/crear-cuenta" element={<SignUp />} />
-
+          <Route path="/detalles-compra" element={<PurchaseDetails />} />
           <Route element={<ProtectedRouteNormal />}>
             <Route element={<ProtectedRouteAdmin />}>
               <Route path="/super-administrador" element={<Admin />} />

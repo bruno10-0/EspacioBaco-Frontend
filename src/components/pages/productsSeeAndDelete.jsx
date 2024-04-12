@@ -193,7 +193,6 @@ export const ProductsSeeAndDelete = () => {
                 <th>
                   <label>
                     <input
-                      value={false}
                       type="checkbox"
                       className="checkbox"
                       checked={productCopy.every((product) => product.checked)}

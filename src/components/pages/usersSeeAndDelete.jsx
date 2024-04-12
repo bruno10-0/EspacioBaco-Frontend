@@ -154,7 +154,6 @@ export const UsersSeeAndDelete = () => {
                 <th>
                   <label>
                     <input
-                      value={false}
                       type="checkbox"
                       className="checkbox"
                       checked={usersCopy.every((user) => user.checked)}

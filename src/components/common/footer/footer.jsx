@@ -17,7 +17,7 @@ export const Footer = () => {
             </div>
           </div>
         </nav>
-        <p className="flex flex-col md:flex-row">
+        <div className="flex flex-col md:flex-row">
           Derechos de autor © 2024 - Todos los derechos reservados |
           Desarrollado por{" "}
           <div className="flex gap-2">
@@ -26,7 +26,7 @@ export const Footer = () => {
             </a>
             y <a href="https://wa.me/5493764770071" target="_blank" className="link">Seju1000</a>
           </div>
-        </p>
+        </div>
       </footer>
     </>
   );
