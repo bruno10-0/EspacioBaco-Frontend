@@ -5,10 +5,11 @@ import { getProductById } from "../../../api/auth.js";
 import { IoRemoveSharp, IoAddSharp } from "react-icons/io5";
 import { NavBar } from "../navBar/navBar.jsx";
 import { Loading } from "../loading/loading.jsx";
+import { Link } from "react-router-dom";
 import "./detailProduct.css";
 
 export const DetailProduct = () => {
-  const { cartList, setCartList } = useContexto();
+  const { setCarrito, carrito, actualizarCarritoUsuario,user } = useContexto();
   const [product, setProduct] = useState([]);
   const [productQuantity, setProductQuantity] = useState(1);
   const [response, setResponse] = useState(true);
@@ -16,21 +17,22 @@ export const DetailProduct = () => {
   const [itemFound, setItemFound] = useState(false);
   const { id } = useParams();
 
-  const buscarVinoEnCartList = () => {
+  const buscarVinoEnCartList = async () => {
     let encontradoLocal = false;
-    for (let i = 0; i < cartList.length; i++) {
-      if (cartList[i].id === product.id) {
+    for (let i = 0; i < carrito.productos.length; i++) {
+      if (carrito.productos[i].id === product.id) {
         encontradoLocal = true;
         break;
       }
     }
     if (!encontradoLocal) {
-      let nuevaLista = [...cartList];
+      let nuevaLista = [...carrito.productos];
       nuevaLista.push({
         ...product,
         cantidad: productQuantity,
       });
-      setCartList(nuevaLista);
+      const res = await actualizarCarritoUsuario(nuevaLista);
+      setCarrito(res.data);
     }
   };
 
@@ -45,16 +47,17 @@ export const DetailProduct = () => {
       setProductQuantity(productQuantity - 1);
     }
   };
-
+  // Esta función busca un objeto en la lista del carrito basado en su ID.
+  // Si encuentra el objeto, establece el estado de itemFound en true, de lo contrario, lo establece en false.
   const handleIdSearch = (idToSearch) => {
-    const foundObject = cartList.find((obj) => obj.id == idToSearch);
+    const foundObject = carrito.productos.find((obj) => obj.id == idToSearch);
     if (foundObject) {
       setItemFound(true);
     } else {
       setItemFound(false);
     }
   };
-
+  //Busca el productos en base al id del req.params
   useEffect(() => {
     const fetchProduct = async () => {
       setLoading(true);
@@ -75,7 +78,7 @@ export const DetailProduct = () => {
 
   useEffect(() => {
     handleIdSearch(id);
-  }, [id, setCartList, cartList]);
+  }, [id, setCarrito, carrito]);
   return (
     <>
       <NavBar />
@@ -144,25 +147,27 @@ export const DetailProduct = () => {
             <div className="w-full">
               <div className="w-2/5 flex justify-between gap-2 items-center border border-accent p-2">
                 <button onClick={decrementQuantity}>
-                  <IoRemoveSharp className="text-accent"/>
+                  <IoRemoveSharp className="text-accent" />
                 </button>
                 <span className="text-accent">{productQuantity}</span>
                 <button onClick={incrementQuantity}>
-                  <IoAddSharp className="text-accent"/>
+                  <IoAddSharp className="text-accent" />
                 </button>
               </div>
               <h4
-                style={{letterSpacing:"1px"}}
+                style={{ letterSpacing: "1px" }}
                 className="mt-4 text-xs md:text-sm"
               >
                 Aprovecha, tenemos{" "}
-                <span className="text-xl font-semibold mx-1">{product.stock}</span> botellas
-                en stock!{" "}
+                <span className="text-xl font-semibold mx-1">
+                  {product.stock}
+                </span>{" "}
+                botellas en stock!{" "}
               </h4>
               <div>
-                <button
-                  disabled={itemFound}
-                  onClick={() => buscarVinoEnCartList(id)}
+                <Link
+                  onClick={() => buscarVinoEnCartList()}
+                  disabled={itemFound || !user}
                   className=" w-full btn btn-accent text-base-100 rounded-badge p-2 uppercase my-4"
                   style={{
                     fontSize: "13px",
@@ -170,12 +175,16 @@ export const DetailProduct = () => {
                     letterSpacing: "4px",
                   }}
                 >
-                  {!itemFound && <h2>Lo llevo</h2>}
+                   {!itemFound && !user && <h2>Inicia sesion para llevarlo</h2>}
+                  {!itemFound && user && <h2>Lo llevo</h2>}
                   {itemFound && <h2>Agregado al carrito</h2>}
-                </button>
+                </Link>
               </div>
               <div>
-                <p style={{fontSize:"13px",letterSpacing:"1px"}} className="flex flex-col">
+                <p
+                  style={{ fontSize: "13px", letterSpacing: "1px" }}
+                  className="flex flex-col"
+                >
                   {product.descripcion_detallada}
                   <br />
                   <br />

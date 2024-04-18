@@ -4,38 +4,43 @@ import { useContexto } from "../../../context/Context";
 import { getProductById } from "../../../api/auth.js";
 import { useEffect } from "react";
 export const DropdownItem = ({ item }) => {
-  const { cartList, setCartList } = useContexto();
+  const {
+    incrementarCantidadProducto,
+    actualizarCarritoUsuario,
+    decrementarCantidadProducto,
+    eliminarProducto,
+    carrito,
+    setCarrito,
+  } = useContexto();
   const [product, setProduct] = useState([]);
-  const [input, setInput] = useState(item.cantidad);
 
-  const incrementBTN = () => {
-    const index = cartList.findIndex((product) => product.id == item.id);
-    if (index !== -1) {
-      if (cartList[index].cantidad < cartList[index].stock) {
-        const updatedCart = [...cartList];
-        updatedCart[index].cantidad += 1;
-        setCartList(updatedCart);
-        setInput(input + 1);
-      }
+  const handdleAgregar = async () => {
+    try {
+      const res = await actualizarCarritoUsuario(
+        incrementarCantidadProducto(item.id)
+      );
+      setCarrito(res.data);
+    } catch (error) {
+      console.error(error);
     }
   };
-
-  const decrementBTN = () => {
-    const index = cartList.findIndex((product) => product.id == item.id);
-    if (index !== -1) {
-      if (cartList[index].cantidad > 1) {
-        const updatedCart = [...cartList];
-        updatedCart[index].cantidad -= 1;
-        setCartList(updatedCart);
-        setInput(input - 1);
-      }
+  const handdleRestar = async () => {
+    try {
+      const res = await actualizarCarritoUsuario(
+        decrementarCantidadProducto(item.id)
+      );
+      setCarrito(res.data);
+    } catch (error) {
+      console.error(error);
     }
   };
-
-  const removeFromCart = (idToRemove) => {
-    setCartList((prevCartList) =>
-      prevCartList.filter((item) => item.id !== idToRemove)
-    );
+  const handdleRemover = async () => {
+    try {
+      const res = await actualizarCarritoUsuario(eliminarProducto(item.id));
+      setCarrito(res.data);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   useEffect(() => {
@@ -48,7 +53,7 @@ export const DropdownItem = ({ item }) => {
       }
     };
     fetchProduct();
-  }, []);
+  }, [carrito]);
 
   return (
     <div
@@ -73,18 +78,24 @@ export const DropdownItem = ({ item }) => {
         <div className="w-full flex items-center justify-between">
           <div className=" p-2 border flex items-center">
             <IoRemoveSharp
-              onClick={decrementBTN}
-              className="cursor-pointer mr-6 ml-2"
+              onClick={() => {
+                handdleRestar();
+              }}
+              className="text-neutral cursor-pointer mr-6 ml-2"
             />
-            <span className="select-none">{input}</span>
+            <span className="select-none">{item.cantidad}</span>
             <IoAddSharp
-              onClick={incrementBTN}
-              className="cursor-pointer ml-6 mr-2"
+              onClick={() => {
+                handdleAgregar();
+              }}
+              className="text-neutral cursor-pointer ml-6 mr-2"
             />
           </div>
           <button
-            onClick={() => removeFromCart(item.id)}
-            className="border-primary hover:border-b primary ml-2 uppercase text-xs cursor-pointer"
+            onClick={() => {
+              handdleRemover();
+            }}
+            className="ml-2 cursor-pointer text-accent"
           >
             Remover
           </button>

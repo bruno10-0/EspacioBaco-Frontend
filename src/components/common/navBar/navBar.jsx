@@ -21,15 +21,12 @@ export const NavBar = () => {
   const {
     products,
     changeTheme,
-    cartList,
-    total,
-    cantidad,
-    envioGratis,
     user,
     setUser,
     isAuthenticated,
     cerrarSesion,
     loading,
+    carrito,
   } = useContexto();
 
   const handleThemeChange = (newTheme) => {
@@ -57,7 +54,6 @@ export const NavBar = () => {
   };
 
   let results = [];
-
   if (!search) {
     results = [];
   } else {
@@ -71,6 +67,7 @@ export const NavBar = () => {
         product.tipo.toLowerCase().includes(search.toLowerCase())
     );
   }
+  console.log(carrito);
   return (
     <div className="fixed top-0 h-auto w-full z-40">
       <div className="w-full h-full bg-base-100">
@@ -330,7 +327,7 @@ export const NavBar = () => {
               >
                 <div className="indicator">
                   <IoBagOutline className="text-xl md:text-2xl" />
-                  {cartList.length > 0 && (
+                  {carrito.productos.length > 0 && (
                     <span className="badge badge-xs badge-accent indicator-item"></span>
                   )}
                 </div>
@@ -341,101 +338,101 @@ export const NavBar = () => {
                 className="relative rounded-badge dropdown-content h-auto max-h-[calc(100vh-90px)] w-72 md:w-96 overflow-hidden overflow-y-auto bg-base-100 flex flex-col gap-2 px-4 z-50"
               >
                 <div className="sticky top-0 p-2 bg-base-100">
-                  <h1
-                    style={{ letterSpacing: "4px" }}
-                    className="uppercase py-2 font-semibold"
-                  >
-                    Carrito
-                  </h1>
-                  {!envioGratis && (
-                    <h2
-                      className="border-y py-2"
-                      style={{ letterSpacing: "0px", fontSize: "12px" }}
-                    >
-                      Gasta $100 o más y obtén envío gratis! (SOLO DISPONIBLE
-                      PARA PEDIDOS DE POSADAS)
-                    </h2>
-                  )}
-
-                  {envioGratis && (
-                    <h2
-                      className="border-y py-2 text-success"
-                      style={{ letterSpacing: "0px", fontSize: "12px" }}
-                    >
-                      Felicidades, tus compras califican para envío gratuito.
-                    </h2>
-                  )}
-
                   {loading ? (
-                    <div>
-                      <div className="w-auto p-4 flex justify-center items-center gap-2">
+                    <>
+                      <div className="p-4 flex justify-center items-center gap-2">
                         <span className="loading loading-bars loading-md"></span>
                         <h1>Cargando...</h1>
                       </div>
-                    </div>
+                    </>
                   ) : (
-                    <div>
-                      {cartList.length < 1 && (
-                        <div>
-                          <div
-                            style={{ letterSpacing: "4px" }}
-                            className="text-xs flex justify-center items-center p-4 gap-4 uppercase"
-                          >
-                            Carrito vacio
-                          </div>
+                    <>
+                      {!user ? (
+                        <div className="flex flex-col justify-center items-center gap-5">
+                          <h1 className="w-full text-start">¡Bienvenido!</h1>
+                          <p className="text-xs">
+                            Por favor, inicia sesión para agregar vinos al
+                            carrito
+                          </p>
                           <Link
-                            to="/vinoteca"
-                            className="my-2 w-full btn btn-accent text-base-100 rounded-badge p-2 uppercase"
+                            to="/iniciar-sesion"
+                            style={{ letterSpacing: "2px" }}
+                            className="w-full btn btn-accent text-base-100 uppercase text-xs max-w-lg"
                           >
-                            <h2
-                              style={{ letterSpacing: "2px" }}
-                              className="text-xs uppercase"
-                            >
-                              Explorar tienda
-                            </h2>
+                            Ingresar
                           </Link>
                         </div>
-                      )}
-
-                      {cartList.length >= 1 && (
-                        <div>
-                          {cartList.map(
-                            (item, index) =>
-                              <DropdownItem key={index} item={item} /> || (
-                                <Loading />
-                              )
-                          )}
-
-                          <div className="sticky bottom-0 bg-base-100 p-4  w-full h-auto  flex flex-col items-center">
-                            <div className="w-full h-auto my-2 flex justify-between text-xs">
-                              <h2>Productos({cantidad})</h2>
-                              <h3>${total}</h3>
+                      ) : (
+                        <div className="transition-all ease-in-out duration-1000">
+                          <h1
+                            style={{ letterSpacing: "4px" }}
+                            className="-mt-2 py-4 font-semibold border-b sticky top-0 bg-base-100 z-10 uppercase"
+                          >
+                            Carrito
+                          </h1>
+                          <>
+                            <div className="w-full p-4">
+                              <p className="text-xs md:text-sm">
+                                {carrito.envioGratis === false
+                                  ? "Al gastar $10.000 o más obtendrás envío gratuito (disponible solo para la ciudad de Posadas)."
+                                  : ""}
+                              </p>
                             </div>
-                            {envioGratis && (
-                              <div className="w-full flex mb-2 justify-between text-xs">
-                                <h2>Envios</h2>
-                                <h3 className="text-success">Gratis</h3>
+                            {carrito.productos.length < 1 ? (
+                              <>
+                                <div
+                                  style={{
+                                    minHeight: "50vh",
+                                    letterSpacing: "2px",
+                                  }}
+                                  className="p-4 w-full flex flex-col justify-center items-center uppercase text-xs md:text-base"
+                                >
+                                  <p>Tú carrito está vacío</p>
+                                </div>
+                              </>
+                            ) : (
+                              <div className="w-full">
+                                <div>
+                                  {carrito.productos.map((producto) => (
+                                    <DropdownItem
+                                      key={producto.id}
+                                      item={producto}
+                                    />
+                                  ))}
+                                </div>
+                                <div className="sticky bottom-2 bg-base-100 p-4  w-full h-auto  flex flex-col items-center">
+                                  <div className="w-full h-auto my-2 flex justify-between text-xs">
+                                    <h2>Productos({carrito.cantidadProductos})</h2>
+                                    <h3>${carrito.total}</h3>
+                                  </div>
+                                  {carrito.envioGratis && (
+                                    <div className="w-full flex mb-2 justify-between text-xs">
+                                      <h2>Envios</h2>
+                                      <h3 className="text-success">Gratis</h3>
+                                    </div>
+                                  )}
+                                  <div className="w-full flex mb-2 justify-between">
+                                    <h1
+                                      style={{ letterSpacing: "5px" }}
+                                      className="bold text uppercase"
+                                    >
+                                      Total
+                                    </h1>
+                                    <h1 className="bold">${carrito.total}</h1>
+                                  </div>
+                                  <Link
+                                    to="/detalles-compra"
+                                    className="w-full btn text-base-100 hover:text-primary bg-accent"
+                                  >
+                                    Continuar Compra
+                                  </Link>
+                                </div>
                               </div>
                             )}
-                            <div className="w-full flex mb-2 justify-between">
-                              <h1
-                                style={{ letterSpacing: "5px" }}
-                                className="bold text uppercase"
-                              >
-                                Total
-                              </h1>
-                              <h1 className="bold">${total}</h1>
-                            </div>
-                            <Link
-                              to="/detalles-compra"
-                              className="w-full btn text-base-100 hover:text-primary bg-accent"
-                            >
-                              Continuar Compra
-                            </Link>
-                          </div>
+                          </>
                         </div>
                       )}
-                    </div>
+                    </>
                   )}
                 </div>
               </div>

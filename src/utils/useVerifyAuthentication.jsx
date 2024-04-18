@@ -3,10 +3,35 @@ import { useLocation } from "react-router-dom";
 import { useContexto } from "../context/Context";
 import { decryptToken } from "../helpers/token-decrypt.js";
 import { verificarToken } from "../api/auth.js";
-
+import { verificarCarrito } from "../api/auth.js";
 export const UseVerifyAuthentication = ({ children }) => {
-  const { setIsAuthenticated, setUser, setLoading, cerrarSesion } = useContexto();
+  const {
+    setIsAuthenticated,
+    setUser,
+    user,
+    setLoading,
+    cerrarSesion,
+    setCarrito,
+  } = useContexto();
   const location = useLocation();
+
+  useEffect(() => {
+    async function verificarCarritoCompras() {
+      const token = localStorage.getItem("nekot");
+      if(!token) return
+      try {
+        const decryptedToken = decryptToken(token);
+        const res = await verificarCarrito(decryptedToken);
+        setCarrito(res.data);
+        console.log("Carrito verificado correctamente");
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    if (user) {
+      verificarCarritoCompras();
+    }
+  }, [user]);
 
   useEffect(() => {
     async function checkLogin() {

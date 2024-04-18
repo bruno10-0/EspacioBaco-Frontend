@@ -1,6 +1,6 @@
 import axios from "./axios.js";
 
-//rutas sistema
+//region SISTEMA
 export const verificarToken = async (token) => {
   try {
     const res = await axios.post("/verificar", { token });
@@ -12,7 +12,14 @@ export const verificarToken = async (token) => {
 export const iniciarSesion = async (data) =>
   await axios.post(`/iniciar-sesion`, data);
 
-//rutras productos
+
+//region CARRITO DE COMPRAS
+
+export const verificarCarrito = async (token) => await axios.post("/carrito", { token });
+
+export const actualizarCarrito = async (token,productos) => await axios.put("/carrito",{ token, productos }) 
+//region PRODOUCTOS
+
 export const getProducts = async () => await axios.get(`/products`);
 
 export const getProductById = async (id, token) => {
@@ -85,7 +92,9 @@ export const putProduct = async (token, data, id) => {
     throw error;
   }
 };
-//rutas usuarios
+
+//region USUARIOS
+
 export const getUsuarioById = async (id, token) => {
   try {
     const res = await axios.get(`/usuarios/${id}`, {
@@ -160,7 +169,7 @@ export const deleteUsuarios = async (ids, token) => {
   }
 };
 
-//rutas publicaciones
+//region PUBLICACIONES
 
 export const getPublicaciones = async () => {
   return await axios.get("/publicacion");

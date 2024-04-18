@@ -13,6 +13,7 @@ import {
   getProducts,
   deleteProducts,
   putProduct,
+  actualizarCarrito,
 } from "../api/auth.js";
 import { decryptToken } from "../helpers/token-decrypt.js";
 const createdContext = createContext();
@@ -24,51 +25,24 @@ export const Context = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [user, setUser] = useState(null);
   const [users, setUsers] = useState([]);
-  const [total, setTotal] = useState(0);
-  const [envioGratis, setEnvioGratis] = useState(false);
-  const [cantidad, setCantidad] = useState(0);
   const [publicaciones, setPublicaciones] = useState([]);
   const [flagPublicaciones, setFlagPublicaciones] = useState(false);
-  const [cartList, setCartList] = useState(() => {
-    try {
-      const storedValue = localStorage.getItem("carritoCompras");
-      return storedValue ? JSON.parse(dataDecrypt(storedValue)) : [];
-    } catch (error) {
-      console.error(
-        "Error al desencriptar los datos del carrito de compras:",
-        error
-      );
-      return [];
-    }
+  const [carrito, setCarrito] = useState({
+    id: null,
+    usuarioId: null,
+    productos: [],
+    cantidadProductos: 0,
+    total: 0,
+    createdAt: null,
+    updatedAt: null,
   });
+
   const [theme, setTheme] = useState(
     document.documentElement.setAttribute(
       "data-theme",
       localStorage.getItem("espacioBacoTheme") || "autum"
     )
   );
-
-  const calcularTotal = () => {
-    let total = 0;
-    cartList.forEach((item) => {
-      total += item.cantidad * item.precio;
-    });
-    if (total > 100) {
-      setEnvioGratis(true);
-    } else {
-      setEnvioGratis(false);
-    }
-    total = Math.round(total * 100) / 100;
-    setTotal(total);
-  };
-
-  const calcularCantidad = () => {
-    let cantidadTotal = 0;
-    cartList.forEach((item) => {
-      cantidadTotal += item.cantidad;
-    });
-    setCantidad(cantidadTotal);
-  };
 
   const changeTheme = (newTheme) => {
     setTheme(newTheme);
@@ -239,6 +213,71 @@ export const Context = ({ children }) => {
     }
   };
 
+  const actualizarCarritoUsuario = async (nuevaLista) => {
+    setLoading(true);
+    const token = localStorage.getItem("nekot");
+    if (!token) {
+      throw new Error("No hay token, no se puede realizar esta operación");
+    }
+    try {
+      const decryptedToken = decryptToken(token);
+      const res = await actualizarCarrito(decryptedToken, nuevaLista);
+      setLoading(false);
+      return res;
+    } catch (error) {
+      console.error(error);
+      setLoading(false);
+    }
+  };
+
+  const incrementarCantidadProducto = (productoId) => {
+    // Clona el array de productos del carrito para no modificar el estado directamente
+    const productosActualizados = [...carrito.productos];
+
+    // Encuentra el índice del producto en el array basado en el ID
+    const indiceProducto = productosActualizados.findIndex(
+      (producto) => producto.id === productoId
+    );
+
+    if (indiceProducto !== -1) {
+      const producto = productosActualizados[indiceProducto];
+      // Verifica si la cantidad actual es menor que el stock
+      if (producto.cantidad < producto.stock) {
+        // Incrementa la cantidad del producto en 1
+        producto.cantidad += 1;
+      }
+    }
+    return productosActualizados;
+  };
+
+  const decrementarCantidadProducto = (productoId) => {
+    // Clona el array de productos del carrito para no modificar el estado directamente
+    const productosActualizados = [...carrito.productos];
+  
+    // Encuentra el índice del producto en el array basado en el ID
+    const indiceProducto = productosActualizados.findIndex(
+      (producto) => producto.id === productoId
+    );
+  
+    if (indiceProducto !== -1) {
+      const producto = productosActualizados[indiceProducto];
+      // Verifica si la cantidad actual es mayor que 1
+      if (producto.cantidad > 1) {
+        // Disminuye la cantidad del producto en 1
+        producto.cantidad -= 1;
+      }
+    }
+  
+    return productosActualizados;
+  };
+
+  const eliminarProducto = (productoId) => {
+    const productosActualizados = carrito.productos.filter(
+      (producto) => producto.id !== productoId
+    );
+    return productosActualizados;
+  };
+
   useEffect(() => {
     actualizarListaPublicaciones();
   }, [flagPublicaciones]);
@@ -259,15 +298,6 @@ export const Context = ({ children }) => {
       setTheme(storedTheme);
     }
   }, []);
-
-  useEffect(() => {
-    localStorage.setItem(
-      "carritoCompras",
-      dataEncrypt(JSON.stringify(cartList))
-    );
-    calcularTotal();
-    calcularCantidad();
-  }, [cartList, setCartList]);
 
   // Efecto para cargar usuarios y gestionar el estado de carga
   useEffect(() => {
@@ -304,6 +334,10 @@ export const Context = ({ children }) => {
         createProduct,
         createUserForAdmin,
 
+        eliminarProducto,
+        decrementarCantidadProducto,
+        incrementarCantidadProducto,
+        actualizarCarritoUsuario,
         actualizarListaPublicaciones,
         changeTheme,
         cerrarSesion,
@@ -317,18 +351,15 @@ export const Context = ({ children }) => {
         setProducts,
         setUsers,
         setLoading,
-        setCartList,
+        setCarrito,
 
-        cartList,
+        carrito,
         flagPublicaciones,
         publicaciones,
         error,
         isAuthenticated,
         user,
         theme,
-        total,
-        cantidad,
-        envioGratis,
         loading,
         users,
         products,
