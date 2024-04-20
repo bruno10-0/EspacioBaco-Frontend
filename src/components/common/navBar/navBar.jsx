@@ -120,7 +120,7 @@ export const NavBar = () => {
               style={{ letterSpacing: "8px", fontWeight: "bolder" }}
               className="hidden md:block text-xl uppercase cursor-pointer select-none w-full"
             >
-              <img src={img} alt="Logo" className="w-36 h-full my-2" />
+              <img src={img} alt="Logo" className="w-40 h-full my-2" />
             </div>
           </Link>
           <div className="border-2 navbar-center md:mb-2 w-4/6 md:w-2/3 dropdown dropdown-end">

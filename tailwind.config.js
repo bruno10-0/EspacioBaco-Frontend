@@ -27,6 +27,7 @@ export default {
           "--animation-btn": "0.55s", 
         },
       },
+      ,"lofi"
     ],
     
   },
