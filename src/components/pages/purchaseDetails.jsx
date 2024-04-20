@@ -8,7 +8,6 @@ import {
   calcularPorcentaje,
   calcularFaltaParaObjetivo,
 } from "../../helpers/helpers";
-import { IoBagHandleSharp } from "react-icons/io5";
 import { Bag } from "../../assets/Icons/svg/bag";
 export const PurchaseDetails = () => {
   const {
@@ -191,7 +190,7 @@ export const PurchaseDetails = () => {
             <h2 className="text-sm md:text-base px-4">
               Productos({carrito.cantidadProductos})
             </h2>
-            <h2 className="text-sm md:text-base px-4">${carrito.total}</h2>
+            <h2 className="text-sm md:text-base px-4">${formatPrice(carrito.total)}</h2>
           </div>
           {carrito.envioGratis && (
             <div className="flex justify-between mb-2">
@@ -201,7 +200,7 @@ export const PurchaseDetails = () => {
           )}
           <div className="flex justify-between font-bold mb-4">
             <h2 className="px-4">Total</h2>
-            <h2 className="px-4 ">${carrito.total}</h2>
+            <h2 className="px-4 ">${formatPrice(carrito.total)}</h2>
           </div>
           <div className="w-full flex justify-center items-center">
             <button

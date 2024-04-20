@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useContexto } from "../../../context/Context";
 import { getProductById } from "../../../api/auth.js";
 import { useEffect } from "react";
+import { formatPrice } from "../../../helpers/helpers.js";
 export const DropdownItem = ({ item }) => {
   const {
     incrementarCantidadProducto,
@@ -73,7 +74,7 @@ export const DropdownItem = ({ item }) => {
       <div className="w-full h-full gap-4 flex flex-col p-2">
         <div className="w-full h-full gap-4 flex flex-col">
           <h1 className="bold text-sm">{product.nombre}</h1>
-          <h2 className="text-sm">${product.precio}c/u</h2>
+          <h2 className="text-sm">${formatPrice(product.precio)} c/u</h2>
         </div>
         <div className="w-full flex items-center justify-between">
           <div className=" p-2 border flex items-center">

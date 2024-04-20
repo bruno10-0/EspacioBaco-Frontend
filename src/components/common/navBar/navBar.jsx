@@ -13,7 +13,7 @@ import {
   IoBagOutline,
 } from "react-icons/io5";
 import { AiOutlineUser } from "react-icons/ai";
-import { Loading } from "../loading/loading.jsx";
+import {formatPrice} from "../../../helpers/helpers.js"
 import img from "../../../assets/Logo/EspacioBaco_tinto.png";
 export const NavBar = () => {
   const [primeraLetra, setPrimeraLetra] = useState();
@@ -84,7 +84,7 @@ export const NavBar = () => {
               </div>
               <ul
                 tabIndex={0}
-                className=" text-base-100 menu menu-sm flex justify-center items-center py-10  gap-10 -ml-2 dropdown-content mt-2 z-[1] shadow bg-primary w-screen"
+                className=" text-primary menu menu-sm flex justify-center items-center py-10  gap-10 -ml-2 dropdown-content mt-2 z-[1] shadow bg-base-100 w-screen"
               >
                 <Link
                   to="/"
@@ -267,10 +267,10 @@ export const NavBar = () => {
                           <Link to="/perfil" className="relative">
                             <h2 className="p-2">Perfil</h2>
                             <div className="avatar placeholder absolute right-4">
-                              <div className="bg-primary  rounded-full w-7">
+                              <div className="bg-transparent border border-accent rounded-full w-6">
                                 <span
                                   style={{ fontWeight: "bold" }}
-                                  className="text-sm text-base-100"
+                                  className="text-sm text-accent"
                                 >
                                   {primeraLetra}
                                 </span>
@@ -285,7 +285,7 @@ export const NavBar = () => {
                               className="relative"
                             >
                               <h2 className="p-2">Administración</h2>
-                              <GrUserAdmin className="text-2xl absolute right-4 text-primary" />
+                              <GrUserAdmin className="absolute right-4 text-xl text-accent" />
                             </Link>
                           </li>
                         )}
@@ -293,7 +293,7 @@ export const NavBar = () => {
                         <li onClick={cerrarSesion}>
                           <div className="relative">
                             <h2 className="p-2">Cerrar sesión</h2>
-                            <IoLogOutOutline className="text-2xl absolute right-4 text-primary" />
+                            <IoLogOutOutline className="absolute right-4 text-2xl text-accent" />
                           </div>
                         </li>
                       </div>
@@ -403,7 +403,7 @@ export const NavBar = () => {
                                 <div className="sticky bottom-2 bg-base-100 p-4  w-full h-auto  flex flex-col items-center">
                                   <div className="w-full h-auto my-2 flex justify-between text-xs">
                                     <h2>Productos({carrito.cantidadProductos})</h2>
-                                    <h3>${carrito.total}</h3>
+                                    <h3>${formatPrice(carrito.total)}</h3>
                                   </div>
                                   {carrito.envioGratis && (
                                     <div className="w-full flex mb-2 justify-between text-xs">
@@ -418,11 +418,11 @@ export const NavBar = () => {
                                     >
                                       Total
                                     </h1>
-                                    <h1 className="bold">${carrito.total}</h1>
+                                    <h1 className="bold">${formatPrice(carrito.total)}</h1>
                                   </div>
                                   <Link
                                     to="/detalles-compra"
-                                    className="w-full btn text-base-100 hover:text-primary bg-accent"
+                                    className="w-full btn text-base-100 hover:text-base-100 bg-accent"
                                   >
                                     Continuar Compra
                                   </Link>
@@ -440,31 +440,31 @@ export const NavBar = () => {
           </div>
         </div>
 
-        <nav className="overflow-hidden relative transition-all hidden w-auto md:flex justify-center items-center gap-10 -mt-3 bg-primary text-base-100 ">
+        <nav className="overflow-hidden relative transition-all hidden w-auto md:flex justify-center items-center gap-10 -mt-3 bg-base-100 text-primary">
           <Link
             to="/"
-            className={`uppercase font-bold shadow-inner scale-105 p-5 hover:scale-110 transition-transform ${
+            className={`uppercase font-bold scale-105 p-5 hover:scale-110 transition-transform ${
               location.pathname === "/" ? "" : ""
             }`}
-            style={{ letterSpacing: "6px" }}
+            style={{ letterSpacing: "6px", fontSize:"10px" }}
           >
             Inicio
           </Link>
           <Link
             to="/vinoteca"
-            className={`uppercase font-bold shadow-inner scale-105 p-5 hover:scale-110 transition-transform ${
+            className={`uppercase font-bold scale-105 p-5 hover:scale-110 transition-transform ${
               location.pathname === "/vinoteca" ? "" : ""
             }`}
-            style={{ letterSpacing: "6px" }}
+            style={{ letterSpacing: "6px", fontSize:"10px" }}
           >
             Vinoteca
           </Link>
           <Link
             to="/nosotros"
-            className={`uppercase font-bold shadow-inner scale-105 p-5 hover:scale-110 transition-transform ${
+            className={`uppercase font-bold scale-105 p-5 hover:scale-110 transition-transform ${
               location.pathname === "/nosotros" ? "" : ""
             }`}
-            style={{ letterSpacing: "6px" }}
+            style={{ letterSpacing: "6px", fontSize:"10px" }}
           >
             Nosotros
           </Link>
