@@ -14,7 +14,7 @@ import {
 } from "react-icons/io5";
 import { AiOutlineUser } from "react-icons/ai";
 import {formatPrice} from "../../../helpers/helpers.js"
-import img from "../../../assets/Logo/EspacioBaco_tinto.png";
+import img from "../../../assets/Logo/EspacioBaco_negro.png";
 export const NavBar = () => {
   const [primeraLetra, setPrimeraLetra] = useState();
   const [search, setSearch] = useState("");
@@ -185,7 +185,7 @@ export const NavBar = () => {
           <div className="navbar-end mr-2">
             <div
               tabIndex={0}
-              className="hidden btn-circle dropdown dropdown-end max-h-[calc(100vh-300px)]"
+              className="btn-circle dropdown dropdown-end max-h-[calc(100vh-300px)]"
             >
               <div
                 tabIndex={0}

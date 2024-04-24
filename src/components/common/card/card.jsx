@@ -59,7 +59,7 @@ export const Card = ({ product }) => {
             </span>
           )}
           <span
-            className="indicator-item badge badge-info select-none cursor-pointer"
+            className="indicator-item badge badge-primary select-none cursor-pointer"
             onClick={() =>
               document.getElementById(`my_modal_${product.id}`).showModal()
             }
