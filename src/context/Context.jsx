@@ -40,7 +40,7 @@ export const Context = ({ children }) => {
   const [theme, setTheme] = useState(
     document.documentElement.setAttribute(
       "data-theme",
-      localStorage.getItem("espacioBacoTheme") || "autum"
+      localStorage.getItem("espacioBacoTheme") || "lofi"
     )
   );
 

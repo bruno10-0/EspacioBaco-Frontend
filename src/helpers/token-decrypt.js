@@ -1,5 +1,4 @@
 import CryptoJS from "crypto-js";
-import { ENCRYPTION_KEY_TOKEN } from "../constants/secret-key.js";
 
 export const decryptToken = (encryptedToken) => {
   if (!encryptedToken) {
@@ -9,7 +8,7 @@ export const decryptToken = (encryptedToken) => {
   try {
     const decryptedTokenBytes = CryptoJS.AES.decrypt(
       encryptedToken,
-      ENCRYPTION_KEY_TOKEN
+      import.meta.env.VITE_ENCRYPTION_KEY_TOKEN
     );
 
     if (!decryptedTokenBytes) {

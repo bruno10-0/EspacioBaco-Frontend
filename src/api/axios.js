@@ -1,8 +1,8 @@
 import axios from "axios";
 
 const instance = axios.create({
-    baseURL:'https://espaciobacobackend.onrender.com',  /*http://localhost:3000/ */
-    withCredentials:true
-})
+  baseURL: import.meta.env.VITE_BASE_URL,
+  withCredentials: true,
+});
 
-export default instance
+export default instance;

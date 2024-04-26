@@ -185,7 +185,7 @@ export const NavBar = () => {
           <div className="navbar-end mr-2">
             <div
               tabIndex={0}
-              className="btn-circle dropdown dropdown-end max-h-[calc(100vh-300px)]"
+              className="hidden btn-circle dropdown dropdown-end max-h-[calc(100vh-300px)]"
             >
               <div
                 tabIndex={0}

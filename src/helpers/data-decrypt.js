@@ -1,5 +1,4 @@
 import CryptoJS from "crypto-js";
-import { ENCRYPTION_KEY_DATA } from "../constants/secret-key.js";
 
 export const dataDecrypt = (value) => {
   if (!value) {
@@ -7,7 +6,7 @@ export const dataDecrypt = (value) => {
   }
 
   try {
-    const bytes = CryptoJS.AES.decrypt(value, ENCRYPTION_KEY_DATA);
+    const bytes = CryptoJS.AES.decrypt(value,import.meta.env.VITE_ENCRYPTION_KEY_DATA);
 
     if (!bytes) {
       throw new Error("No se pudo desencriptar el valor");

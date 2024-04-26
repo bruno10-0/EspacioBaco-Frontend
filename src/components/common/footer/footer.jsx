@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { PiInstagramLogoFill } from "react-icons/pi";
-import img from "../../../assets/Logo/EspacioBaco_blanco+champagne.png";
+import img from "../../../assets/Logo/EspacioBaco_blanco+tinto.png";
 export const Footer = () => {
   return (
     <>
