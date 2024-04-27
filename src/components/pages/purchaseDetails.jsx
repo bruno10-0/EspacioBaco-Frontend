@@ -3,6 +3,7 @@ import { Footer } from "../common/footer/footer";
 import { IoRemoveSharp, IoAddSharp } from "react-icons/io5";
 import { Link } from "react-router-dom";
 import { useContexto } from "../../context/Context";
+import { IoMdClose } from "react-icons/io";
 import {
   formatPrice,
   calcularPorcentaje,
@@ -79,12 +80,18 @@ export const PurchaseDetails = () => {
                       <h2 className="text-xs md:text-sm text-neutral truncate w-full">
                         {producto.descripcion_corta}
                       </h2>
-                      <div className="flex justify-center items-start">
+                      <div className="flex justify-center items-start gap-4">
+                        <Link
+                          className=" text-xs md:text-base"
+                          to={`/vinoteca/detalles-vino/${producto.id}`}
+                        >
+                          Detalles
+                        </Link>
                         <button
                           onClick={() => {
                             handdleRemover(producto.id);
                           }}
-                          className="text-accent text-xs md:text-base"
+                          className="text-red-600 text-xs md:text-base"
                         >
                           Remover
                         </button>
@@ -153,7 +160,7 @@ export const PurchaseDetails = () => {
                           Aprovechá tu envío gratis agregando más.{" "}
                           <Link
                             to="/vinoteca"
-                            className="text-accent items-center"
+                            className="text-accent link items-center"
                           >
                             Ver más productos.
                           </Link>
@@ -180,7 +187,9 @@ export const PurchaseDetails = () => {
               <h2 className="text-sm text-neutral mb-8">
                 Encuentra todo lo que buscas y haz tu pedido fácilmente.
               </h2>
-              <Link to="/vinoteca" className="btn btn-accent text-base-100">Descubrir productos</Link>
+              <Link to="/vinoteca" className="btn btn-accent text-base-100">
+                Descubrir productos
+              </Link>
             </div>
           )}
         </div>
@@ -190,7 +199,9 @@ export const PurchaseDetails = () => {
             <h2 className="text-sm md:text-base px-4">
               Productos({carrito.cantidadProductos})
             </h2>
-            <h2 className="text-sm md:text-base px-4">${formatPrice(carrito.total)}</h2>
+            <h2 className="text-sm md:text-base px-4">
+              ${formatPrice(carrito.total)}
+            </h2>
           </div>
           {carrito.envioGratis && (
             <div className="flex justify-between mb-2">
@@ -204,11 +215,55 @@ export const PurchaseDetails = () => {
           </div>
           <div className="w-full flex justify-center items-center">
             <button
+              onClick={() => document.getElementById("modal").showModal()}
               disabled={carrito.productos.length < 1}
               className="btn btn-accent text-base-100 w-4/5"
             >
-              Continuar compra{" "}
+              Confirmar pedido{" "}
             </button>
+            <dialog id="modal" className="modal">
+              <div className="modal-box">
+                <h3
+                  style={{ letterSpacing: "4px" }}
+                  className="font-bold uppercase"
+                >
+                  Importante
+                </h3>
+                <div className="flex flex-col gap-2 my-4 py-4 text-sm">
+                  <p>
+                    Genial! Una vez que confirmes tu pedido, tendrás{" "}
+                    <span className="text-info">24 horas </span>
+                    para realizar el pago. Si necesitas más tiempo, háznoslo
+                    saber.
+                  </p>
+                  <p>
+                    De lo contrario, tu pedido se cancelará automáticamente y
+                    los productos se liberarán.
+                  </p>
+                  <p className="font-bold">
+                    Te contactaremos con nuestro equipo de ventas para que
+                    proceses el pago de tus productos
+                  </p>
+                </div>
+                <p style={{ fontSize: "12px" }}>
+                  ¡Estamos emocionados de anunciarte que pronto integraremos
+                  <span className="text-info"> Mercado Pago </span> para hacer
+                  todo este proceso mucho más sencillo para ti! ¡Mantente atento
+                  a nuestras actualizaciones 😉!
+                </p>
+                <div className="modal-action">
+                  <form method="dialog">
+                    {/* if there is a button in form, it will close the modal */}
+                    <button className="btn absolute top-2 right-2">
+                      <IoMdClose className="text-red-600 text-lg" />
+                    </button>
+                    <button className="btn btn-primary text-base-100">
+                      Confirmar
+                    </button>
+                  </form>
+                </div>
+              </div>
+            </dialog>
           </div>
         </div>
       </div>

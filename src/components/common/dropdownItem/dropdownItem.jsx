@@ -4,6 +4,7 @@ import { useContexto } from "../../../context/Context";
 import { getProductById } from "../../../api/auth.js";
 import { useEffect } from "react";
 import { formatPrice } from "../../../helpers/helpers.js";
+import { Link } from "react-router-dom";
 export const DropdownItem = ({ item }) => {
   const {
     incrementarCantidadProducto,
@@ -92,14 +93,21 @@ export const DropdownItem = ({ item }) => {
               className="text-neutral cursor-pointer ml-6 mr-2"
             />
           </div>
-          <button
-            onClick={() => {
-              handdleRemover();
-            }}
-            className="ml-2 cursor-pointer text-accent"
-          >
-            Remover
-          </button>
+          <div className="flex flex-col gap-2 w-full items-center text-sm">
+            <Link
+              to={`/vinoteca/detalles-vino/${item.id}`}
+            >
+              Detalles
+            </Link>
+            <button
+              onClick={() => {
+                handdleRemover();
+              }}
+              className="cursor-pointer text-red-600"
+            >
+              Remover
+            </button>
+          </div>
         </div>
       </div>
     </div>
