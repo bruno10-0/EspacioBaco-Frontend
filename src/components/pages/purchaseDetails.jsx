@@ -1,16 +1,20 @@
 import { NavBar } from "../common/navBar/navBar";
 import { Footer } from "../common/footer/footer";
 import { IoRemoveSharp, IoAddSharp } from "react-icons/io5";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useContexto } from "../../context/Context";
 import { IoMdClose } from "react-icons/io";
+import { useState, useEffect } from "react";
 import {
   formatPrice,
   calcularPorcentaje,
   calcularFaltaParaObjetivo,
 } from "../../helpers/helpers";
+import { CiCircleCheck } from "react-icons/ci";
 import { Bag } from "../../assets/Icons/svg/bag";
 export const PurchaseDetails = () => {
+  const navigate = useNavigate();
+  const [mostrarAlertaExito, setMostrarAlertaExito] = useState(false);
   const {
     incrementarCantidadProducto,
     actualizarCarritoUsuario,
@@ -18,8 +22,12 @@ export const PurchaseDetails = () => {
     eliminarProducto,
     carrito,
     setCarrito,
+    crearOrden,
+    VaciarCarritoDeCompras,
+    setUserOrders,
+    actualizarOrdenUsuario,
+    userOrders
   } = useContexto();
-
   const handdleAgregar = async (id) => {
     try {
       const res = await actualizarCarritoUsuario(
@@ -48,10 +56,53 @@ export const PurchaseDetails = () => {
       console.error(error);
     }
   };
+  const handdleCrearOrden = async () => {
+    const values = {
+      total: carrito.total,
+      idUsuario: carrito.usuarioId,
+      listaProductos: carrito.productos,
+      estado: true,
+      metodoDePago: "A definir fuera del sitio web",
+      envios: carrito.envioGratis,
+    };
+
+    const resCrearOrden = await crearOrden(values);
+    if (resCrearOrden.status === 201) {
+      setMostrarAlertaExito(true);
+      setUserOrders(resCrearOrden.order);
+
+      const resCarrito = await VaciarCarritoDeCompras();
+      setCarrito(resCarrito.data.carritoVacio);
+
+      actualizarOrdenUsuario();
+
+      const timeout = setTimeout(() => {
+        navigate("/");
+      }, 1000);
+      return () => clearTimeout(timeout);
+    }
+  };
+
+  useEffect(() => {
+    if (mostrarAlertaExito) {
+      const timeout = setTimeout(() => {
+        setMostrarAlertaExito(false);
+      }, 3000);
+      return () => clearTimeout(timeout);
+    }
+  }, [mostrarAlertaExito]);
 
   return (
-    <div>
+    <div className="relative">
       <NavBar />
+      {mostrarAlertaExito && (
+        <div className="sticky w-full flex justify-center top-16 md:top-32 alert alert-success z-20 md:-mt-8">
+          <CiCircleCheck className="text-2xl" />
+          <span className="text-sm md:text-base">
+            Su orden ha sido procesada con éxito.
+          </span>
+        </div>
+      )}
       <div className="relative flex flex-col-reverse md:flex-row items-start md:gap-6 gap-2 mt-16 md:mt-32 w-full bg-base-200 md:p-10">
         <div className="w-full md:w-3/4 grid grid-cols-1 md:grid-cols-2 md:gap-6 gap-2">
           {carrito.productos.length > 0 ? (
@@ -216,10 +267,10 @@ export const PurchaseDetails = () => {
           <div className="w-full flex justify-center items-center">
             <button
               onClick={() => document.getElementById("modal").showModal()}
-              disabled={carrito.productos.length < 1}
+              disabled={carrito.productos.length < 1 || userOrders}
               className="btn btn-accent text-base-100 w-4/5"
             >
-              Confirmar pedido{" "}
+                {carrito.productos.length < 1 ? "Carrito Vacío" : userOrders ? "Debes procesar tu orden pendiente" : "Confirmar pedido"}
             </button>
             <dialog id="modal" className="modal">
               <div className="modal-box">
@@ -245,7 +296,7 @@ export const PurchaseDetails = () => {
                     proceses el pago de tus productos
                   </p>
                 </div>
-                <p style={{ fontSize: "12px" }}>
+                <p style={{ fontSize: "12px" }} className="hidden">
                   ¡Estamos emocionados de anunciarte que pronto integraremos
                   <span className="text-info"> Mercado Pago </span> para hacer
                   todo este proceso mucho más sencillo para ti! ¡Mantente atento
@@ -257,7 +308,12 @@ export const PurchaseDetails = () => {
                     <button className="btn absolute top-2 right-2">
                       <IoMdClose className="text-red-600 text-lg" />
                     </button>
-                    <button className="btn btn-primary text-base-100">
+                    <button
+                      onClick={() => {
+                        handdleCrearOrden();
+                      }}
+                      className="btn btn-primary text-base-100"
+                    >
                       Confirmar
                     </button>
                   </form>

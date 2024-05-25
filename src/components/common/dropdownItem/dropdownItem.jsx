@@ -77,7 +77,7 @@ export const DropdownItem = ({ item }) => {
           <h1 className="bold text-sm">{product.nombre}</h1>
           <h2 className="text-sm">${formatPrice(product.precio)} c/u</h2>
         </div>
-        <div className="w-full flex items-center justify-between">
+        <div className="w-full flex items-center justify-between gap-4">
           <div className=" p-2 border flex items-center">
             <IoRemoveSharp
               onClick={() => {
@@ -93,7 +93,7 @@ export const DropdownItem = ({ item }) => {
               className="text-neutral cursor-pointer ml-6 mr-2"
             />
           </div>
-          <div className="flex flex-col gap-2 w-full items-center text-sm">
+          <div className="flex flex-col gap-2 w-full items-center justify-center text-sm">
             <Link
               to={`/vinoteca/detalles-vino/${item.id}`}
             >

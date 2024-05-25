@@ -12,12 +12,24 @@ export const verificarToken = async (token) => {
 export const iniciarSesion = async (data) =>
   await axios.post(`/iniciar-sesion`, data);
 
-
 //region CARRITO DE COMPRAS
 
-export const verificarCarrito = async (token) => await axios.post("/carrito", { token });
+export const verificarCarrito = async (token) =>
+  await axios.post("/carrito", { token });
 
-export const actualizarCarrito = async (token,productos) => await axios.put("/carrito",{ token, productos }) 
+export const actualizarCarrito = async (token, productos) =>
+  await axios.put("/carrito", { token, productos });
+
+export const vaciarCarrito = async (token) => {
+  try {
+    const res = await axios.delete("/carrito", { data: { token } });
+//  console.log("Carrito vaciado correctamente");
+    return res;
+  } catch (error) {
+    console.error("Error al vaciar el carrito:", error);
+  }
+};
+
 //region PRODOUCTOS
 
 export const getProducts = async () => await axios.get(`/products`);
@@ -181,4 +193,27 @@ export const postPublicacion = async (values) => {
 
 export const deletePublicacion = async (id) => {
   return await axios.delete(`/publicacion/${id}`);
+};
+
+//region ORDENES
+
+export const getOrdenes = async () => {
+  return await axios.get("/orden");
+};
+
+export const getOrdenesbyIdUser = async (value) => {
+  const requestData = value.id ? { id: value.id } : { token: value.token }; // Si se proporciona id, enviar solo id, de lo contrario, enviar solo token
+  return await axios.post("/ordenById", requestData);
+};
+
+export const createOrder = async (values) => {
+  return await axios.post("/orden", values);
+};
+
+export const deleteOrderByIdUser = async (token) => {
+  return await axios.delete("/orden", {
+    data: {
+      token: token
+    },
+  });
 };

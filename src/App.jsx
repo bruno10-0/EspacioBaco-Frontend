@@ -32,6 +32,7 @@ function App() {
           <Route path="/iniciar-sesion" element={<Login />} />
           <Route path="/crear-cuenta" element={<SignUp />} />
           <Route path="/detalles-compra" element={<PurchaseDetails />} />
+
           <Route element={<ProtectedRouteNormal />}>
             <Route element={<ProtectedRouteAdmin />}>
               <Route path="/super-administrador" element={<Admin />} />

@@ -34,13 +34,13 @@ export const SliderMobile2 = () => {
   return (
     <div className="my-6 w-full overflow-x-auto">
       {!cargando && productos ? (
-        <>
+        <div className="">
           <h1 style={{ letterSpacing: "2px" }} className="mb-4 px-6">
             Selección fresca de vinos mas recientes.
           </h1>
-          <div className="carousel p-6 gap-2 w-full">
+          <div className="carousel overflow-y-hidden p-6 gap-2 md:gap-5 w-full">
             {productos?.map((producto) => (
-              <div key={producto.id} className="carousel-item mx-auto">
+              <div key={producto.id} className="carousel-item">
                 <Card product={producto} />
               </div>
             ))}
@@ -55,7 +55,7 @@ export const SliderMobile2 = () => {
               Ver todos
             </Link>
           </div>
-        </>
+        </div>
       ) : (
         <div className="w-full flex justify-center items-center">
           <Loading3 loadingText="Buscando los ultimos productos..." />

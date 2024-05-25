@@ -12,24 +12,26 @@ export const UseVerifyAuthentication = ({ children }) => {
     setLoading,
     cerrarSesion,
     setCarrito,
+    getUserOrder,
   } = useContexto();
   const location = useLocation();
 
   useEffect(() => {
     async function verificarCarritoCompras() {
       const token = localStorage.getItem("nekot");
-      if(!token) return
+      if (!token) return;
       try {
         const decryptedToken = decryptToken(token);
         const res = await verificarCarrito(decryptedToken);
         setCarrito(res.data);
-        console.log("Carrito verificado correctamente");
+        //console.log("Carrito verificado correctamente");
       } catch (error) {
         console.log(error);
       }
     }
     if (user) {
       verificarCarritoCompras();
+      getUserOrder();
     }
   }, [user]);
 
@@ -48,7 +50,7 @@ export const UseVerifyAuthentication = ({ children }) => {
           if (res.status == 201) {
             setIsAuthenticated(true);
             setUser(res.data);
-            console.log("Token verificado correctamente");
+            //console.log("Token verificado correctamente");
           } else {
             cerrarSesion();
             console.log("Error al verificar token: Acceso no autorizado");

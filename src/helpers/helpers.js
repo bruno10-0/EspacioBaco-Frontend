@@ -27,13 +27,10 @@ export function obtenerObjetosMasRecientes(array) {
 }
 
 export function formatPrice(price) {
-  if (price < 1000) {
-    return price.toString();
-  } else if (price < 1000000) {
-    return (price / 1000).toFixed(1) + "K";
-  } else {
-    return (price / 1000000).toFixed(1) + "M";
+  if (typeof price !== "number" || isNaN(price)) {
+    return price;
   }
+  return price.toFixed(2);
 }
 
 export function calcularPorcentaje(valor) {

@@ -53,7 +53,7 @@ export const Card = ({ product }) => {
           </Link>
         </div>
         <div className="w-full flex absolute -top-2 gap-1">
-          {isNew(product.updatedAt) && (
+          {isNew(product.createdAt) && (
             <span className="indicator-item badge badge-secondary select-none">
               Nuevo
             </span>

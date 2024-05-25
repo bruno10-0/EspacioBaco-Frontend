@@ -11,10 +11,12 @@ import {
   IoReorderThreeOutline,
   IoSearchOutline,
   IoBagOutline,
+  IoReceiptOutline,
 } from "react-icons/io5";
 import { AiOutlineUser } from "react-icons/ai";
-import {formatPrice} from "../../../helpers/helpers.js"
+import { formatPrice } from "../../../helpers/helpers.js";
 import img from "../../../assets/Logo/EspacioBaco_negro.png";
+import { DetailsOrder } from "../detailsOrder/detailsOrder.jsx";
 export const NavBar = () => {
   const [primeraLetra, setPrimeraLetra] = useState();
   const [search, setSearch] = useState("");
@@ -27,6 +29,7 @@ export const NavBar = () => {
     cerrarSesion,
     loading,
     carrito,
+    userOrders,
   } = useContexto();
 
   const handleThemeChange = (newTheme) => {
@@ -67,7 +70,6 @@ export const NavBar = () => {
         product.tipo.toLowerCase().includes(search.toLowerCase())
     );
   }
-  console.log(carrito);
   return (
     <div className="fixed top-0 h-auto w-full z-40">
       <div className="w-full h-full bg-base-100">
@@ -123,7 +125,7 @@ export const NavBar = () => {
               <img src={img} alt="Logo" className="w-40 h-full my-2" />
             </div>
           </Link>
-          <div className="border-2 navbar-center md:mb-2 w-4/6 md:w-2/3 dropdown dropdown-end">
+          <div className="border-2 navbar-center md:mb-2 w-1/2 md:w-2/3 dropdown dropdown-end">
             <div className="flex justify-start items-center w-full px-5">
               <IoSearchOutline className="text-xl md:text-2xl mx-2 text-gray-500" />
               <input
@@ -182,7 +184,7 @@ export const NavBar = () => {
             </ul>
           </div>
 
-          <div className="navbar-end mr-2">
+          <div className="navbar-end m-2 md:gap-2">
             <div
               tabIndex={0}
               className="hidden btn-circle dropdown dropdown-end max-h-[calc(100vh-300px)]"
@@ -242,7 +244,7 @@ export const NavBar = () => {
               </div>
             </div>
 
-            <div className="-mx-2 md:mx-0 btn-circle dropdown dropdown-end z-20">
+            <div className=" -mx-2 md:mx-0 btn-circle md:bg-base-200 dropdown dropdown-end z-20">
               <div
                 tabIndex={0}
                 role="button"
@@ -252,7 +254,7 @@ export const NavBar = () => {
               </div>
               <ul
                 tabIndex={0}
-                className="flex flex-col items-center justify-center dropdown-content z-[1] menu shadow bg-base-100 rounded-box"
+                className="border border-base-300 md:top-14 flex flex-col items-center justify-center dropdown-content z-[1] menu shadow bg-base-100 rounded-box"
               >
                 {loading ? (
                   <div className="w-auto p-4 flex justify-center items-center gap-2">
@@ -318,7 +320,7 @@ export const NavBar = () => {
 
             <div
               tabIndex={0}
-              className="btn-circle dropdown dropdown-end max-h-[calc(100vh-300px)]"
+              className="btn-circle md:bg-base-200 dropdown dropdown-end max-h-[calc(100vh-300px)]"
             >
               <div
                 tabIndex={0}
@@ -335,7 +337,7 @@ export const NavBar = () => {
 
               <div
                 tabIndex={0}
-                className="relative rounded-badge dropdown-content h-auto max-h-[calc(100vh-90px)] w-72 md:w-96 overflow-hidden overflow-y-auto bg-base-100 flex flex-col gap-2 px-4 z-50"
+                className="border border-base-300 md:top-14 relative rounded-badge dropdown-content h-auto max-h-[calc(100vh-90px)] w-72 md:w-96 overflow-hidden overflow-y-auto bg-base-100 flex flex-col gap-2 px-4 z-50"
               >
                 <div className="sticky top-0 p-2 bg-base-100">
                   {loading ? (
@@ -402,7 +404,9 @@ export const NavBar = () => {
                                 </div>
                                 <div className="sticky bottom-2 bg-base-100 p-4  w-full h-auto  flex flex-col items-center">
                                   <div className="w-full h-auto my-2 flex justify-between text-xs">
-                                    <h2>Productos({carrito.cantidadProductos})</h2>
+                                    <h2>
+                                      Productos({carrito.cantidadProductos})
+                                    </h2>
                                     <h3>${formatPrice(carrito.total)}</h3>
                                   </div>
                                   {carrito.envioGratis && (
@@ -418,7 +422,9 @@ export const NavBar = () => {
                                     >
                                       Total
                                     </h1>
-                                    <h1 className="bold">${formatPrice(carrito.total)}</h1>
+                                    <h1 className="bold">
+                                      ${formatPrice(carrito.total)}
+                                    </h1>
                                   </div>
                                   <Link
                                     to="/detalles-compra"
@@ -437,6 +443,29 @@ export const NavBar = () => {
                 </div>
               </div>
             </div>
+            {userOrders && (
+              <div
+                tabIndex={0}
+                className="btn-circle dropdown md:bg-base-200 dropdown-end max-h-[calc(100vh-300px)]"
+              >
+                <div
+                  tabIndex={0}
+                  role="button"
+                  className="w-full h-full flex justify-center items-center cursor-pointer select-none"
+                >
+                  <div className="indicator">
+                    <IoReceiptOutline className="text-xl md:text-2xl" />
+                    <span className="badge badge-xs badge-error indicator-item"></span>
+                  </div>
+                  <div
+                    tabIndex={0}
+                    className="cursor-default border border-base-300 top-12 md:top-14 rounded-badge dropdown-content h-auto max-h-[calc(100vh-90px)] w-80 md:w-96 overflow-hidden overflow-y-auto bg-base-100 flex flex-col gap-2 z-50"
+                  >
+                    <DetailsOrder userOrders={userOrders} />
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
         </div>
 
@@ -446,7 +475,7 @@ export const NavBar = () => {
             className={`uppercase font-bold scale-105 p-5 hover:scale-110 transition-transform ${
               location.pathname === "/" ? "" : ""
             }`}
-            style={{ letterSpacing: "6px", fontSize:"10px" }}
+            style={{ letterSpacing: "6px", fontSize: "10px" }}
           >
             Inicio
           </Link>
@@ -455,7 +484,7 @@ export const NavBar = () => {
             className={`uppercase font-bold scale-105 p-5 hover:scale-110 transition-transform ${
               location.pathname === "/vinoteca" ? "" : ""
             }`}
-            style={{ letterSpacing: "6px", fontSize:"10px" }}
+            style={{ letterSpacing: "6px", fontSize: "10px" }}
           >
             Vinoteca
           </Link>
@@ -464,7 +493,7 @@ export const NavBar = () => {
             className={`uppercase font-bold scale-105 p-5 hover:scale-110 transition-transform ${
               location.pathname === "/nosotros" ? "" : ""
             }`}
-            style={{ letterSpacing: "6px", fontSize:"10px" }}
+            style={{ letterSpacing: "6px", fontSize: "10px" }}
           >
             Nosotros
           </Link>

@@ -1,7 +1,5 @@
 /* eslint-disable react/prop-types */
 import { createContext, useContext, useState, useEffect } from "react";
-import { dataDecrypt } from "../helpers/data-decrypt.js";
-import { dataEncrypt } from "../helpers/data-encrypt.js";
 import {
   getUsuarios,
   deleteUsuario,
@@ -14,11 +12,18 @@ import {
   deleteProducts,
   putProduct,
   actualizarCarrito,
+  getOrdenes,
+  createOrder,
+  vaciarCarrito,
+  getOrdenesbyIdUser,
+  deleteOrderByIdUser,
 } from "../api/auth.js";
 import { decryptToken } from "../helpers/token-decrypt.js";
 const createdContext = createContext();
 
 export const Context = ({ children }) => {
+  const [userOrders, setUserOrders] = useState();
+  const [orders, setOrders] = useState([]);
   const [error, setError] = useState(null);
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -36,7 +41,6 @@ export const Context = ({ children }) => {
     createdAt: null,
     updatedAt: null,
   });
-
   const [theme, setTheme] = useState(
     document.documentElement.setAttribute(
       "data-theme",
@@ -53,6 +57,7 @@ export const Context = ({ children }) => {
     localStorage.removeItem("nekot");
     setUser(null);
     setIsAuthenticated(false);
+    setUserOrders(null);
   };
 
   const actualizarListaUsuarios = async () => {
@@ -230,6 +235,12 @@ export const Context = ({ children }) => {
     }
   };
 
+  const actualizarOrdenUsuario = async () => {
+    setLoading(true);
+    await getUserOrder();
+    setLoading(false);
+  };
+
   const incrementarCantidadProducto = (productoId) => {
     // Clona el array de productos del carrito para no modificar el estado directamente
     const productosActualizados = [...carrito.productos];
@@ -250,15 +261,26 @@ export const Context = ({ children }) => {
     return productosActualizados;
   };
 
+  const VaciarCarritoDeCompras = async () => {
+    const token = localStorage.getItem("nekot");
+    if (!token) {
+      console.log("No se puede vaciar el carrito, no hay token de usuario.");
+      return;
+    }
+    const decryptedToken = decryptToken(token);
+    const res = await vaciarCarrito(decryptedToken);
+    return res;
+  };
+
   const decrementarCantidadProducto = (productoId) => {
     // Clona el array de productos del carrito para no modificar el estado directamente
     const productosActualizados = [...carrito.productos];
-  
+
     // Encuentra el índice del producto en el array basado en el ID
     const indiceProducto = productosActualizados.findIndex(
       (producto) => producto.id === productoId
     );
-  
+
     if (indiceProducto !== -1) {
       const producto = productosActualizados[indiceProducto];
       // Verifica si la cantidad actual es mayor que 1
@@ -267,7 +289,7 @@ export const Context = ({ children }) => {
         producto.cantidad -= 1;
       }
     }
-  
+
     return productosActualizados;
   };
 
@@ -277,6 +299,65 @@ export const Context = ({ children }) => {
     );
     return productosActualizados;
   };
+
+  const crearOrden = async (values) => {
+    try {
+      const res = await createOrder(values);
+      return res;
+    } catch (error) {
+      console.error("Error al crear la orden:" + error);
+    }
+  };
+
+  const getAllOrders = async () => {
+    try {
+      const res = await getOrdenes();
+      setOrders(res.data);
+    } catch (error) {
+      console.error("Error al cargar las ordenes:" + error);
+    }
+  };
+
+  const getUserOrder = async () => {
+    const token = localStorage.getItem("nekot");
+    if (!token) {
+      return console.error(
+        "No hay token de usuario, la operación no se puede completar."
+      );
+    }
+    const decyptedToken = decryptToken(token);
+    try {
+      const res = await getOrdenesbyIdUser({ token: decyptedToken });
+      setUserOrders(res.data);
+    } catch (error) {
+      console.error("Error al cargar la orden del usuario:" + error);
+    }
+  };
+
+  const deleteOrder = async () => {
+    const token = localStorage.getItem("nekot");
+    if (!token) {
+      return console.error(
+        "No hay token de usuario, la operación no se puede completar."
+      );
+    }
+    try {
+      const decyptedToken = decryptToken(token);
+      const res = await deleteOrderByIdUser({ token: decyptedToken });
+      actualizarListaProductos();
+      setUserOrders(null);
+    } catch (error) {
+      console.error("Error al eliminar la orden:" + error);
+    }
+  };
+  useEffect(() => {
+    getUserOrder();
+  }, []);
+
+  // Efecto para traer y cargar la orden del usuario :D
+  useEffect(() => {
+    getAllOrders();
+  }, []);
 
   useEffect(() => {
     actualizarListaPublicaciones();
@@ -299,7 +380,7 @@ export const Context = ({ children }) => {
     }
   }, []);
 
-  // Efecto para cargar usuarios y gestionar el estado de carga
+  // Efecto para cargar usuarios y gestionar el estado de cargando
   useEffect(() => {
     setLoading(true); // Activa el estado de carga
     const fetchUsuarios = async () => {
@@ -330,19 +411,25 @@ export const Context = ({ children }) => {
         DeleteProductoById,
         deleteUsuarioById,
         deleteMultipleUsuarios,
+        getAllOrders,
+        getUserOrder,
 
         createProduct,
         createUserForAdmin,
+        crearOrden,
 
         eliminarProducto,
         decrementarCantidadProducto,
         incrementarCantidadProducto,
+        actualizarOrdenUsuario,
         actualizarCarritoUsuario,
         actualizarListaPublicaciones,
         changeTheme,
         cerrarSesion,
         actualizarListaUsuarios,
         handleOrdenamientoChange,
+        VaciarCarritoDeCompras,
+        deleteOrder,
 
         setFlagPublicaciones,
         setPublicaciones,
@@ -352,7 +439,11 @@ export const Context = ({ children }) => {
         setUsers,
         setLoading,
         setCarrito,
+        setOrders,
+        setUserOrders,
 
+        userOrders,
+        orders,
         carrito,
         flagPublicaciones,
         publicaciones,

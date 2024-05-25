@@ -9,7 +9,7 @@ import { Link } from "react-router-dom";
 import "./detailProduct.css";
 
 export const DetailProduct = () => {
-  const { setCarrito, carrito, actualizarCarritoUsuario,user } = useContexto();
+  const { setCarrito, carrito, actualizarCarritoUsuario,user,products } = useContexto();
   const [product, setProduct] = useState([]);
   const [productQuantity, setProductQuantity] = useState(1);
   const [response, setResponse] = useState(true);
@@ -57,7 +57,7 @@ export const DetailProduct = () => {
       setItemFound(false);
     }
   };
-  //Busca el productos en base al id del req.params
+  //Busca el producto en base al id del req.params
   useEffect(() => {
     const fetchProduct = async () => {
       setLoading(true);
@@ -74,7 +74,7 @@ export const DetailProduct = () => {
       setLoading(false);
     };
     fetchProduct();
-  }, [id]);
+  }, [id,products]);
 
   useEffect(() => {
     handleIdSearch(id);
