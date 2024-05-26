@@ -16,7 +16,7 @@ export const User = () => {
   return (
     <div
       style={{ height: "calc(100vh - 110px)" }}
-      className="relative mt-16 md:mt-32 w-full h-screen flex items-center justify-center"
+      className="relative mt-20 md:mt-32 w-full h-screen flex items-center justify-center"
     >
       <div className="absolute top-0 bg-primary text-center text-base-100 w-full -mt-1 p-2 text-xs">
         Sección en desarrollo, próximamente te traeremos novedades que mejoren

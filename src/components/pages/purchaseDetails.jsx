@@ -26,7 +26,8 @@ export const PurchaseDetails = () => {
     VaciarCarritoDeCompras,
     setUserOrders,
     actualizarOrdenUsuario,
-    userOrders
+    userOrders,
+    handleWhatsAppMessage
   } = useContexto();
   const handdleAgregar = async (id) => {
     try {
@@ -75,13 +76,16 @@ export const PurchaseDetails = () => {
       setCarrito(resCarrito.data.carritoVacio);
 
       actualizarOrdenUsuario();
-
+      handleWhatsAppMessage();
       const timeout = setTimeout(() => {
         navigate("/");
       }, 1000);
       return () => clearTimeout(timeout);
     }
   };
+
+  
+
 
   useEffect(() => {
     if (mostrarAlertaExito) {

@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import { useContexto } from "../../../context/Context";
 import { IoIosInformationCircleOutline } from "react-icons/io";
 export const DetailsOrder = ({ userOrders }) => {
-  const { deleteOrder, setUserOrders } = useContexto();
+  const { deleteOrder, setUserOrders,handleWhatsAppMessage } = useContexto();
   const [tiempoRestante, setTiempoRestante] = useState(
     calcularTiempoRestante(userOrders.createdAt)
   );
@@ -210,7 +210,7 @@ export const DetailsOrder = ({ userOrders }) => {
             </div>
           </div>
         </dialog>
-        <button className="text-xs md:text-base btn bg-green-500 text-white hover:text-primary">
+        <button onClick={()=>{handleWhatsAppMessage()}} className="text-xs md:text-base btn bg-green-500 text-white hover:text-primary">
           <FaWhatsapp className="text-lg" />
           Contactarme
         </button>

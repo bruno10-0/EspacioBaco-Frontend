@@ -47,6 +47,11 @@ export const Context = ({ children }) => {
       localStorage.getItem("espacioBacoTheme") || "lofi"
     )
   );
+  const message = `Hola soy ${user && user.nombre ? user.nombre : ""} y quisiera pagar mi orden #${userOrders && userOrders.id ? userOrders.id : ""}. ¿Cómo puedo completar el pago?`;
+  const handleWhatsAppMessage  = () => {
+    const whatsappUrl = `https://wa.me/+5493764227439?text=${encodeURIComponent(message)}`;
+    window.open(whatsappUrl, '_blank');
+  };
 
   const changeTheme = (newTheme) => {
     setTheme(newTheme);
@@ -406,6 +411,7 @@ export const Context = ({ children }) => {
   return (
     <createdContext.Provider
       value={{
+        handleWhatsAppMessage,
         putProducto,
         deleteMultipleProductos,
         DeleteProductoById,

@@ -73,7 +73,7 @@ export const VinoTeca = () => {
             <label
               htmlFor="my-drawer"
               style={{ letterSpacing: "2px" }}
-              className="text-xs btn btn-accent text-base-100 uppercase drawer-button rounded-badge"
+              className="hidden text-xs btn btn-accent text-base-100 uppercase drawer-button rounded-badge"
             >
               Filtrar
             </label>
