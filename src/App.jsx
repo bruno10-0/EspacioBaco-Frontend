@@ -19,6 +19,7 @@ import {ProductCreate} from "./components/pages/productCreate"
 import {DetailsProduct} from "./components/pages/detailsProduct"
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { PurchaseDetails} from "./components/pages/purchaseDetails"
+import {DetailsOrders} from "./components/pages/detailsOrders"
 function App() {
   return (
     <div className="bg-base-200">
@@ -36,6 +37,7 @@ function App() {
           <Route element={<ProtectedRouteNormal />}>
             <Route element={<ProtectedRouteAdmin />}>
               <Route path="/super-administrador" element={<Admin />} />
+              <Route path="/super-administrador/ordenes" element={<DetailsOrders/>} />
               <Route path="/super-administrador/usuarios" element={<UsersSeeAndDelete />} />
               <Route path="/super-administrador/usuarios/crear" element={<UsersCreate/>} />
               <Route path="/super-administrador/usuarios/detalles/:id" element={<DetailsUser/>} />

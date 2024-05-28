@@ -17,6 +17,9 @@ import {
   vaciarCarrito,
   getOrdenesbyIdUser,
   deleteOrderByIdUser,
+  deleteOrderByClientId,
+  getAllSales,
+  postSales,
 } from "../api/auth.js";
 import { decryptToken } from "../helpers/token-decrypt.js";
 const createdContext = createContext();
@@ -32,6 +35,7 @@ export const Context = ({ children }) => {
   const [users, setUsers] = useState([]);
   const [publicaciones, setPublicaciones] = useState([]);
   const [flagPublicaciones, setFlagPublicaciones] = useState(false);
+  const [ventas, setVentas] = useState([]);
   const [carrito, setCarrito] = useState({
     id: null,
     usuarioId: null,
@@ -47,10 +51,16 @@ export const Context = ({ children }) => {
       localStorage.getItem("espacioBacoTheme") || "lofi"
     )
   );
-  const message = `Hola soy ${user && user.nombre ? user.nombre : ""} y quisiera pagar mi orden #${userOrders && userOrders.id ? userOrders.id : ""}. ¿Cómo puedo completar el pago?`;
-  const handleWhatsAppMessage  = () => {
-    const whatsappUrl = `https://wa.me/+5493764227439?text=${encodeURIComponent(message)}`;
-    window.open(whatsappUrl, '_blank');
+  const message = `Hola, soy ${
+    user && user.nombre ? user.nombre : ""
+  } y quisiera pagar mi orden #${
+    userOrders && userOrders.id ? userOrders.id : ""
+  }. ¿Cómo puedo completar el pago?`;
+  const handleWhatsAppMessage = () => {
+    const whatsappUrl = `https://wa.me/+5493764227439?text=${encodeURIComponent(
+      message
+    )}`;
+    window.open(whatsappUrl, "_blank");
   };
 
   const changeTheme = (newTheme) => {
@@ -335,31 +345,88 @@ export const Context = ({ children }) => {
       const res = await getOrdenesbyIdUser({ token: decyptedToken });
       setUserOrders(res.data);
     } catch (error) {
-      console.error("Error al cargar la orden del usuario:" + error);
+      if (error.response && error.response.status === 404) {
+        console.error("Error 404: Recurso no encontrado");
+        setUserOrders(null);
+      } else {
+        console.error("Error al cargar la orden del usuario:" + error);
+      }
     }
   };
 
   const deleteOrder = async () => {
     const token = localStorage.getItem("nekot");
     if (!token) {
+      setLoading(false);
       return console.error(
         "No hay token de usuario, la operación no se puede completar."
       );
     }
+    setLoading(true);
     try {
       const decyptedToken = decryptToken(token);
-      const res = await deleteOrderByIdUser({ token: decyptedToken });
-      actualizarListaProductos();
+      await deleteOrderByIdUser({ token: decyptedToken });
+      await actualizarListaProductos();
       setUserOrders(null);
     } catch (error) {
       console.error("Error al eliminar la orden:" + error);
     }
+    setLoading(false);
   };
+
+  const deleteOrderUser = async (id) => {
+    if (!id) {
+      return console.error(
+        "No se puede completar la operación, no se recibio el id de un usuario en la operación."
+      );
+    }
+    setLoading(true);
+    try {
+      await deleteOrderByClientId(id);
+      await actualizarListaProductos();
+      await getAllOrders();
+      await getUserOrder();
+    } catch (error) {
+      console.error(
+        "Error al intentar eliminar la orden de el usuario: " + error
+      );
+    }
+    setLoading(false);
+  };
+
+  const getAllVentas = async () => {
+    try {
+      const res = await getAllSales();
+      setVentas(res.data);
+    } catch (error) {
+      console.error("Ocurrió un error al consultas las ventas.");
+    }
+  };
+
+  const crearRegistroVenta = async (values) => {
+    setLoading(true);
+    try {
+      await postSales(values);
+      await getAllVentas();
+      await getAllOrders();
+      await getUserOrder();
+    } catch (error) {
+      console.error("Ocurrió un error al crear una de las ventas.");
+    }
+    setLoading(false);
+  };
+
+  // Efecto para cargar las ventas.
+  useEffect(() => {
+    getAllVentas();
+  }, []);
+
+  // Efecto para cargar las ordenes de todos los clientes.
   useEffect(() => {
     getUserOrder();
   }, []);
 
-  // Efecto para traer y cargar la orden del usuario :D
+  // Efecto para traer y cargar la orden del usuario.
   useEffect(() => {
     getAllOrders();
   }, []);
@@ -419,10 +486,13 @@ export const Context = ({ children }) => {
         deleteMultipleUsuarios,
         getAllOrders,
         getUserOrder,
+        deleteOrderUser,
 
         createProduct,
         createUserForAdmin,
         crearOrden,
+        getAllVentas,
+        crearRegistroVenta,
 
         eliminarProducto,
         decrementarCantidadProducto,
@@ -447,7 +517,9 @@ export const Context = ({ children }) => {
         setCarrito,
         setOrders,
         setUserOrders,
+        setVentas,
 
+        ventas,
         userOrders,
         orders,
         carrito,

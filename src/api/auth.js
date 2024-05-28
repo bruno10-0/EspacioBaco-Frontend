@@ -23,7 +23,7 @@ export const actualizarCarrito = async (token, productos) =>
 export const vaciarCarrito = async (token) => {
   try {
     const res = await axios.delete("/carrito", { data: { token } });
-//  console.log("Carrito vaciado correctamente");
+    //  console.log("Carrito vaciado correctamente");
     return res;
   } catch (error) {
     console.error("Error al vaciar el carrito:", error);
@@ -211,9 +211,27 @@ export const createOrder = async (values) => {
 };
 
 export const deleteOrderByIdUser = async (token) => {
-  return await axios.delete("/orden", {
+  return await axios.delete("/ordenUser", {
     data: {
-      token: token
+      token: token,
     },
   });
+};
+
+export const deleteOrderByClientId = async (id) => {
+  return await axios.delete("/ordenClient", {
+    data: {
+      id,
+    },
+  });
+};
+
+//region VENTAS
+
+export const getAllSales = async (id) => {
+  return axios.get("/sales");
+};
+
+export const postSales = async (values) => {
+  return axios.post("/sales", values);
 };

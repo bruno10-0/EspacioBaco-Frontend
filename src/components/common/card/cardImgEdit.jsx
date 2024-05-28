@@ -106,13 +106,15 @@ export const CardImgEdit = ({ values, vacia }) => {
           </div>
 
           <dialog id="my_modal_1" className="z-10 modal shadow-2xl">
-            <form  className="modal-box">
+            <form className="modal-box">
               <form
                 onSubmit={handleSubmit}
                 className="w-full h-full justify-center items-centerflex flex-col gap-2"
               >
-                <h1 className="font-bold text-lg mb-2">Cargar Imagen</h1>
-                <h2>Titulo</h2>
+                <h1 className="w-full text-start font-bold block text-lg m-4">
+                  Cargar Imagen
+                </h1>
+                <h2 className="w-full font-normal text-start mt-6">Titulo</h2>
                 <input
                   onChange={(e) => setTitulo(e.target.value)}
                   value={titulo}
@@ -120,20 +122,31 @@ export const CardImgEdit = ({ values, vacia }) => {
                   placeholder="Ingrese el titulo"
                   className="w-full my-2 p-2"
                 />
-                <h2>Imagen para Mobiles</h2>
+                <h2 className="w-full font-normal text-start mt-6">
+                  Imagen para celulares
+                </h2>
                 <input
                   onChange={(e) => setImagen1(e.target.files[0])}
                   type="file"
                   className="file-input file-input-bordered my-2 w-full"
                 />
-                <h2>Imagen para Escritorio</h2>
+                <h2 className="w-full font-normal text-start mt-6">
+                  Imagen para PC
+                </h2>
                 <input
                   onChange={(e) => setImagen2(e.target.files[0])}
                   type="file"
                   className="file-input file-input-bordered my-2 w-full"
                 />
+                <h4 className="w-full text-start mt-4 text-xs font-normal">
+                  Nota: Asegúrate de cargar imágenes en los campos correctos
+                  para mantener la calidad visual de tus publicaciones.
+                </h4>
                 {!error && (
-                  <button type="submit" className="btn bg-success w-1/4">
+                  <button
+                    type="submit"
+                    className="w-full btn bg-success mt-6 uppercase text-white"
+                  >
                     Subir
                   </button>
                 )}
@@ -154,7 +167,7 @@ export const CardImgEdit = ({ values, vacia }) => {
                   </form>
                 </div>
               </form>
-            </form >
+            </form>
           </dialog>
         </div>
       )}

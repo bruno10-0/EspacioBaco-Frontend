@@ -1,7 +1,6 @@
 import { CardSmall } from "../card/cardSmall";
 import { CardAdministration } from "../card/cardAdministration";
-import { FaUsers, FaWineBottle } from "react-icons/fa6";
-import { GiWineBottle } from "react-icons/gi";
+import { FaUsers } from "react-icons/fa6";
 import { BiCarousel } from "react-icons/bi";
 import { useContexto } from "../../../context/Context";
 import { Link } from "react-router-dom";
@@ -9,11 +8,27 @@ import { useEffect, useState } from "react";
 import { getProducts, getUsuarios } from "../../../api/auth";
 import { decryptToken } from "../../../helpers/token-decrypt";
 import { Loading2 } from "../loading/loading2";
+import { IoReceiptOutline } from "react-icons/io5";
+import { CiBoxes } from "react-icons/ci";
+import { CiDollar } from "react-icons/ci";
+
 export const OptionsAdmin = () => {
   // Obtiene datos del contexto
-  const { user, users, setUsers, products, setProducts } = useContexto();
+  const {
+    user,
+    users,
+    setUsers,
+    products,
+    setProducts,
+    getAllOrders,
+    orders,
+    getAllVentas,
+    ventas,
+  } = useContexto();
   const [userCopy, setUserCopy] = useState([]);
   const [loading, setLoading] = useState(false);
+  const message = "Hola Bruno, quiero consultarte con respecto a <MI_MOTIVO>";
+
   // Efecto para cargar productos al montar el componente
   useEffect(() => {
     const fetchProducts = async () => {
@@ -50,6 +65,21 @@ export const OptionsAdmin = () => {
     fetchUsuarios();
   }, []);
 
+
+  //Efecto para cargar todas las ordenes de los usuarios 
+  useEffect(() => {
+    setLoading(true); // Activa el estado de carga
+    getAllOrders();
+    setLoading(false); // Desactiva el estado de carga
+  }, []);
+
+  //Efecto para cargar todas las ventas 
+  useEffect(() => {
+    setLoading(true); // Activa el estado de carga
+    getAllVentas();
+    setLoading(false); // Desactiva el estado de carga
+  }, []);
+
   //cargamos el estado que replica la lista de usuarios
   useEffect(() => {
     setUserCopy(users);
@@ -77,16 +107,34 @@ export const OptionsAdmin = () => {
             <CardSmall
               color="bg-accent"
               icono={<FaUsers />}
-              titulo={userCopy.length || "..."}
+              titulo={userCopy.length || "No hay"}
               subTitulo="Usuarios registrados"
             />
           </div>
           <div className="carousel-item">
             <CardSmall
               color="bg-accent"
-              icono={<FaWineBottle />}
-              titulo={products.length || "..."}
-              subTitulo="Vinos almacenados"
+              icono={<CiBoxes />}
+              titulo={products.length || "No hay"}
+              subTitulo="Publicaciones de vinos"
+            />
+          </div>
+          <div className="carousel-item">
+            <CardSmall
+              color="bg-accent"
+              icono={<IoReceiptOutline />}
+              titulo={
+                (orders && orders.orders && orders.orders.length) || "No hay"
+              }
+              subTitulo="Ordenes Activas"
+            />
+          </div>
+          <div className="carousel-item">
+            <CardSmall
+              color="bg-accent"
+              icono={<CiDollar />}
+              titulo={(ventas && ventas.length) || "No hay"}
+              subTitulo="Ventas realizadas"
             />
           </div>
         </div>
@@ -99,18 +147,18 @@ export const OptionsAdmin = () => {
           Operaciones con
         </div>
         <div className="grid md:grid-cols-3">
-          <Link to="/super-administrador/usuarios" className="col-span-1">
+          <Link to="/super-administrador/ordenes" className="col-span-1">
             <CardAdministration
-              descripcion="Crea, Elimina, Edita, Visualiza"
-              titulo="Usuarios"
-              icono={<FaUsers />}
+              descripcion="Visualiza las ordenes de los clientes"
+              titulo="Ordenes y detalles"
+              icono={<IoReceiptOutline />}
             />
           </Link>
           <Link to="/super-administrador/productos" className="col-span-1">
             <CardAdministration
               descripcion="Crea, Elimina, Edita, Visualiza"
               titulo="Vinos"
-              icono={<GiWineBottle />}
+              icono={<CiBoxes />}
             />
           </Link>
           <Link to="/super-administrador/slider" className="col-span-1">
@@ -120,13 +168,33 @@ export const OptionsAdmin = () => {
               icono={<BiCarousel />}
             />
           </Link>
+          <Link to="/super-administrador/usuarios" className="col-span-1">
+            <CardAdministration
+              descripcion="Crea, Elimina, Edita, Visualiza"
+              titulo="Usuarios"
+              icono={<FaUsers />}
+            />
+          </Link>
+          <Link to="/super-administrador/usuarios" className="col-span-1">
+            <CardAdministration
+              descripcion="Visualiza tus ventas"
+              titulo="Ventas"
+              icono={<CiDollar />}
+            />
+          </Link>
         </div>
       </div>
 
       {/* Sección de contacto con el desarrollador */}
       <div className="p-2 w-full bg-primary text-base-100 text-center text-sm">
         ¿{user.nombre} necesitas ayuda? Contacta con tu{" "}
-        <a href="https://wa.me/5493765159179" target="_blank" className="link">
+        <a
+          href={`https://wa.me/5493765159179?text=${encodeURIComponent(
+            message
+          )}`}
+          target="_blank"
+          className="link"
+        >
           desarrollador
         </a>
         .
