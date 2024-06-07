@@ -201,6 +201,10 @@ export const getOrdenes = async () => {
   return await axios.get("/orden");
 };
 
+export const getOrdenesbyId = async (id) => {
+  return await axios.get(`/orden/${id}`);
+};
+
 export const getOrdenesbyIdUser = async (value) => {
   const requestData = value.id ? { id: value.id } : { token: value.token }; // Si se proporciona id, enviar solo id, de lo contrario, enviar solo token
   return await axios.post("/ordenById", requestData);

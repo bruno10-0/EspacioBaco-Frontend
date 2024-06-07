@@ -10,6 +10,7 @@ export default {
           "MADECARVINGPersonalUse-SemiBold",
           "sans-serif",
         ],
+        raleway: ['Raleway', 'sans-serif'],
       },
     },
   },

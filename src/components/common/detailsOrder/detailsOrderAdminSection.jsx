@@ -2,6 +2,8 @@ import { IoSearchOutline } from "react-icons/io5";
 import { useState, useEffect } from "react";
 import { useContexto } from "../../../context/Context";
 import { Loading2 } from "../loading/loading2";
+import { Link } from "react-router-dom";
+
 export const DetailsOrderAdminSection = () => {
   const [searchText, setSearchText] = useState("");
   const { orders, getAllOrders, deleteOrderUser, crearRegistroVenta } =
@@ -205,7 +207,9 @@ export const DetailsOrderAdminSection = () => {
                       </div>
                     </dialog>
                   </td>
-                  <td className="link">Más info</td>
+                  <td>
+                  <Link className="link" to={"/super-administrador/ordenes/detalles/"+orden.id}>Más info</Link>
+                  </td>
                 </tr>
               ))
             ) : (

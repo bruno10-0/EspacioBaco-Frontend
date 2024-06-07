@@ -20,6 +20,7 @@ import {DetailsProduct} from "./components/pages/detailsProduct"
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { PurchaseDetails} from "./components/pages/purchaseDetails"
 import {DetailsOrders} from "./components/pages/detailsOrders"
+import {DetailsEspecificOrder} from "./components/pages/detailsEspecificOrder"
 function App() {
   return (
     <div className="bg-base-200">
@@ -38,6 +39,7 @@ function App() {
             <Route element={<ProtectedRouteAdmin />}>
               <Route path="/super-administrador" element={<Admin />} />
               <Route path="/super-administrador/ordenes" element={<DetailsOrders/>} />
+              <Route path="/super-administrador/ordenes/detalles/:id" element={<DetailsEspecificOrder/>} />
               <Route path="/super-administrador/usuarios" element={<UsersSeeAndDelete />} />
               <Route path="/super-administrador/usuarios/crear" element={<UsersCreate/>} />
               <Route path="/super-administrador/usuarios/detalles/:id" element={<DetailsUser/>} />
