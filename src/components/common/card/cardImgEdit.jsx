@@ -32,10 +32,9 @@ export const CardImgEdit = ({ values, vacia }) => {
     formData.append("imagen2", imagen2);
 
     const closeButton = document.getElementById("closeButton");
-
+    closeButton.click();
     try {
       setLoading(true);
-      closeButton.click();
       await postPublicacion(formData);
       setFlagPublicaciones(!flagPublicaciones);
     } catch (error) {
@@ -43,14 +42,6 @@ export const CardImgEdit = ({ values, vacia }) => {
     }
     setLoading(false);
   };
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setError();
-    }, 1500);
-
-    return () => clearTimeout(timer);
-  }, [error]);
 
   const handleDeletePublicacion = async (id) => {
     setLoading(true);
@@ -62,6 +53,14 @@ export const CardImgEdit = ({ values, vacia }) => {
     }
     setLoading(false);
   };
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setError();
+    }, 1500);
+
+    return () => clearTimeout(timer);
+  }, [error]);
   return (
     <div className="shadow-2xl carousel-item w-full md:col-span-1">
       {loading && <Loading2 />}
@@ -106,7 +105,7 @@ export const CardImgEdit = ({ values, vacia }) => {
           </div>
 
           <dialog id="my_modal_1" className="z-10 modal shadow-2xl">
-            <form className="modal-box">
+            <div className="modal-box">
               <form
                 onSubmit={handleSubmit}
                 className="w-full h-full justify-center items-centerflex flex-col gap-2"
@@ -155,19 +154,18 @@ export const CardImgEdit = ({ values, vacia }) => {
                     {error}
                   </p>
                 )}
-
-                <div className="absolute top-0 right-6 modal-action">
-                  <form method="dialog">
-                    <button
-                      id="closeButton"
-                      className="btn btn-error btn-circle text-base-100"
-                    >
-                      <IoClose />
-                    </button>
-                  </form>
-                </div>
               </form>
-            </form>
+              <div className="absolute top-0 right-6 modal-action">
+                <form method="dialog">
+                  <button
+                    id="closeButton"
+                    className="btn btn-error btn-circle text-base-100"
+                  >
+                    <IoClose />
+                  </button>
+                </form>
+              </div>
+            </div>
           </dialog>
         </div>
       )}
