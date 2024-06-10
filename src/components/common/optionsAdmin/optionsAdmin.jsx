@@ -175,13 +175,6 @@ export const OptionsAdmin = () => {
               icono={<FaUsers />}
             />
           </Link>
-          <Link to="/super-administrador/usuarios" className="col-span-1">
-            <CardAdministration
-              descripcion="Visualiza tus ventas"
-              titulo="Ventas"
-              icono={<CiDollar />}
-            />
-          </Link>
         </div>
       </div>
 
