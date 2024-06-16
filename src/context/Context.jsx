@@ -25,6 +25,7 @@ import { decryptToken } from "../helpers/token-decrypt.js";
 const createdContext = createContext();
 
 export const Context = ({ children }) => {
+//region Estados
   const [userOrders, setUserOrders] = useState();
   const [orders, setOrders] = useState([]);
   const [error, setError] = useState(null);
@@ -34,6 +35,7 @@ export const Context = ({ children }) => {
   const [user, setUser] = useState(null);
   const [users, setUsers] = useState([]);
   const [publicaciones, setPublicaciones] = useState([]);
+  //este estado sirve para que cuando cambie su valor se actualice la lista de publicaciones(sinceramente no se por que lo cree) luego se debe actualizar esta logica.
   const [flagPublicaciones, setFlagPublicaciones] = useState(false);
   const [ventas, setVentas] = useState([]);
   const [carrito, setCarrito] = useState({
@@ -51,6 +53,8 @@ export const Context = ({ children }) => {
       localStorage.getItem("espacioBacoTheme") || "lofi"
     )
   );
+
+  //El mensaje predeterminado que se cargara en el chat entre el cliente y el vendedor.
   const message = `Hola, soy ${
     user && user.nombre ? user.nombre : ""
   } y quisiera pagar mi orden #${
@@ -62,6 +66,8 @@ export const Context = ({ children }) => {
     )}`;
     window.open(whatsappUrl, "_blank");
   };
+
+  //region Funcionalidades
 
   const changeTheme = (newTheme) => {
     setTheme(newTheme);
@@ -75,6 +81,64 @@ export const Context = ({ children }) => {
     setUserOrders(null);
   };
 
+  const handleOrdenamientoChange = (value, setOrder) => {
+    setOrder(value);
+  };
+
+  const incrementarCantidadProducto = (productoId) => {
+    // Clona el array de productos del carrito para no modificar el estado directamente
+    const productosActualizados = [...carrito.productos];
+
+    // Encuentra el índice del producto en el array basado en el ID
+    const indiceProducto = productosActualizados.findIndex(
+      (producto) => producto.id === productoId
+    );
+
+    if (indiceProducto !== -1) {
+      const producto = productosActualizados[indiceProducto];
+      // Verifica si la cantidad actual es menor que el stock
+      if (producto.cantidad < producto.stock) {
+        // Incrementa la cantidad del producto en 1
+        producto.cantidad += 1;
+      }
+    }
+    return productosActualizados;
+  };
+
+  const decrementarCantidadProducto = (productoId) => {
+    // Clona el array de productos del carrito para no modificar el estado directamente
+    const productosActualizados = [...carrito.productos];
+
+    // Encuentra el índice del producto en el array basado en el ID
+    const indiceProducto = productosActualizados.findIndex(
+      (producto) => producto.id === productoId
+    );
+
+    if (indiceProducto !== -1) {
+      const producto = productosActualizados[indiceProducto];
+      // Verifica si la cantidad actual es mayor que 1
+      if (producto.cantidad > 1) {
+        // Disminuye la cantidad del producto en 1
+        producto.cantidad -= 1;
+      }
+    }
+
+    return productosActualizados;
+  };
+
+  const VaciarCarritoDeCompras = async () => {
+    const token = localStorage.getItem("nekot");
+    if (!token) {
+      console.log("No se puede vaciar el carrito, no hay token de usuario.");
+      return;
+    }
+    const decryptedToken = decryptToken(token);
+    const res = await vaciarCarrito(decryptedToken);
+    return res;
+  };
+
+  //region Actualizar
+
   const actualizarListaUsuarios = async () => {
     try {
       const token = localStorage.getItem("nekot");
@@ -86,63 +150,8 @@ export const Context = ({ children }) => {
       const res = await getUsuarios(decryptedToken);
       setUsers(res.data);
     } catch (error) {
+      setUsers([]);
       console.error("Error al actualizar la lista de usuarios:", error);
-    }
-  };
-
-  const handleOrdenamientoChange = (value, setOrder) => {
-    setOrder(value);
-  };
-
-  const deleteUsuarioById = async (id) => {
-    setLoading(true);
-    const token = localStorage.getItem("nekot");
-    if (!token) {
-      return console.error("No hay token, no se puede realizar la operación.");
-    } else {
-      try {
-        const decryptedToken = decryptToken(token);
-        await deleteUsuario(decryptedToken, id);
-      } catch (error) {
-        console.error(error);
-      } finally {
-        actualizarListaUsuarios(); // Actualizar la lista de usuarios después de eliminar
-        setLoading(false);
-      }
-    }
-  };
-
-  const deleteMultipleUsuarios = async (ids) => {
-    setLoading(true);
-    const token = localStorage.getItem("nekot");
-    if (!token) {
-      return console.error("No hay token, no se puede realizar la operación.");
-    } else {
-      try {
-        const decryptedToken = decryptToken(token);
-        await deleteUsuarios(ids, decryptedToken);
-      } catch (error) {
-        console.error(error);
-      } finally {
-        actualizarListaUsuarios();
-        setLoading(false);
-      }
-    }
-  };
-
-  const createUserForAdmin = async (data) => {
-    const token = localStorage.getItem("nekot");
-    if (!token) {
-      return console.error("No hoy token, no se puede realizar esta operación");
-    } else {
-      try {
-        const decryptedToken = decryptToken(token);
-        const res = await crearUsuarioPorAdmin(data, decryptedToken);
-        return res;
-      } catch (error) {
-        setError(error);
-        return console.error("Error al itentar crear un usuario: ", error);
-      }
     }
   };
 
@@ -156,81 +165,13 @@ export const Context = ({ children }) => {
     }
   };
 
-  const createProduct = async (data) => {
-    const token = localStorage.getItem("nekot");
-    if (!token) {
-      throw new Error("No hay token, no se puede realizar esta operación");
-    }
-    try {
-      const decryptedToken = decryptToken(token);
-      const res = await postProduct(decryptedToken, data);
-      return res;
-    } catch (error) {
-      setError(error.message);
-      throw new Error(`Error al intentar crear un producto: ${error.message}`);
-    }
-  };
-
   const actualizarListaProductos = async () => {
     try {
       const res = await getProducts();
       setProducts(res.data);
     } catch (error) {
+      setProducts([]);
       console.error(error);
-    }
-  };
-
-  const deleteMultipleProductos = async (ids) => {
-    setLoading(true);
-    const token = localStorage.getItem("nekot");
-    if (!token) {
-      return console.error("No hay token, no se puede realizar la operación.");
-    } else {
-      try {
-        const decryptedToken = decryptToken(token);
-        await deleteProducts(decryptedToken, ids);
-      } catch (error) {
-        console.error(error);
-      } finally {
-        actualizarListaUsuarios();
-        setLoading(false);
-      }
-    }
-  };
-
-  const DeleteProductoById = async (id) => {
-    setLoading(true);
-    const token = localStorage.getItem("nekot");
-    if (!token) {
-      return console.error("No hoy token, no se puede realizar esta operación");
-    } else {
-      try {
-        const decryptedToken = decryptToken(token);
-        await deleteProductById(decryptedToken, id);
-      } catch (error) {
-        console.log(error);
-      } finally {
-        actualizarListaProductos();
-        setLoading(false);
-      }
-    }
-  };
-
-  const putProducto = async (data, id) => {
-    setLoading(true);
-    const token = localStorage.getItem("nekot");
-    if (!token) {
-      return console.error("No hoy token, no se puede realizar esta operación");
-    } else {
-      try {
-        const decryptedToken = decryptToken(token);
-        await putProduct(decryptedToken, data, id);
-      } catch (error) {
-        console.error(error);
-      } finally {
-        actualizarListaProductos();
-        setLoading(false);
-      }
     }
   };
 
@@ -257,103 +198,7 @@ export const Context = ({ children }) => {
     setLoading(false);
   };
 
-  const incrementarCantidadProducto = (productoId) => {
-    // Clona el array de productos del carrito para no modificar el estado directamente
-    const productosActualizados = [...carrito.productos];
-
-    // Encuentra el índice del producto en el array basado en el ID
-    const indiceProducto = productosActualizados.findIndex(
-      (producto) => producto.id === productoId
-    );
-
-    if (indiceProducto !== -1) {
-      const producto = productosActualizados[indiceProducto];
-      // Verifica si la cantidad actual es menor que el stock
-      if (producto.cantidad < producto.stock) {
-        // Incrementa la cantidad del producto en 1
-        producto.cantidad += 1;
-      }
-    }
-    return productosActualizados;
-  };
-
-  const VaciarCarritoDeCompras = async () => {
-    const token = localStorage.getItem("nekot");
-    if (!token) {
-      console.log("No se puede vaciar el carrito, no hay token de usuario.");
-      return;
-    }
-    const decryptedToken = decryptToken(token);
-    const res = await vaciarCarrito(decryptedToken);
-    return res;
-  };
-
-  const decrementarCantidadProducto = (productoId) => {
-    // Clona el array de productos del carrito para no modificar el estado directamente
-    const productosActualizados = [...carrito.productos];
-
-    // Encuentra el índice del producto en el array basado en el ID
-    const indiceProducto = productosActualizados.findIndex(
-      (producto) => producto.id === productoId
-    );
-
-    if (indiceProducto !== -1) {
-      const producto = productosActualizados[indiceProducto];
-      // Verifica si la cantidad actual es mayor que 1
-      if (producto.cantidad > 1) {
-        // Disminuye la cantidad del producto en 1
-        producto.cantidad -= 1;
-      }
-    }
-
-    return productosActualizados;
-  };
-
-  const eliminarProducto = (productoId) => {
-    const productosActualizados = carrito.productos.filter(
-      (producto) => producto.id !== productoId
-    );
-    return productosActualizados;
-  };
-
-  const crearOrden = async (values) => {
-    try {
-      const res = await createOrder(values);
-      return res;
-    } catch (error) {
-      console.error("Error al crear la orden:" + error);
-    }
-  };
-
-  const getAllOrders = async () => {
-    try {
-      const res = await getOrdenes();
-      setOrders(res.data);
-    } catch (error) {
-      console.error("Error al cargar las ordenes:" + error);
-    }
-  };
-
-  const getUserOrder = async () => {
-    const token = localStorage.getItem("nekot");
-    if (!token) {
-      return console.error(
-        "No hay token de usuario, la operación no se puede completar."
-      );
-    }
-    const decyptedToken = decryptToken(token);
-    try {
-      const res = await getOrdenesbyIdUser({ token: decyptedToken });
-      setUserOrders(res.data);
-    } catch (error) {
-      if (error.response && error.response.status === 404) {
-        console.error("Error 404: Recurso no encontrado");
-        setUserOrders(null);
-      } else {
-        console.error("Error al cargar la orden del usuario:" + error);
-      }
-    }
-  };
+  //region Borrar(delete)
 
   const deleteOrder = async () => {
     const token = localStorage.getItem("nekot");
@@ -395,12 +240,124 @@ export const Context = ({ children }) => {
     setLoading(false);
   };
 
-  const getAllVentas = async () => {
+  const deleteUsuarioById = async (id) => {
+    setLoading(true);
+    const token = localStorage.getItem("nekot");
+    if (!token) {
+      return console.error("No hay token, no se puede realizar la operación.");
+    } else {
+      try {
+        const decryptedToken = decryptToken(token);
+        await deleteUsuario(decryptedToken, id);
+      } catch (error) {
+        console.error(error);
+      } finally {
+        actualizarListaUsuarios(); // Actualizar la lista de usuarios después de eliminar
+        setLoading(false);
+      }
+    }
+  };
+
+  const deleteMultipleUsuarios = async (ids) => {
+    setLoading(true);
+    const token = localStorage.getItem("nekot");
+    if (!token) {
+      return console.error("No hay token, no se puede realizar la operación.");
+    } else {
+      try {
+        const decryptedToken = decryptToken(token);
+        await deleteUsuarios(ids, decryptedToken);
+      } catch (error) {
+        console.error(error);
+      } finally {
+        actualizarListaUsuarios();
+        setLoading(false);
+      }
+    }
+  };
+
+  const deleteMultipleProductos = async (ids) => {
+    setLoading(true);
+    const token = localStorage.getItem("nekot");
+    if (!token) {
+      return console.error("No hay token, no se puede realizar la operación.");
+    } else {
+      try {
+        const decryptedToken = decryptToken(token);
+        await deleteProducts(decryptedToken, ids);
+      } catch (error) {
+        console.error(error);
+      } finally {
+        actualizarListaUsuarios();
+        setLoading(false);
+      }
+    }
+  };
+
+  const DeleteProductoById = async (id) => {
+    setLoading(true);
+    const token = localStorage.getItem("nekot");
+    if (!token) {
+      return console.error("No hoy token, no se puede realizar esta operación");
+    } else {
+      try {
+        const decryptedToken = decryptToken(token);
+        await deleteProductById(decryptedToken, id);
+      } catch (error) {
+        console.log(error);
+      } finally {
+        actualizarListaProductos();
+        setLoading(false);
+      }
+    }
+  };
+
+  const eliminarProducto = (productoId) => {
+    const productosActualizados = carrito.productos.filter(
+      (producto) => producto.id !== productoId
+    );
+    return productosActualizados;
+  };
+
+  //region Crear
+  
+  const createUserForAdmin = async (data) => {
+    const token = localStorage.getItem("nekot");
+    if (!token) {
+      return console.error("No hoy token, no se puede realizar esta operación");
+    } else {
+      try {
+        const decryptedToken = decryptToken(token);
+        const res = await crearUsuarioPorAdmin(data, decryptedToken);
+        return res;
+      } catch (error) {
+        setError(error);
+        return console.error("Error al itentar crear un usuario: ", error);
+      }
+    }
+  };
+
+  const createProduct = async (data) => {
+    const token = localStorage.getItem("nekot");
+    if (!token) {
+      throw new Error("No hay token, no se puede realizar esta operación");
+    }
     try {
-      const res = await getAllSales();
-      setVentas(res.data);
+      const decryptedToken = decryptToken(token);
+      const res = await postProduct(decryptedToken, data);
+      return res;
     } catch (error) {
-      console.error("Ocurrió un error al consultas las ventas.");
+      setError(error.message);
+      throw new Error(`Error al intentar crear un producto: ${error.message}`);
+    }
+  };
+
+  const crearOrden = async (values) => {
+    try {
+      const res = await createOrder(values);
+      return res;
+    } catch (error) {
+      console.error("Error al crear la orden:" + error);
     }
   };
 
@@ -416,6 +373,67 @@ export const Context = ({ children }) => {
     }
     setLoading(false);
   };
+
+  const putProducto = async (data, id) => {
+    setLoading(true);
+    const token = localStorage.getItem("nekot");
+    if (!token) {
+      return console.error("No hoy token, no se puede realizar esta operación");
+    } else {
+      try {
+        const decryptedToken = decryptToken(token);
+        await putProduct(decryptedToken, data, id);
+      } catch (error) {
+        console.error(error);
+      } finally {
+        actualizarListaProductos();
+        setLoading(false);
+      }
+    }
+  };
+
+  //region Traer todo(getAll)
+
+  const getAllOrders = async () => {
+    try {
+      const res = await getOrdenes();
+      setOrders(res.data);
+    } catch (error) {
+      console.error("Error al cargar las ordenes:" + error);
+    }
+  };
+
+  const getUserOrder = async () => {
+    const token = localStorage.getItem("nekot");
+    if (!token) {
+      return console.error(
+        "No hay token de usuario, la operación no se puede completar."
+      );
+    }
+    const decyptedToken = decryptToken(token);
+    try {
+      const res = await getOrdenesbyIdUser({ token: decyptedToken });
+      setUserOrders(res.data);
+    } catch (error) {
+      if (error.response && error.response.status === 404) {
+        console.error("Error 404: Recurso no encontrado");
+        setUserOrders(null);
+      } else {
+        console.error("Error al cargar la orden del usuario:" + error);
+      }
+    }
+  };
+
+  const getAllVentas = async () => {
+    try {
+      const res = await getAllSales();
+      setVentas(res.data);
+    } catch (error) {
+      console.error("Ocurrió un error al consultas las ventas.");
+    }
+  };
+
+  //region useEffects
 
   // Efecto para cargar las ventas.
   useEffect(() => {
