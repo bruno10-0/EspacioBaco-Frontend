@@ -13,7 +13,11 @@ export const CardImgEdit = ({ values, vacia }) => {
   const [imagen2, setImagen2] = useState(null);
   const [error, setError] = useState();
   const [loading, setLoading] = useState(false);
-  const { flagPublicaciones, setFlagPublicaciones } = useContexto();
+  const {
+    actualizarListaPublicaciones,
+    flagPublicaciones,
+    setFlagPublicaciones,
+  } = useContexto();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -47,6 +51,7 @@ export const CardImgEdit = ({ values, vacia }) => {
     setLoading(true);
     try {
       await deletePublicacion(id);
+      actualizarListaPublicaciones();
       setFlagPublicaciones(!flagPublicaciones);
     } catch (error) {
       console.error(error);

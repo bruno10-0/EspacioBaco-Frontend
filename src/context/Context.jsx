@@ -151,6 +151,7 @@ export const Context = ({ children }) => {
       const res = await getPublicaciones();
       setPublicaciones(res.data.publicaciones);
     } catch (error) {
+      setPublicaciones([]);
       console.error(error);
     }
   };
