@@ -1,3 +1,6 @@
+import Swal from "sweetalert2";
+import 'sweetalert2/src/sweetalert2.scss'
+
 export function isNew(fechaCreacion) {
   const SIETE_DIAS_EN_MILISEGUNDOS = 7 * 24 * 60 * 60 * 1000; // 7 días en milisegundos
   const tiempoCreacion = new Date(fechaCreacion).getTime();
@@ -43,4 +46,32 @@ export function calcularFaltaParaObjetivo(valor) {
   const objetivo = 10000; // Valor objetivo
   const falta = objetivo - valor; // Cálculo de la cantidad que falta
   return falta;
+}
+
+export function mostrarAlerta(res, tipo) {
+  let titulo, icono, botonTexto;
+
+  switch (tipo) {
+    case "error":
+      titulo = "Error";
+      icono = "error";
+      botonTexto = "Aceptar";
+      break;
+    case "success":
+      titulo = "Éxito";
+      icono = "success";
+      botonTexto = "Genial";
+      break;
+    default:
+      titulo = "Alerta";
+      icono = "warning";
+      botonTexto = "Entendido";
+  }
+
+  Swal.fire({
+    title: titulo,
+    text: `${res.data.mensaje}`,
+    icon: icono,
+    confirmButtonText: botonTexto,
+  });
 }

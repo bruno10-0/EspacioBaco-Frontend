@@ -6,18 +6,34 @@ import { IoSearchOutline } from "react-icons/io5";
 import { IoMdAdd } from "react-icons/io";
 import { RiDeleteBin7Line } from "react-icons/ri";
 import { Link } from "react-router-dom";
+import { mostrarAlerta } from "../../helpers/helpers.js";
 
 export const UsersSeeAndDelete = () => {
   const { users, deleteUsuarioById, deleteMultipleUsuarios } = useContexto();
   const [usersCopy, setUsersCopy] = useState([]);
   const [SelectedUsersId, setSelectedUsersId] = useState([]);
   const [searchText, setSearchText] = useState("");
-
   const handleDeleteUser = async () => {
     if (SelectedUsersId.length === 1) {
-      await deleteUsuarioById(SelectedUsersId[0]);
+      try {
+        const res = await deleteUsuarioById(SelectedUsersId[0]);
+        if (res.status === 403) {
+          mostrarAlerta(res, "error");
+        }
+        if (res.status === 200) {
+          mostrarAlerta(res, "success");
+        }
+      } catch (error) {
+        console.error("Error al eliminar usuario:", error);
+      }
     } else {
-      await deleteMultipleUsuarios(SelectedUsersId);
+      //region PENDIENTE
+      try {
+        await deleteMultipleUsuarios(SelectedUsersId);
+      } catch (error) {
+        console.error("Error al eliminar usuarios múltiples:", error);
+        // Manejar otros errores si es necesario
+      }
     }
   };
 
@@ -70,7 +86,7 @@ export const UsersSeeAndDelete = () => {
   return (
     <div className="w-full overflow-x-hidden">
       <NavBar />
-      <div className="mt-16 md:mt-32 bg-base-100 w-full">
+      <div className="mt-16 md:mt-28 bg-base-100 w-full p-2">
         <div className="w-full pt-4 px-4 font-bold">
           <h1 style={{ letterSpacing: "2px" }}>Administración de usuarios.</h1>
           <h2
@@ -113,11 +129,11 @@ export const UsersSeeAndDelete = () => {
                   <dialog id="my_modal_1" className="modal ">
                     <div className="modal-box">
                       <h3 className="font-bold text-lg">
-                        ¿Estás seguro de descorchar este usuario?
+                        ¿Estás seguro de eliminar este usuario?
                       </h3>
                       <p className="py-4 text-sm">
-                        Borrar este usuario es como abrir una botella de vino
-                        añejo: una vez que se descorcha, no hay vuelta atrás.
+                        Estás a punto de eliminar este usuario. Ten en cuenta
+                        que esta acción es irreversible.
                       </p>
                       <div className="modal-action">
                         <form method="dialog">
@@ -126,12 +142,12 @@ export const UsersSeeAndDelete = () => {
                               onClick={() => {
                                 handleDeleteUser();
                               }}
-                              className="btn bg-warning text-base-100"
+                              className="btn bg-error text-base-100"
                             >
-                              ¡Sí, descorchar!
+                              ¡Sí, eliminar!
                             </button>
                             <button className="btn bg-primary text-base-100">
-                              ¡No, guardar!
+                              ¡No!
                             </button>
                           </div>
                         </form>

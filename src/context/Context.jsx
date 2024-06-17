@@ -25,7 +25,7 @@ import { decryptToken } from "../helpers/token-decrypt.js";
 const createdContext = createContext();
 
 export const Context = ({ children }) => {
-//region Estados
+  //region Estados
   const [userOrders, setUserOrders] = useState();
   const [orders, setOrders] = useState([]);
   const [error, setError] = useState(null);
@@ -49,25 +49,24 @@ export const Context = ({ children }) => {
   });
   const [theme, setTheme] = useState(
     document.documentElement.setAttribute(
-      "data-theme",
-      localStorage.getItem("espacioBacoTheme") || "lofi"
+      "data-theme",localStorage.getItem("espacioBacoTheme") || "lofi"
     )
   );
 
-  //El mensaje predeterminado que se cargara en el chat entre el cliente y el vendedor.
-  const message = `Hola, soy ${
-    user && user.nombre ? user.nombre : ""
-  } y quisiera pagar mi orden #${
-    userOrders && userOrders.id ? userOrders.id : ""
-  }. ¿Cómo puedo completar el pago?`;
+  //region Funcionalidades
+
   const handleWhatsAppMessage = () => {
+    const message = `Hola, soy ${
+      user && user.nombre ? user.nombre : ""
+    } y quisiera pagar mi orden #${
+      userOrders && userOrders.id ? userOrders.id : ""
+    }. ¿Cómo puedo completar el pago?`;
+
     const whatsappUrl = `https://wa.me/+5493764227439?text=${encodeURIComponent(
       message
     )}`;
     window.open(whatsappUrl, "_blank");
   };
-
-  //region Funcionalidades
 
   const changeTheme = (newTheme) => {
     setTheme(newTheme);
@@ -248,12 +247,15 @@ export const Context = ({ children }) => {
     } else {
       try {
         const decryptedToken = decryptToken(token);
-        await deleteUsuario(decryptedToken, id);
-      } catch (error) {
-        console.error(error);
-      } finally {
+        const res = await deleteUsuario(decryptedToken, id);
         actualizarListaUsuarios(); // Actualizar la lista de usuarios después de eliminar
         setLoading(false);
+        return res;
+      } catch (error) {
+        console.error(error);
+        actualizarListaUsuarios(); // Actualizar la lista de usuarios después de eliminar
+        setLoading(false);
+        return error.response;
       }
     }
   };
@@ -320,7 +322,7 @@ export const Context = ({ children }) => {
   };
 
   //region Crear
-  
+
   const createUserForAdmin = async (data) => {
     const token = localStorage.getItem("nekot");
     if (!token) {

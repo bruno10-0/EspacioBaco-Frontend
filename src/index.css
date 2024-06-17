@@ -1,20 +1,19 @@
 @import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: 'Raleway', sans-serif;
 }
-/*
-@font-face {
-    font-family: "MADECARVING";
-    src: url("./fonts/MADECARVINGPersonalUse-Thin.otf");
-    font-weight: lighter;
-    font-style: normal;
+
+div:where(.swal2-container) button:where(.swal2-styled).swal2-confirm{
+    background-color: black;
+    color: white;
 }
-*/
+
+
+
+
