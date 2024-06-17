@@ -27,9 +27,14 @@ export const UsersSeeAndDelete = () => {
         console.error("Error al eliminar usuario:", error);
       }
     } else {
-      //region PENDIENTE
       try {
-        await deleteMultipleUsuarios(SelectedUsersId);
+        const res = await deleteMultipleUsuarios(SelectedUsersId);
+        if (res.status === 403) {
+          mostrarAlerta(res, "error");
+        }
+        if (res.status === 200) {
+          mostrarAlerta(res, "success");
+        }
       } catch (error) {
         console.error("Error al eliminar usuarios múltiples:", error);
         // Manejar otros errores si es necesario

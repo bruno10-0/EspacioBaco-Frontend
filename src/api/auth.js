@@ -139,6 +139,10 @@ export const crearUsuarioPorAdmin = async (data, token) => {
 export const editarUsuario = async (data, id) =>
   axios.put(`/usuarios/${id}`, data);
 
+export const editMyUser = async (data) =>
+  axios.put("/usuario", data);
+
+
 export const getUsuarios = async (token) => {
   try {
     const response = await axios.get("/usuarios", {

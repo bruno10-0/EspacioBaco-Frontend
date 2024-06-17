@@ -49,7 +49,8 @@ export const Context = ({ children }) => {
   });
   const [theme, setTheme] = useState(
     document.documentElement.setAttribute(
-      "data-theme",localStorage.getItem("espacioBacoTheme") || "lofi"
+      "data-theme",
+      localStorage.getItem("espacioBacoTheme") || "lofi"
     )
   );
 
@@ -268,12 +269,15 @@ export const Context = ({ children }) => {
     } else {
       try {
         const decryptedToken = decryptToken(token);
-        await deleteUsuarios(ids, decryptedToken);
-      } catch (error) {
-        console.error(error);
-      } finally {
+        const res = await deleteUsuarios(ids, decryptedToken);
         actualizarListaUsuarios();
         setLoading(false);
+        return res;
+      } catch (error) {
+        console.error(error);
+        actualizarListaUsuarios(); // Actualizar la lista de usuarios después de eliminar
+        setLoading(false);
+        return error.response;
       }
     }
   };

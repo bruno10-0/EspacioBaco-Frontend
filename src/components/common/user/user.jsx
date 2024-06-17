@@ -2,7 +2,10 @@ import { useState, useEffect } from "react";
 import { useContexto } from "../../../context/Context";
 import { getFecha } from "../../../utils/getFecha.js";
 import { RiEditBoxLine } from "react-icons/ri";
+import { IoClose } from "react-icons/io5";
+import { FormComponent } from "./FormComponent.jsx";
 export const User = () => {
+
   const { user, setUser, isAuthenticated } = useContexto();
   const [primeraLetra, setPrimeraLetra] = useState();
   const fecha = getFecha(user.creacion);
@@ -17,7 +20,7 @@ export const User = () => {
   return (
     <div>
       <div className="md:p-10 mt-20 md:mt-32 w-full h-auto flex items-center justify-center">
-        <div className="w-full md:w-2/5 rounded-lg border shadow-lg flex flex-col justify-center items-center">
+        <div className="w-full md:w-1/2 rounded-lg border shadow-lg flex flex-col justify-center items-center">
           <div className="bg-base-300 w-full flex flex-col justify-center items-center gap-4 p-10 relative">
             <div className="avatar placeholder mt-14 md:mt-10 mb-4">
               <div className="bg-neutral text-neutral-content rounded-full w-32">
@@ -29,7 +32,25 @@ export const User = () => {
             </h1>
             <h3 className="text-neutral-600">{user.correo}</h3>
 
-            <RiEditBoxLine className="text-3xl absolute top-4 right-4 cursor-pointer" />
+            <RiEditBoxLine
+              onClick={() =>
+                document.getElementById("modalEditarPerfil").showModal()
+              }
+              className="text-3xl absolute top-4 right-4 cursor-pointer"
+            />
+            <dialog id="modalEditarPerfil" className="modal">
+              <div className="modal-box relative">
+                <h3 className="font-bold text-lg">Editar datos</h3>
+                <FormComponent/>
+                <div className="modal-action">
+                  <form method="dialog">
+                    <button className="btn absolute top-2 right-2 text-red-500">
+                      <IoClose />
+                    </button>
+                  </form>
+                </div>
+              </div>
+            </dialog>
           </div>
 
           <div className="w-full grid gap-6 grid-cols-1 md:grid-cols-2 p-10">
