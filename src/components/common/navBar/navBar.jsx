@@ -15,7 +15,7 @@ import {
 } from "react-icons/io5";
 import { AiOutlineUser } from "react-icons/ai";
 import { formatPrice } from "../../../helpers/helpers.js";
-import img from "../../../assets/Logo/EspacioBaco_negro.png";
+import img from "../../../assets/Logo/EspacioBaco_tinto+champagne.png";
 import { DetailsOrder } from "../detailsOrder/detailsOrder.jsx";
 export const NavBar = () => {
   const [primeraLetra, setPrimeraLetra] = useState();
