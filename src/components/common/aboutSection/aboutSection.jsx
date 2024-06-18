@@ -6,7 +6,7 @@ export const AboutSection = () => {
     <section className="mt-16 md:mt-28">
       <div style={{ height: "85vh" }} className="relative h-screen w-full">
         <img
-          src="https://images.pexels.com/photos/7283342/pexels-photo-7283342.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+          src="https://images.pexels.com/photos/821054/pexels-photo-821054.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
           alt="Espacio Baco - Tu espacio del buen vino"
           className="select-none w-full h-full object-cover"
           loading="lazy"
@@ -19,12 +19,12 @@ export const AboutSection = () => {
         >
           Imagen cortesía de{" "}
           <a
-            href="https://www.pexels.com/es-es/@polina-kovaleva/"
+            href="https://www.pexels.com/es-es/@olly/"
             target="_blank"
             rel="noopener noreferrer"
             className="link"
           >
-            Polina Kovaleva
+           Andrea Piacquadio
           </a>
           <MdArrowOutward className="-ml-1" />
         </div>
