@@ -63,7 +63,7 @@ export const DropdownItem = ({ item }) => {
       className="w-full flex items-center justify-center mb-4"
     >
       <div
-        className=" relative md:bg-accent rounded-full"
+        className="relative md:bg-primary rounded-full"
         style={{ width: "100px", height: "80px" }}
       >
         <img

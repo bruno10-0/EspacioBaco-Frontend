@@ -20,17 +20,17 @@ export const User = () => {
   return (
     <div>
       <div className="md:p-10 mt-20 md:mt-32 w-full h-auto flex items-center justify-center">
-        <div className="w-full md:w-1/2 rounded-lg border shadow-lg flex flex-col justify-center items-center">
-          <div className="bg-base-300 w-full flex flex-col justify-center items-center gap-4 p-10 relative">
+        <div className="w-full md:w-1/2 rounded-lg shadow-lg flex flex-col justify-center items-center">
+          <div className="bg-base-100 w-full flex flex-col justify-center items-center gap-4 p-10 relative">
             <div className="avatar placeholder mt-14 md:mt-10 mb-4">
-              <div className="bg-neutral text-neutral-content rounded-full w-32">
+              <div className="bg-primary text-neutral-content rounded-full w-32">
                 <span className="text-5xl">{primeraLetra}</span>
               </div>
             </div>
             <h1 className="text-xl font-extrabold">
               {user.nombre} {user.apellido}{" "}
             </h1>
-            <h3 className="text-neutral-600">{user.correo}</h3>
+            <h3 className="text-info">{user.correo}</h3>
 
             <RiEditBoxLine
               onClick={() =>
@@ -53,7 +53,7 @@ export const User = () => {
             </dialog>
           </div>
 
-          <div className="w-full grid gap-6 grid-cols-1 md:grid-cols-2 p-10">
+          <div className="bg-base-300 w-full grid gap-6 grid-cols-1 md:grid-cols-2 p-10">
             <div className="w-full flex flex-col gap-2">
               <h2 className="text-sm">Celular</h2>
               <h3 className="font-semibold">{user.telefono}</h3>

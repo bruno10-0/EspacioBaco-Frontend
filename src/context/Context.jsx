@@ -79,6 +79,15 @@ export const Context = ({ children }) => {
     setUser(null);
     setIsAuthenticated(false);
     setUserOrders(null);
+    setCarrito({
+      id: null,
+      usuarioId: null,
+      productos: [],
+      cantidadProductos: 0,
+      total: 0,
+      createdAt: null,
+      updatedAt: null,
+    });
   };
 
   const handleOrdenamientoChange = (value, setOrder) => {

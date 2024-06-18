@@ -4,10 +4,10 @@ import { Link } from "react-router-dom";
 import { themes } from "../../../constants/themes.js";
 import { DropdownItem } from "../dropdownItem/dropdownItem.jsx";
 import { TbColorSwatch } from "react-icons/tb";
-import { GrUserAdmin } from "react-icons/gr";
+import { GoUnlock } from "react-icons/go";
 import {
   IoLogInOutline,
-  IoLogOutOutline,
+  IoPower,
   IoReorderThreeOutline,
   IoSearchOutline,
   IoBagOutline,
@@ -250,7 +250,7 @@ export const NavBar = () => {
                 role="button"
                 className="w-full h-full flex justify-center items-center cursor-pointer select-none"
               >
-                <AiOutlineUser className="text-xl md:text-2xl" />
+                <AiOutlineUser className={`text-xl md:text-2xl ${isAuthenticated ? 'text-primary' : ''}`} />
               </div>
               <ul
                 tabIndex={0}
@@ -266,13 +266,13 @@ export const NavBar = () => {
                     {isAuthenticated ? (
                       <div className="w-52 flex flex-col gap-1">
                         <li>
-                          <Link to="/perfil" className="relative">
+                          <Link to="/perfil" className="relative text-info bg-base-300">
                             <h2 className="p-2">Perfil</h2>
                             <div className="avatar placeholder absolute right-4">
-                              <div className="bg-transparent border border-accent rounded-full w-6">
+                              <div className="bg-transparent border border-info rounded-full w-6">
                                 <span
                                   style={{ fontWeight: "bold" }}
-                                  className="text-sm text-accent"
+                                  className="text-sm text-info"
                                 >
                                   {primeraLetra}
                                 </span>
@@ -284,18 +284,18 @@ export const NavBar = () => {
                           <li>
                             <Link
                               to="/super-administrador"
-                              className="relative"
+                              className="relative text-base-100 bg-success" 
                             >
                               <h2 className="p-2">Administración</h2>
-                              <GrUserAdmin className="absolute right-4 text-xl text-accent" />
+                              <GoUnlock className="absolute right-4 text-2xl text-base-100" />
                             </Link>
                           </li>
                         )}
 
                         <li onClick={cerrarSesion}>
-                          <div className="relative">
+                          <div className="relative text-base-100 bg-error">
                             <h2 className="p-2">Cerrar sesión</h2>
-                            <IoLogOutOutline className="absolute right-4 text-2xl text-accent" />
+                            <IoPower  className="absolute right-4 text-2xl text-base-100" />
                           </div>
                         </li>
                       </div>
