@@ -23,7 +23,7 @@ export const Loading2 = () => {
       className="fixed inset-0 flex flex-col justify-center items-center"
     >
       <div className="absolute inset-0 bg-base-300 opacity-50"></div>
-      <span className="loading loading-bars loading-lg"></span>
+      <span className="loading loading-bars loading-lg bg-primary"></span>
       <h3
         style={{ letterSpacing: "4px" }}
         className="text-primary z-10 uppercase text-xs"

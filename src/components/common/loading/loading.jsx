@@ -15,7 +15,7 @@ export const Loading = () => {
   return (
     <div>
       <div className="w-full h-full flex flex-col justify-center items-center gap-8">
-        <span className="loading loading-bars loading-lg"></span>
+        <span className="loading loading-bars loading-lg bg-primary"></span>
         <h3 style={{letterSpacing:"4px"}} className="text-primary z-10 uppercase text-xs">{palabra}</h3>
       </div>
     </div>

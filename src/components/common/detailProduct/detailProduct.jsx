@@ -111,7 +111,7 @@ export const DetailProduct = () => {
                   alt="imagen de el vino"
                   className="z-20 w-full h-full object-contain select-none"
                 />
-                <div className="absolute w-full lg:w-3/5 lg:h-3/5 lg:bg-accent lg:rounded-full flex justify-center overflow-hidden">
+                <div className="absolute w-full lg:w-4/5 lg:h-4/5 lg:bg-primary lg:rounded-full flex justify-center overflow-hidden">
                   <img
                     style={{ transform: "rotate(85deg)" }}
                     src="https://video-public.canva.com/VAFGRruTyzw/v/03eab254de.gif"
@@ -183,7 +183,7 @@ export const DetailProduct = () => {
               <div>
                 <p
                   style={{ fontSize: "13px", letterSpacing: "1px" }}
-                  className="flex flex-col"
+                  className="flex flex-col text-justify"
                 >
                   {product.descripcion_detallada}
                   <br />
